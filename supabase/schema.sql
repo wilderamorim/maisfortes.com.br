@@ -140,36 +140,25 @@ create policy "Users can view own profile" on public.users for select using (aut
 create policy "Users can update own profile" on public.users for update using (auth.uid() = id);
 create policy "Users can insert own profile" on public.users for insert with check (auth.uid() = id);
 
--- Goals: own goals
+-- Goals: own goals (covers all CRUD for goal owner)
 create policy "Users can CRUD own goals" on public.goals for all using (auth.uid() = user_id);
--- Goals: supporters can view goals they support
-create policy "Supporters can view supported goals" on public.goals for select using (
-  exists (
-    select 1 from public.supporters s
-    where s.goal_id = id and s.user_id = auth.uid() and s.status = 'active'
-  )
-);
 
--- Checkins: own checkins
+-- Checkins: owner can CRUD (uses subquery on goals, which is safe because goals policy is simple)
 create policy "Users can CRUD own checkins" on public.checkins for all using (
-  exists (select 1 from public.goals g where g.id = goal_id and g.user_id = auth.uid())
-);
--- Checkins: supporters can view
-create policy "Supporters can view checkins" on public.checkins for select using (
-  exists (
-    select 1 from public.supporters s
-    where s.goal_id = goal_id and s.user_id = auth.uid() and s.status = 'active'
-  )
+  goal_id in (select id from public.goals where user_id = auth.uid())
 );
 
--- Supporters: goal owner manages
+-- Supporters: goal owner manages (uses subquery on goals — safe, goals policy is auth.uid() = user_id)
 create policy "Goal owner manages supporters" on public.supporters for all using (
-  exists (select 1 from public.goals g where g.id = goal_id and g.user_id = auth.uid())
+  goal_id in (select id from public.goals where user_id = auth.uid())
 );
 -- Supporters: can view own supporter records
 create policy "Supporters can view own records" on public.supporters for select using (auth.uid() = user_id);
 -- Supporters: can update own record (accept invite)
 create policy "Supporters can accept invite" on public.supporters for update using (auth.uid() = user_id);
+
+-- NOTE: Supporter access to goals/checkins is handled at the application layer
+-- to avoid cross-table RLS recursion. The app code filters by supporter status.
 
 -- Messages: participants can view
 create policy "Message participants can view" on public.messages for select using (

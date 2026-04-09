@@ -1,12 +1,15 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { ensureProfile } from "@/lib/ensure-profile";
 import { revalidatePath } from "next/cache";
 
 export async function createGoal(formData: FormData) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("Não autenticado");
+
+  await ensureProfile(supabase, user);
 
   const title = formData.get("title") as string;
   const description = formData.get("description") as string | null;

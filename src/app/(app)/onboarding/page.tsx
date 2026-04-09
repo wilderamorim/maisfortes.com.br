@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { ensureProfile } from "@/lib/ensure-profile";
 import { SCORE_OPTIONS } from "@/lib/types";
 import { ArrowRight, SkipForward } from "lucide-react";
 
@@ -36,6 +37,8 @@ export default function OnboardingPage() {
         setLoading(false);
         return;
       }
+
+      await ensureProfile(supabase, user);
 
       // Count existing goals for order
       const { count } = await supabase

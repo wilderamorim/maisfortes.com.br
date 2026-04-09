@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
+
+  // Don't show on auth or app pages
+  const isAuthPage = pathname.startsWith("/auth/");
+  const isAppPage = pathname.startsWith("/home") || pathname.startsWith("/checkin") || pathname.startsWith("/history") || pathname.startsWith("/network") || pathname.startsWith("/profile") || pathname.startsWith("/onboarding") || pathname.startsWith("/goals") || pathname.startsWith("/achievements");
 
   useEffect(() => {
+    if (isAuthPage || isAppPage) return;
     const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
       // Show after 1 second

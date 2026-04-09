@@ -1,6 +1,6 @@
 # +Fortes — Plataforma de Acompanhamento com Rede de Apoio
 
-> Ninguem muda sozinho. +Fortes conecta quem esta na jornada de mudanca com quem apoia.
+> Ninguém muda sozinho. +Fortes conecta quem está na jornada de mudança com quem apoia.
 
 **Live:** [maisfortes.com.br](https://maisfortes.com.br)
 
@@ -8,54 +8,54 @@
 
 ## Sobre
 
-+Fortes e uma plataforma **gratuita** que ajuda pessoas a mudarem comportamentos por meio de check-ins diarios e accountability social — conectando quem esta na jornada com quem apoia.
++Fortes é uma plataforma **gratuita** que ajuda pessoas a mudarem comportamentos por meio de check-ins diários e accountability social — conectando quem está na jornada com quem apoia.
 
 ### O problema
 
-Pessoas que enfrentam vicios ou buscam mudancas importantes sofrem com:
+Pessoas que enfrentam vícios ou buscam mudanças importantes sofrem com:
 - Falta de acompanhamento constante
 - Isolamento emocional
 - Dificuldade em manter disciplina
-- Pouco envolvimento estruturado da familia
+- Pouco envolvimento estruturado da família
 
-### A solucao
+### A solução
 
 Uma rede de apoio estruturada com:
-- Monitoramento diario de progresso (check-in)
-- Participacao ativa de pessoas de confianca
+- Monitoramento diário de progresso (check-in)
+- Participação ativa de pessoas de confiança
 - Alertas em caso de inatividade
 - Controle total de privacidade pelo protagonista
 
-## Usuarios
+## Usuários
 
-| Papel | Descricao |
+| Papel | Descrição |
 |-------|-----------|
-| **Protagonista** | Quem esta na jornada de mudanca — define metas, faz check-in diario |
-| **Apoiador** | Quem acompanha e apoia — ve progresso, envia incentivo |
-| **Profissional** (futuro) | Terapeuta, nutricionista — acompanha evolucao |
+| **Protagonista** | Quem está na jornada de mudança — define metas, faz check-in diário |
+| **Apoiador** | Quem acompanha e apoia — vê progresso, envia incentivo |
+| **Profissional** (futuro) | Terapeuta, nutricionista — acompanha evolução |
 
 ## Features (MVP)
 
-- [x] Cadastro e autenticacao (email/social login)
+- [x] Cadastro e autenticação (email/social login)
 - [x] Criar meta pessoal
-- [x] Check-in diario (score 1-5 + nota opcional)
+- [x] Check-in diário (score 1-5 + nota opcional)
 - [x] Streak (dias consecutivos)
 - [x] Convidar apoiadores (max 5)
 - [x] Dashboard do apoiador
 - [x] Alerta de inatividade (48h)
 - [ ] Mensagem de incentivo
-- [ ] Historico de check-ins
-- [ ] Perfil e configuracoes
+- [ ] Histórico de check-ins
+- [ ] Perfil e configurações
 
-## Stack Tecnica
+## Stack Técnica
 
 | Camada | Tecnologia | Justificativa |
 |--------|------------|---------------|
 | Frontend | [Next.js 15](https://nextjs.org) (App Router) | SSR, PWA-ready, React ecosystem |
-| UI | [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) | Rapido, componentes prontos |
+| UI | [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) | Rápido, componentes prontos |
 | Backend | [Supabase](https://supabase.com) | Auth, Postgres, Realtime, Storage — free tier |
-| Notificacoes | Supabase Edge Functions + Web Push | Alertas de inatividade |
-| Hosting | [Vercel](https://vercel.com) | Free tier, deploy automatico |
+| Notificações | Supabase Edge Functions + Web Push | Alertas de inatividade |
+| Hosting | [Vercel](https://vercel.com) | Free tier, deploy automático |
 
 **Custo estimado: R$ 0** (tudo no free tier)
 
@@ -80,13 +80,13 @@ messages
 
 ## Desenvolvimento
 
-### Pre-requisitos
+### Pré-requisitos
 
 - Node.js 18+
 - Conta no [Supabase](https://supabase.com) (free tier)
 - npm, yarn ou pnpm
 
-### Instalacao
+### Instalação
 
 ```bash
 git clone https://github.com/wilderamorim/maisfortes.com.br.git
@@ -94,7 +94,7 @@ cd maisfortes.com.br
 npm install
 ```
 
-### Variaveis de ambiente
+### Variáveis de ambiente
 
 Crie um arquivo `.env.local`:
 
@@ -107,40 +107,40 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-anon-key
 
 ```bash
 npm run dev       # Servidor de desenvolvimento (http://localhost:3000)
-npm run build     # Build para producao
-npm run start     # Iniciar em producao
-npm run lint      # Verificar codigo
+npm run build     # Build para produção
+npm run start     # Iniciar em produção
+npm run lint      # Verificar código
 ```
 
-## Contribuicao
+## Contribuição
 
-Este e um projeto pessoal com proposito social. Contribuicoes sao muito bem-vindas!
+Este é um projeto pessoal com propósito social. Contribuições são muito bem-vindas!
 
 ### Como contribuir
 
-1. Faca um fork do repositorio
+1. Faça um fork do repositório
 2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
-3. Faca commit das suas mudancas (`git commit -m 'feat: descricao da feature'`)
+3. Faça commit das suas mudanças (`git commit -m 'feat: descrição da feature'`)
 4. Push para a branch (`git push origin feature/nome-da-feature`)
 5. Abra um Pull Request
 
-### Convencoes
+### Convenções
 
 - **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `style:`, `refactor:`)
 - **Branches:** `feature/`, `fix/`, `docs/`
 - **Componentes:** PascalCase, TypeScript
 - **Testes:** Escreva testes para funcionalidades novas
-- **Acessibilidade:** WCAG 2.1 AA minimo
+- **Acessibilidade:** WCAG 2.1 AA mínimo
 - **Privacidade:** Dados sensíveis nunca no client-side
 
-### Areas onde precisamos de ajuda
+### Áreas onde precisamos de ajuda
 
-- **Frontend:** Componentes React, PWA, animacoes
+- **Frontend:** Componentes React, PWA, animações
 - **Backend:** Supabase RLS policies, Edge Functions
-- **Design:** UI/UX, ilustracoes, animacoes
-- **Traducao:** Internacionalizacao futura
+- **Design:** UI/UX, ilustrações, animações
+- **Tradução:** Internacionalização futura
 - **Testes:** Unit tests, E2E
-- **Documentacao:** Guias, tutoriais
+- **Documentação:** Guias, tutoriais
 
 ### Reportando issues
 
@@ -149,24 +149,24 @@ Use as [GitHub Issues](https://github.com/wilderamorim/maisfortes.com.br/issues)
 - Feature requests
 - Melhorias de UX
 - Problemas de acessibilidade
-- Questoes de privacidade/seguranca
+- Questões de privacidade/segurança
 
-## Regras de Negocio
+## Regras de Negócio
 
-| Regra | Descricao |
+| Regra | Descrição |
 |-------|-----------|
 | RN-01 | Protagonista controla 100% da visibilidade dos dados |
-| RN-02 | Apoiador so ve dados apos convite aceito |
-| RN-03 | Check-in diario — 1 por dia, editavel ate meia-noite |
-| RN-04 | Streak quebra se nao fizer check-in em 1 dia completo |
-| RN-05 | Alerta de inatividade apos 48h sem check-in |
-| RN-06 | Maximo 5 apoiadores por protagonista (V1) |
+| RN-02 | Apoiador só vê dados após convite aceito |
+| RN-03 | Check-in diário — 1 por dia, editável até meia-noite |
+| RN-04 | Streak quebra se não fizer check-in em 1 dia completo |
+| RN-05 | Alerta de inatividade após 48h sem check-in |
+| RN-06 | Máximo 5 apoiadores por protagonista (V1) |
 | RN-07 | Protagonista pode remover apoiador a qualquer momento |
-| RN-08 | Dados privados por padrao — nada e publico |
+| RN-08 | Dados privados por padrão — nada é público |
 
 ## Projetos Relacionados
 
-| Projeto | Descricao | Repositorio |
+| Projeto | Descrição | Repositório |
 |---------|-----------|-------------|
 | **maisfortes.com.br** | Plataforma principal (este repo) | [wilderamorim/maisfortes.com.br](https://github.com/wilderamorim/maisfortes.com.br) |
 | **brand.maisfortes.com.br** | Brandbook / Design System | [wilderamorim/brand.maisfortes.com.br](https://github.com/wilderamorim/brand.maisfortes.com.br) |
@@ -176,13 +176,13 @@ Use as [GitHub Issues](https://github.com/wilderamorim/maisfortes.com.br/issues)
 | Fase | Escopo |
 |------|--------|
 | **V1 — MVP** | Auth, metas, check-in, streak, apoiadores, alertas |
-| **V1.1** | Mensagens de incentivo, historico, perfil |
-| **V2** | Multiplas metas, gamificacao leve |
-| **V3** | Acesso profissional, relatorios |
+| **V1.1** | Mensagens de incentivo, histórico, perfil |
+| **V2** | Múltiplas metas, gamificação leve |
+| **V3** | Acesso profissional, relatórios |
 
-## Licenca
+## Licença
 
-Este projeto esta licenciado sob a [MIT License](LICENSE).
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ---
 

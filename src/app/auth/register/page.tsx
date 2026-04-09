@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -8,12 +10,33 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // TODO: Supabase auth
-    setLoading(false);
+    setError(null);
+
+    const supabase = createClient();
+    const { error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: name },
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding`,
+      },
+    });
+
+    if (signUpError) {
+      setError(signUpError.message === "User already registered"
+        ? "Este email já está cadastrado."
+        : signUpError.message);
+      setLoading(false);
+      return;
+    }
+
+    router.push("/onboarding");
   }
 
   return (
@@ -34,6 +57,13 @@ export default function RegisterPage() {
             Ninguém muda sozinho
           </p>
         </div>
+
+        {/* Error */}
+        {error && (
+          <div className="rounded-xl px-4 py-3 text-sm" style={{ background: "rgba(229,56,59,0.1)", color: "var(--danger)" }}>
+            {error}
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">

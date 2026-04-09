@@ -1,18 +1,48 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // TODO: Supabase auth
-    setLoading(false);
+    setError(null);
+
+    const supabase = createClient();
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (signInError) {
+      setError(signInError.message === "Invalid login credentials"
+        ? "Email ou senha incorretos."
+        : signInError.message);
+      setLoading(false);
+      return;
+    }
+
+    router.push("/home");
+    router.refresh();
+  }
+
+  async function handleGoogleLogin() {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=/home`,
+      },
+    });
   }
 
   return (
@@ -33,6 +63,13 @@ export default function LoginPage() {
             Juntos, somos mais fortes
           </p>
         </div>
+
+        {/* Error */}
+        {error && (
+          <div className="rounded-xl px-4 py-3 text-sm" style={{ background: "rgba(229,56,59,0.1)", color: "var(--danger)" }}>
+            {error}
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -79,6 +116,8 @@ export default function LoginPage() {
 
         {/* Google OAuth */}
         <button
+          onClick={handleGoogleLogin}
+          type="button"
           className="w-full py-3 rounded-xl font-medium text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2"
           style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
         >

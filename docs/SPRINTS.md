@@ -113,12 +113,12 @@
 
 ### Tasks
 
-- [ ] **5.1** Criar fluxo de onboarding guiado (4 passos) — **F15**
-- [ ] **5.2** Passo 1: "Qual é sua primeira meta?"
-- [ ] **5.3** Passo 2: "Quer convidar alguém?" com botão "Pular" visível — **F15**
-- [ ] **5.4** Passo 3: "Como está se sentindo hoje?" (primeiro check-in)
-- [ ] **5.5** Animação de conquista "Primeiro Passo" ao final do onboarding
-- [ ] **5.6** Marcar onboarding_completed no perfil
+- [x] **5.1** Criar fluxo de onboarding guiado (4 passos) — **F15**
+- [x] **5.2** Passo 1: "Qual é sua primeira meta?"
+- [x] **5.3** Passo 2: "Quer convidar alguém?" com botão "Pular" visível — **F15**
+- [x] **5.4** Passo 3: "Como está se sentindo hoje?" (primeiro check-in)
+- [x] **5.5** Animação de conquista "Primeiro Passo" ao final do onboarding
+- [x] **5.6** Marcar onboarding_completed no perfil
 - [ ] **5.7** Implementar Web Push API (pedir permissão, salvar subscription) — **F16**
 - [ ] **5.8** Criar Supabase Edge Function para enviar push diário — **F16**
 - [ ] **5.9** Push de lembrete: "Ei, como foi hoje?" (configurável horário)
@@ -140,16 +140,16 @@
 
 ### Tasks
 
-- [ ] **6.1** Criar página de perfil (avatar, nome, email, data de entrada) — **F10**
+- [x] **6.1** Criar página de perfil (avatar, nome, email, data de entrada) — **F10**
 - [ ] **6.2** Upload de avatar (Supabase Storage)
-- [ ] **6.3** Editar nome
-- [ ] **6.4** Toggle de tema light/dark no perfil — **F10**
-- [ ] **6.5** Seção de conquistas no perfil (resumo + link para página completa)
-- [ ] **6.6** Seção de estatísticas (total check-ins, melhor streak, metas ativas)
-- [ ] **6.7** Configurações de privacidade (gerenciar apoiadores por meta)
-- [ ] **6.8** Configurações de notificações
+- [x] **6.3** Editar nome
+- [x] **6.4** Toggle de tema light/dark no perfil — **F10**
+- [x] **6.5** Seção de conquistas no perfil (resumo + link para página completa)
+- [x] **6.6** Seção de estatísticas (total check-ins, melhor streak, metas ativas)
+- [x] **6.7** Configurações de privacidade (gerenciar apoiadores por meta)
+- [x] **6.8** Configurações de notificações
 - [ ] **6.9** Exportar meus dados (JSON)
-- [ ] **6.10** Excluir conta (com confirmação)
+- [x] **6.10** Excluir conta (com confirmação)
 
 **Features cobertas:** F10
 
@@ -161,23 +161,23 @@
 
 ### Tasks
 
-- [ ] **7.1** Criar layout da landing page (SSR, sem autenticação) — **F14**
-- [ ] **7.2** Hero section: headline + subtítulo + CTA "Comece sua jornada"
-- [ ] **7.3** Mockup HTML animado do app no hero (dashboard com check-in, streak, rede) — **F14**
-- [ ] **7.4** Elementos de animação: glow orbs (radial gradient + pulse) — **F14**
-- [ ] **7.5** Elementos de animação: floating bubbles / particles
-- [ ] **7.6** Seção "O problema" com scroll reveal (fade-up)
-- [ ] **7.7** Seção "A solução" com 3 pilares (autogestão, apoio social, accountability)
-- [ ] **7.8** Seção "Como funciona" (4 passos visuais com ícones SVG)
-- [ ] **7.9** Seção "Features" com grid de cards + ícones Lucide
+- [x] **7.1** Criar layout da landing page (SSR, sem autenticação) — **F14**
+- [x] **7.2** Hero section: headline + subtítulo + CTA "Comece sua jornada"
+- [x] **7.3** Mockup HTML animado do app no hero (dashboard com check-in, streak, rede) — **F14**
+- [x] **7.4** Elementos de animação: glow orbs (radial gradient + pulse) — **F14**
+- [x] **7.5** Elementos de animação: floating bubbles / particles
+- [x] **7.6** Seção "O problema" com scroll reveal (fade-up)
+- [x] **7.7** Seção "A solução" com 3 pilares (autogestão, apoio social, accountability)
+- [x] **7.8** Seção "Como funciona" (4 passos visuais com ícones SVG)
+- [x] **7.9** Seção "Features" com grid de cards + ícones Lucide
 - [ ] **7.10** Seção "Conquistas" preview (badges visuais)
-- [ ] **7.11** Seção CTA final ("Ninguém muda sozinho. Comece agora — é grátis.")
-- [ ] **7.12** Implementar motion on scroll (Intersection Observer + CSS transitions)
+- [x] **7.11** Seção CTA final ("Ninguém muda sozinho. Comece agora — é grátis.")
+- [x] **7.12** Implementar motion on scroll (Intersection Observer + CSS transitions)
 - [ ] **7.13** Implementar animated counters (streak, dias, usuários)
-- [ ] **7.14** CTA fixo no mobile (bottom sticky bar)
+- [x] **7.14** CTA fixo no mobile (bottom sticky bar)
 - [ ] **7.15** Grain overlay sutil
-- [ ] **7.16** Responsivo: mockup visível no desktop, stats no mobile
-- [ ] **7.17** SEO: meta tags, OG tags, structured data
+- [x] **7.16** Responsivo: mockup visível no desktop, stats no mobile
+- [x] **7.17** SEO: meta tags, OG tags, structured data
 
 **Features cobertas:** F14
 
@@ -247,11 +247,11 @@
 | 2 — Core | 15 | 12 | 80% |
 | 3 — Social | 16 | 13 | 81% |
 | 4 — Gamificação | 13 | 9 | 69% |
-| 5 — Engajamento | 16 | 0 | 0% |
-| 6 — Perfil | 10 | 0 | 0% |
-| 7 — Landing Page | 17 | 0 | 0% |
+| 5 — Engajamento | 16 | 6 | 38% |
+| 6 — Perfil | 10 | 8 | 80% |
+| 7 — Landing Page | 17 | 14 | 82% |
 | 8 — PWA & Polish | 13 | 0 | 0% |
-| **Total** | **98** | **45** | **46%** |
+| **Total** | **98** | **73** | **74%** |
 
 ---
 

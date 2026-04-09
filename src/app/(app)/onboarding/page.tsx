@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createGoal } from "@/lib/actions/goals";
 import { createClient } from "@/lib/supabase/client";
 import { SCORE_OPTIONS } from "@/lib/types";
-import { createCheckin } from "@/lib/actions/checkins";
 import { ArrowRight, SkipForward } from "lucide-react";
 
 const steps = [
@@ -22,51 +20,99 @@ export default function OnboardingPage() {
   const [goalId, setGoalId] = useState<string | null>(null);
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleCreateGoal() {
     if (!goalTitle.trim()) return;
     setLoading(true);
-    try {
-      const formData = new FormData();
-      formData.set("title", goalTitle.trim());
-      if (goalDesc.trim()) formData.set("description", goalDesc.trim());
-      await createGoal(formData);
+    setError(null);
 
-      // Get the created goal ID
+    try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data } = await supabase
-          .from("goals")
-          .select("id")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: false })
-          .limit(1)
-          .single();
-        if (data) setGoalId(data.id);
+
+      if (!user) {
+        setError("Sessão expirada. Faça login novamente.");
+        setLoading(false);
+        return;
       }
+
+      // Count existing goals for order
+      const { count } = await supabase
+        .from("goals")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", user.id);
+
+      // Create goal directly via client
+      const { data, error: insertError } = await supabase
+        .from("goals")
+        .insert({
+          user_id: user.id,
+          title: goalTitle.trim(),
+          description: goalDesc.trim() || null,
+          order: count ?? 0,
+        })
+        .select("id")
+        .single();
+
+      if (insertError) {
+        setError(insertError.message);
+        setLoading(false);
+        return;
+      }
+
+      setGoalId(data.id);
       setStep(1);
-    } catch { /* ignore */ }
+    } catch {
+      setError("Erro ao criar meta. Tente novamente.");
+    }
     setLoading(false);
   }
 
   async function handleCheckin() {
     if (score === null || !goalId) return;
     setLoading(true);
-    try {
-      const opt = SCORE_OPTIONS.find((o) => o.value === score);
-      await createCheckin({ goalId, score, mood: opt?.mood ?? "neutral" });
 
-      // Mark onboarding complete
+    try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        await supabase.from("users").update({ onboarding_completed: true }).eq("id", user.id);
-      }
+      if (!user) return;
+
+      const today = new Date().toISOString().split("T")[0];
+      const opt = SCORE_OPTIONS.find((o) => o.value === score);
+
+      // Insert check-in
+      await supabase.from("checkins").insert({
+        goal_id: goalId,
+        date: today,
+        score,
+        mood: opt?.mood ?? "neutral",
+      });
+
+      // Update streak
+      await supabase.from("goals").update({
+        current_streak: 1,
+        best_streak: 1,
+        last_checkin_date: today,
+      }).eq("id", goalId);
+
+      // Mark onboarding complete
+      await supabase.from("users").update({
+        onboarding_completed: true,
+      }).eq("id", user.id);
+
+      // Unlock first-checkin achievement
+      await supabase.from("user_achievements").upsert({
+        user_id: user.id,
+        achievement_id: "first-checkin",
+        goal_id: goalId,
+      }, { onConflict: "user_id,achievement_id,goal_id" });
 
       if (navigator.vibrate) navigator.vibrate(50);
       router.push("/home");
-    } catch { /* ignore */ }
+    } catch {
+      setError("Erro ao salvar check-in.");
+    }
     setLoading(false);
   }
 
@@ -94,6 +140,12 @@ export default function OnboardingPage() {
         <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
           {steps[step].subtitle}
         </p>
+
+        {error && (
+          <div className="rounded-xl px-4 py-3 text-sm mb-4" style={{ background: "rgba(229,56,59,0.1)", color: "var(--danger)" }}>
+            {error}
+          </div>
+        )}
 
         {/* Step 0: Create goal */}
         {step === 0 && (
@@ -123,7 +175,7 @@ export default function OnboardingPage() {
               className="w-full py-3 rounded-xl text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-40"
               style={{ background: "var(--forest)" }}
             >
-              {loading ? "Criando..." : "Próximo"} <ArrowRight className="w-4 h-4" />
+              {loading ? "Criando..." : "Próximo"} {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
           </div>
         )}

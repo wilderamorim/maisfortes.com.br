@@ -1,62 +1,124 @@
-import { Flame } from "lucide-react";
+import { getActiveGoals } from "@/lib/actions/goals";
+import { getTodayCheckins } from "@/lib/actions/checkins";
+import { createClient } from "@/lib/supabase/server";
+import { Flame, Plus, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = { title: "Home" };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    return (
+      <div className="px-4 pt-6 max-w-lg mx-auto">
+        <div className="rounded-xl p-8 text-center" style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)" }}>
+          <p style={{ color: "var(--text-muted)" }}>Carregando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const goals = await getActiveGoals();
+  const todayCheckins = await getTodayCheckins();
+  const checkedGoalIds = new Set(todayCheckins.map((c: { goal_id: string }) => c.goal_id));
+
+  const { data: profile } = await supabase.from("users").select("name").eq("id", user.id).single();
+  const name = profile?.name || user.email?.split("@")[0] || "Você";
+
   return (
     <div className="px-4 pt-6 max-w-lg mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            Oi, Wilder
-          </p>
-          <h1
-            className="text-xl font-bold"
-            style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}
-          >
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>Oi, {name}</p>
+          <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
             Como vai hoje?
           </h1>
         </div>
-        <div
-          className="w-10 h-10 rounded-full flex items-center justify-center font-bold"
-          style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}
+        <Link
+          href="/profile"
+          className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm"
+          style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)", fontFamily: "var(--font-display)" }}
         >
-          W
-        </div>
+          {name[0]?.toUpperCase()}
+        </Link>
       </div>
 
-      {/* Empty state — no goals yet */}
-      <div
-        className="rounded-xl p-8 text-center"
-        style={{
-          background: "var(--surface)",
-          border: "1px solid var(--border-subtle)",
-        }}
-      >
-        <div
-          className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center"
-          style={{ background: "rgba(45,106,79,0.1)" }}
-        >
-          <Flame className="w-7 h-7" style={{ color: "var(--forest)" }} />
+      {/* Goals list */}
+      {goals.length > 0 ? (
+        <div className="space-y-3">
+          {goals.map((goal) => {
+            const checked = checkedGoalIds.has(goal.id);
+            return (
+              <Link
+                key={goal.id}
+                href={checked ? `/history?goal=${goal.id}` : `/checkin?goal=${goal.id}`}
+                className="block rounded-xl p-4 transition-all active:scale-[0.98]"
+                style={{
+                  background: "var(--surface)",
+                  border: `1px solid ${checked ? "var(--forest)" : "var(--border-subtle)"}`,
+                  boxShadow: checked ? "var(--shadow-glow)" : "none",
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-sm" style={{ color: "var(--text)" }}>{goal.title}</h3>
+                      {checked && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full font-mono" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
+                          feito
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
+                      <span className="flex items-center gap-1">
+                        <Flame className="w-3.5 h-3.5" style={{ color: goal.current_streak > 0 ? "var(--forest)" : "var(--text-muted)" }} />
+                        <span className="font-mono" style={{ color: goal.current_streak > 0 ? "var(--forest)" : "var(--text-muted)" }}>
+                          {goal.current_streak} {goal.current_streak === 1 ? "dia" : "dias"}
+                        </span>
+                      </span>
+                      {goal.status === "paused" && <span className="text-amber">pausada</span>}
+                    </div>
+                  </div>
+                  <ChevronRight className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+                </div>
+              </Link>
+            );
+          })}
+
+          {/* Add goal button */}
+          <Link
+            href="/goals"
+            className="flex items-center justify-center gap-2 rounded-xl p-3 text-sm font-medium transition-all active:scale-[0.98]"
+            style={{ border: "1px dashed var(--border)", color: "var(--text-muted)" }}
+          >
+            <Plus className="w-4 h-4" />
+            Nova meta
+          </Link>
         </div>
-        <h2
-          className="text-lg font-bold mb-2"
-          style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}
-        >
-          Comece sua jornada
-        </h2>
-        <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>
-          Crie sua primeira meta e faça o primeiro check-in.
-        </p>
-        <a
-          href="/goals"
-          className="inline-block px-6 py-2.5 rounded-xl text-white text-sm font-semibold transition-all active:scale-95"
-          style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
-        >
-          Criar meta
-        </a>
-      </div>
+      ) : (
+        /* Empty state */
+        <div className="rounded-xl p-8 text-center" style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)" }}>
+          <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: "rgba(45,106,79,0.1)" }}>
+            <Flame className="w-7 h-7" style={{ color: "var(--forest)" }} />
+          </div>
+          <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+            Comece sua jornada
+          </h2>
+          <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>
+            Crie sua primeira meta e faça o primeiro check-in.
+          </p>
+          <Link
+            href="/goals"
+            className="inline-block px-6 py-2.5 rounded-xl text-white text-sm font-semibold transition-all active:scale-95"
+            style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
+          >
+            Criar meta
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

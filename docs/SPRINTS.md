@@ -36,21 +36,21 @@
 
 ### Tasks
 
-- [ ] **2.1** Criar página/fluxo "Nova Meta" (título + descrição) — **F2**
-- [ ] **2.2** Listar metas ativas na Home (cards com streak, última atividade)
-- [ ] **2.3** Suportar múltiplas metas simultâneas com ordenação — **F2**
+- [x] **2.1** Criar página/fluxo "Nova Meta" (título + descrição) — **F2**
+- [x] **2.2** Listar metas ativas na Home (cards com streak, última atividade)
+- [x] **2.3** Suportar múltiplas metas simultâneas com ordenação — **F2**
 - [ ] **2.4** Pausar / reativar / completar meta
-- [ ] **2.5** Criar componente Score Selector (1-5 com emojis de humor)
-- [ ] **2.6** Implementar fluxo de check-in diário (selecionar meta → score → nota opcional → confirmar) — **F3**
-- [ ] **2.7** Validar regra RN-03: apenas 1 check-in por dia por meta, editável até meia-noite
-- [ ] **2.8** Calcular e atualizar streak automaticamente após check-in — **F4**
-- [ ] **2.9** Validar regra RN-04: streak quebra se pular 1 dia completo
-- [ ] **2.10** Atualizar best_streak quando superar recorde
-- [ ] **2.11** Criar página Histórico com calendário visual (dias com check-in coloridos) — **F9**
-- [ ] **2.12** Criar timeline de check-ins com filtro por meta — **F9**
+- [x] **2.5** Criar componente Score Selector (1-5 com emojis de humor)
+- [x] **2.6** Implementar fluxo de check-in diário (selecionar meta → score → nota opcional → confirmar) — **F3**
+- [x] **2.7** Validar regra RN-03: apenas 1 check-in por dia por meta, editável até meia-noite
+- [x] **2.8** Calcular e atualizar streak automaticamente após check-in — **F4**
+- [x] **2.9** Validar regra RN-04: streak quebra se pular 1 dia completo
+- [x] **2.10** Atualizar best_streak quando superar recorde
+- [x] **2.11** Criar página Histórico com timeline de check-ins por meta — **F9**
+- [x] **2.12** Criar timeline de check-ins com filtro por meta — **F9**
 - [ ] **2.13** Criar gráfico de score semanal (bar chart simples)
 - [ ] **2.14** Criar gráfico de distribuição de humor (mood breakdown)
-- [ ] **2.15** Implementar haptic feedback no score selector e confirmação de check-in — **F24**
+- [x] **2.15** Implementar haptic feedback no score selector e confirmação de check-in — **F24**
 
 **Features cobertas:** F2, F3, F4, F9, F24
 
@@ -244,14 +244,14 @@
 | Sprint | Tasks | Concluídas | % |
 |--------|-------|------------|---|
 | 1 — Fundação | 12 | 11 | 92% |
-| 2 — Core | 15 | 0 | 0% |
+| 2 — Core | 15 | 12 | 80% |
 | 3 — Social | 16 | 0 | 0% |
 | 4 — Gamificação | 13 | 0 | 0% |
 | 5 — Engajamento | 16 | 0 | 0% |
 | 6 — Perfil | 10 | 0 | 0% |
 | 7 — Landing Page | 17 | 0 | 0% |
 | 8 — PWA & Polish | 13 | 0 | 0% |
-| **Total** | **98** | **11** | **11%** |
+| **Total** | **98** | **23** | **23%** |
 
 ---
 

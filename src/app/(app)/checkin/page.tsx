@@ -1,11 +1,29 @@
 "use client";
 
 import { SCORE_OPTIONS } from "@/lib/types";
-import { useState } from "react";
+import { createCheckin } from "@/lib/actions/checkins";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ArrowLeft, Check } from "lucide-react";
+import Link from "next/link";
 
 export default function CheckinPage() {
+  return (
+    <Suspense fallback={<div className="px-4 pt-6 max-w-lg mx-auto"><p style={{ color: "var(--text-muted)" }}>Carregando...</p></div>}>
+      <CheckinContent />
+    </Suspense>
+  );
+}
+
+function CheckinContent() {
+  const searchParams = useSearchParams();
+  const goalId = searchParams.get("goal");
+  const router = useRouter();
+
   const [selected, setSelected] = useState<number | null>(null);
   const [note, setNote] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const today = new Date().toLocaleDateString("pt-BR", {
     weekday: "long",
@@ -13,8 +31,79 @@ export default function CheckinPage() {
     month: "long",
   });
 
+  async function handleSubmit() {
+    if (selected === null || !goalId) return;
+
+    setLoading(true);
+    try {
+      const scoreOption = SCORE_OPTIONS.find((o) => o.value === selected);
+      await createCheckin({
+        goalId,
+        score: selected,
+        mood: scoreOption?.mood ?? "neutral",
+        note: note.trim() || undefined,
+      });
+      setSuccess(true);
+
+      // Haptic feedback
+      if (navigator.vibrate) navigator.vibrate(50);
+
+      setTimeout(() => router.push("/home"), 1500);
+    } catch {
+      setLoading(false);
+    }
+  }
+
+  if (!goalId) {
+    return (
+      <div className="px-4 pt-6 max-w-lg mx-auto">
+        <div className="flex items-center gap-3 mb-8">
+          <Link href="/home" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--text-muted)" }}>
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+            Check-in
+          </h1>
+        </div>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          Selecione uma meta na Home para fazer o check-in.
+        </p>
+      </div>
+    );
+  }
+
+  if (success) {
+    return (
+      <div className="min-h-dvh flex items-center justify-center px-4">
+        <div className="text-center animate-scale-in">
+          <div
+            className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"
+            style={{ background: "rgba(45,106,79,0.1)" }}
+          >
+            <Check className="w-10 h-10" style={{ color: "var(--forest)" }} />
+          </div>
+          <h2 className="text-xl font-bold mb-1" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+            Check-in registrado!
+          </h2>
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+            Cada dia conta. Você está +Forte.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="px-4 pt-6 max-w-lg mx-auto">
+      <div className="flex items-center gap-3 mb-6">
+        <Link href="/home" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--text-muted)" }}>
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+        <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+          Check-in
+        </h1>
+      </div>
+
       <div
         className="rounded-2xl p-6"
         style={{
@@ -26,20 +115,24 @@ export default function CheckinPage() {
         <p className="text-xs font-mono capitalize mb-1" style={{ color: "var(--text-muted)" }}>
           {today}
         </p>
-        <h1 className="text-xl font-bold mb-6" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+        <h2 className="text-lg font-bold mb-6" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
           Como foi seu dia?
-        </h1>
+        </h2>
 
         {/* Score selector */}
         <div className="flex justify-between mb-6">
           {SCORE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
-              onClick={() => setSelected(opt.value)}
+              onClick={() => {
+                setSelected(opt.value);
+                if (navigator.vibrate) navigator.vibrate(10);
+              }}
               className="flex flex-col items-center gap-1 p-3 rounded-xl transition-all active:scale-95"
               style={{
                 background: selected === opt.value ? "rgba(45,106,79,0.12)" : "transparent",
                 border: selected === opt.value ? "2px solid var(--forest)" : "2px solid transparent",
+                transform: selected === opt.value ? "scale(1.05)" : "scale(1)",
               }}
             >
               <span className="text-2xl">{opt.emoji}</span>
@@ -55,7 +148,7 @@ export default function CheckinPage() {
           placeholder="Nota (opcional)..."
           maxLength={500}
           rows={2}
-          className="w-full rounded-xl px-4 py-3 text-sm resize-none mb-4 outline-none transition-all focus:ring-2"
+          className="w-full rounded-xl px-4 py-3 text-sm resize-none mb-4 outline-none transition-all"
           style={{
             background: "var(--bg)",
             border: "1px solid var(--border)",
@@ -63,16 +156,21 @@ export default function CheckinPage() {
           }}
         />
 
+        <div className="flex items-center justify-between text-[10px] mb-4" style={{ color: "var(--text-muted)" }}>
+          <span>{note.length}/500</span>
+        </div>
+
         {/* Submit */}
         <button
-          disabled={selected === null}
+          onClick={handleSubmit}
+          disabled={selected === null || loading}
           className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
           style={{
             background: selected !== null ? "var(--forest)" : "var(--text-muted)",
             boxShadow: selected !== null ? "var(--shadow-glow)" : "none",
           }}
         >
-          Registrar check-in
+          {loading ? "Salvando..." : "Registrar check-in"}
         </button>
       </div>
     </div>

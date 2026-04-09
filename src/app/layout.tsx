@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Outfit, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { ServiceWorkerRegistration } from "@/components/layout/ServiceWorkerRegistration";
+import { CookieConsent } from "@/components/layout/CookieConsent";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -78,6 +79,7 @@ export default function RootLayout({
       <body className="min-h-dvh antialiased">
         <ThemeProvider>
           {children}
+          <CookieConsent />
           <ServiceWorkerRegistration />
         </ThemeProvider>
       </body>

@@ -20,9 +20,16 @@ export default async function HomePage() {
     );
   }
 
-  const goals = await getActiveGoals();
-  const todayCheckins = await getTodayCheckins();
-  const checkedGoalIds = new Set(todayCheckins.map((c: { goal_id: string }) => c.goal_id));
+  let goals: Awaited<ReturnType<typeof getActiveGoals>> = [];
+  let checkedGoalIds = new Set<string>();
+
+  try {
+    goals = await getActiveGoals();
+    const todayCheckins = await getTodayCheckins();
+    checkedGoalIds = new Set(todayCheckins.map((c: { goal_id: string }) => c.goal_id));
+  } catch {
+    // Graceful fallback — show empty state
+  }
 
   const { data: profile } = await supabase.from("users").select("name").eq("id", user.id).single();
   const name = profile?.name || user.email?.split("@")[0] || "Você";

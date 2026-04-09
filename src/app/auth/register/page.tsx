@@ -39,7 +39,7 @@ export default function RegisterPage() {
 
     // If session exists, user is logged in (no email confirmation required)
     if (data.session) {
-      router.push("/onboarding");
+      window.location.href = "/onboarding";
       return;
     }
 

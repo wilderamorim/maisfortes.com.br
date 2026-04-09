@@ -31,8 +31,8 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/home");
-    router.refresh();
+    // Full page reload to ensure middleware picks up the new session cookies
+    window.location.href = "/home";
   }
 
   async function handleGoogleLogin() {

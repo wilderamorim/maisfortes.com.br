@@ -13,7 +13,10 @@ export function CookieConsent() {
   const isAppPage = pathname.startsWith("/home") || pathname.startsWith("/checkin") || pathname.startsWith("/history") || pathname.startsWith("/network") || pathname.startsWith("/profile") || pathname.startsWith("/onboarding") || pathname.startsWith("/goals") || pathname.startsWith("/achievements");
 
   useEffect(() => {
-    if (isAuthPage || isAppPage) return;
+    if (isAuthPage || isAppPage) {
+      setVisible(false);
+      return;
+    }
     const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
       // Show after 1 second

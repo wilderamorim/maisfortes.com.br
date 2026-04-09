@@ -62,22 +62,22 @@
 
 ### Tasks
 
-- [ ] **3.1** Gerar invite_code único por convite de apoiador — **F19**
-- [ ] **3.2** Criar página de convite público (link compartilhável) — **F19**
+- [x] **3.1** Gerar invite_code único por convite de apoiador — **F19**
+- [x] **3.2** Criar página de convite público (link compartilhável) — **F19**
 - [ ] **3.3** Gerar QR code do link de convite — **F19**
-- [ ] **3.4** Implementar fluxo de convite: protagonista seleciona meta → gera link → compartilha — **F5**
-- [ ] **3.5** Implementar aceitação de convite (criar conta se necessário) — **F5**
-- [ ] **3.6** Validar RN-06: máximo 5 apoiadores por meta
-- [ ] **3.7** Validar RN-09: convite é 100% opcional (app funciona solo)
-- [ ] **3.8** Implementar privacidade granular: apoiador vê Meta A mas não Meta B — **F25**
-- [ ] **3.9** Configuração por apoiador: pode ver score (sim/não), pode ver notas (sim/não) — **F25**
-- [ ] **3.10** Criar dashboard do apoiador com feed de atividade — **F6, F20**
+- [x] **3.4** Implementar fluxo de convite: protagonista seleciona meta → gera link → compartilha — **F5**
+- [x] **3.5** Implementar aceitação de convite (criar conta se necessário) — **F5**
+- [x] **3.6** Validar RN-06: máximo 5 apoiadores por meta
+- [x] **3.7** Validar RN-09: convite é 100% opcional (app funciona solo)
+- [x] **3.8** Implementar privacidade granular: apoiador vê Meta A mas não Meta B — **F25**
+- [x] **3.9** Configuração por apoiador: pode ver score (sim/não), pode ver notas (sim/não) — **F25**
+- [x] **3.10** Criar dashboard do apoiador com feed de atividade — **F6, F20**
 - [ ] **3.11** Feed mostra: check-in feito, conquista desbloqueada, streak milestone — **F20**
-- [ ] **3.12** Implementar envio de mensagem de incentivo (max 500 chars) — **F8**
-- [ ] **3.13** Implementar reação rápida (coração, força, palma, abraço) — **F21**
+- [x] **3.12** Implementar envio de mensagem de incentivo (max 500 chars) — **F8**
+- [x] **3.13** Implementar reação rápida (coração, força, palma, abraço) — **F21**
 - [ ] **3.14** Mostrar mensagens/reações para o protagonista na Home
-- [ ] **3.15** Marcar mensagens como lidas (read_at)
-- [ ] **3.16** Protagonista pode remover apoiador a qualquer momento (RN-07)
+- [x] **3.15** Marcar mensagens como lidas (read_at)
+- [x] **3.16** Protagonista pode remover apoiador a qualquer momento (RN-07)
 
 **Features cobertas:** F5, F6, F8, F19, F20, F21, F25
 
@@ -89,18 +89,18 @@
 
 ### Tasks
 
-- [ ] **4.1** Implementar engine de conquistas: verificar condições após cada check-in — **F13**
-- [ ] **4.2** Desbloquear conquistas de streak (7, 14, 30, 60, 90, 180, 365 dias) — **F13**
-- [ ] **4.3** Desbloquear conquistas sociais (primeiro apoiador, 3+ apoiadores, 10 mensagens) — **F13**
-- [ ] **4.4** Desbloquear conquistas especiais (multi-jornada, volta por cima, constância) — **F13**
-- [ ] **4.5** Criar página de conquistas no perfil (grid com badges, raridade, data de desbloqueio) — **F13**
-- [ ] **4.6** Conquistas bloqueadas mostram silhueta + condição para desbloquear
+- [x] **4.1** Implementar engine de conquistas: verificar condições após cada check-in — **F13**
+- [x] **4.2** Desbloquear conquistas de streak (7, 14, 30, 60, 90, 180, 365 dias) — **F13**
+- [x] **4.3** Desbloquear conquistas sociais (primeiro apoiador, 3+ apoiadores, 10 mensagens) — **F13**
+- [x] **4.4** Desbloquear conquistas especiais (multi-jornada, volta por cima, constância) — **F13**
+- [x] **4.5** Criar página de conquistas no perfil (grid com badges, raridade, data de desbloqueio) — **F13**
+- [x] **4.6** Conquistas bloqueadas mostram silhueta + condição para desbloquear
 - [ ] **4.7** Notificação in-app ao desbloquear conquista (toast + animação)
 - [ ] **4.8** Criar animação de celebração para milestones (7, 30, 90, 365 dias) — **F18**
 - [ ] **4.9** Implementar confetti/particles na celebração
-- [ ] **4.10** Implementar sistema de amizade (adicionar amigo por link) — **F12**
-- [ ] **4.11** Criar mural de streak de amigos (streak lado a lado, sem ranking) — **F12**
-- [ ] **4.12** Validar RN-12: amigo só vê dias de streak, nunca scores/notas
+- [x] **4.10** Implementar sistema de amizade (adicionar amigo por link) — **F12**
+- [x] **4.11** Criar mural de streak de amigos (streak lado a lado, sem ranking) — **F12**
+- [x] **4.12** Validar RN-12: amigo só vê dias de streak, nunca scores/notas
 - [ ] **4.13** Nudge gentil: se amigo quebra streak, sugerir mandar mensagem — **F12**
 
 **Features cobertas:** F12, F13, F18
@@ -245,13 +245,13 @@
 |--------|-------|------------|---|
 | 1 — Fundação | 12 | 11 | 92% |
 | 2 — Core | 15 | 12 | 80% |
-| 3 — Social | 16 | 0 | 0% |
-| 4 — Gamificação | 13 | 0 | 0% |
+| 3 — Social | 16 | 13 | 81% |
+| 4 — Gamificação | 13 | 9 | 69% |
 | 5 — Engajamento | 16 | 0 | 0% |
 | 6 — Perfil | 10 | 0 | 0% |
 | 7 — Landing Page | 17 | 0 | 0% |
 | 8 — PWA & Polish | 13 | 0 | 0% |
-| **Total** | **98** | **23** | **23%** |
+| **Total** | **98** | **45** | **46%** |
 
 ---
 

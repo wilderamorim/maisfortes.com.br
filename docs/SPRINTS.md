@@ -13,18 +13,18 @@
 
 ### Tasks
 
-- [ ] **1.1** Inicializar projeto Next.js 15 (App Router) com TypeScript
-- [ ] **1.2** Configurar Tailwind CSS + shadcn/ui + design tokens da marca (+Fortes)
-- [ ] **1.3** Configurar Supabase (projeto, env vars, client)
-- [ ] **1.4** Criar schema do banco de dados (8 tabelas: users, goals, checkins, supporters, messages, friendships, achievements, user_achievements)
-- [ ] **1.5** Configurar Supabase RLS (Row Level Security) para todas as tabelas
-- [ ] **1.6** Seed de achievements (13 conquistas com nome, descrição, raridade, condição)
-- [ ] **1.7** Implementar autenticação (email/senha + Google OAuth) — **F1**
-- [ ] **1.8** Criar layout base mobile-first (bottom tab bar: Home, Histórico, +, Rede, Perfil)
-- [ ] **1.9** Implementar toggle de tema (light padrão / dark) com persistência — **F10 parcial**
-- [ ] **1.10** Configurar PWA manifest + service worker básico — **F22 parcial**
-- [ ] **1.11** Criar componente de splash screen / loading
-- [ ] **1.12** Configurar Sentry (error tracking)
+- [x] **1.1** Inicializar projeto Next.js 16 (App Router) com TypeScript
+- [x] **1.2** Configurar Tailwind CSS v4 + design tokens da marca (+Fortes)
+- [x] **1.3** Configurar Supabase (client, server, middleware, env vars)
+- [x] **1.4** Criar schema do banco de dados (8 tabelas + indexes + trigger)
+- [x] **1.5** Configurar Supabase RLS (Row Level Security) para todas as tabelas
+- [x] **1.6** Seed de achievements (13 conquistas com nome, descrição, raridade, condição)
+- [x] **1.7** Implementar autenticação (email/senha + Google OAuth) — **F1**
+- [x] **1.8** Criar layout base mobile-first (bottom tab bar: Home, Histórico, +, Rede, Perfil)
+- [x] **1.9** Implementar toggle de tema (light padrão / dark) com persistência — **F10 parcial**
+- [x] **1.10** Configurar PWA manifest — **F22 parcial**
+- [x] **1.11** Criar páginas placeholder para todas as tabs (Home, Histórico, Check-in, Rede, Perfil)
+- [ ] **1.12** Configurar Sentry (error tracking) — adiado para Sprint 8
 
 **Features cobertas:** F1, F10 (parcial), F22 (parcial)
 
@@ -243,7 +243,7 @@
 
 | Sprint | Tasks | Concluídas | % |
 |--------|-------|------------|---|
-| 1 — Fundação | 12 | 0 | 0% |
+| 1 — Fundação | 12 | 11 | 92% |
 | 2 — Core | 15 | 0 | 0% |
 | 3 — Social | 16 | 0 | 0% |
 | 4 — Gamificação | 13 | 0 | 0% |
@@ -251,7 +251,7 @@
 | 6 — Perfil | 10 | 0 | 0% |
 | 7 — Landing Page | 17 | 0 | 0% |
 | 8 — PWA & Polish | 13 | 0 | 0% |
-| **Total** | **98** | **0** | **0%** |
+| **Total** | **98** | **11** | **11%** |
 
 ---
 

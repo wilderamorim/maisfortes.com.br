@@ -1,0 +1,24 @@
+{
+  "name": "+Fortes",
+  "short_name": "+Fortes",
+  "description": "Juntos, somos mais fortes. Plataforma de acompanhamento com rede de apoio.",
+  "start_url": "/home",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#2D6A4F",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

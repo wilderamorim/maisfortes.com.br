@@ -34,18 +34,42 @@ Uma rede de apoio estruturada com:
 | **Apoiador** | Quem acompanha e apoia — vê progresso, envia incentivo |
 | **Profissional** (futuro) | Terapeuta, nutricionista — acompanha evolução |
 
-## Features (MVP)
+## Features (MVP — 26 features)
 
-- [x] Cadastro e autenticação (email/social login)
-- [x] Criar meta pessoal
-- [x] Check-in diário (score 1-5 + nota opcional)
-- [x] Streak (dias consecutivos)
-- [x] Convidar apoiadores (max 5)
-- [x] Dashboard do apoiador
-- [x] Alerta de inatividade (48h)
+### Core
+- [ ] Cadastro e autenticação (email/social login)
+- [ ] Múltiplas metas simultâneas (ex: álcool + dieta)
+- [ ] Check-in diário por meta (score 1-5 + nota opcional)
+- [ ] Streak pessoal por meta + calendário visual
+- [ ] Histórico de check-ins (timeline + filtro por meta)
+
+### Social & Rede de Apoio
+- [ ] Convidar apoiador (opcional, por link/QR code, máx. 5 por meta)
+- [ ] Dashboard do apoiador (feed de atividade)
+- [ ] Alerta de inatividade (push após 48h)
 - [ ] Mensagem de incentivo
-- [ ] Histórico de check-ins
-- [ ] Perfil e configurações
+- [ ] Streak de amigos (mural de constância estilo Duolingo)
+- [ ] Reação rápida (coração, força, palma, abraço)
+
+### Gamificação
+- [ ] Conquistas / Troféus (Bronze → Prata → Ouro → Platina → Diamante)
+- [ ] Celebração de milestone (animação ao atingir 7, 30, 90, 365 dias)
+
+### Engajamento
+- [ ] Onboarding guiado (4 passos, apoiador é opcional)
+- [ ] Push notifications (lembrete diário de check-in)
+- [ ] Resumo semanal (enviado todo domingo)
+- [ ] Modo "dia difícil" (score 1 → recursos de apoio)
+
+### Perfil & Privacidade
+- [ ] Perfil e configurações (foto, nome, tema light/dark)
+- [ ] Privacidade granular por meta (quem vê o quê)
+
+### Landing Page & Técnico
+- [ ] Landing page com mockup HTML animado do app
+- [ ] PWA instalável (ícone na home, fullscreen, splash screen)
+- [ ] Offline check-in (salva local, sincroniza depois)
+- [ ] Haptic feedback (vibração ao selecionar score)
 
 ## Stack Técnica
 
@@ -157,12 +181,16 @@ Use as [GitHub Issues](https://github.com/wilderamorim/maisfortes.com.br/issues)
 |-------|-----------|
 | RN-01 | Protagonista controla 100% da visibilidade dos dados |
 | RN-02 | Apoiador só vê dados após convite aceito |
-| RN-03 | Check-in diário — 1 por dia, editável até meia-noite |
+| RN-03 | Check-in diário por meta — 1 por dia por meta, editável até meia-noite |
 | RN-04 | Streak quebra se não fizer check-in em 1 dia completo |
 | RN-05 | Alerta de inatividade após 48h sem check-in |
-| RN-06 | Máximo 5 apoiadores por protagonista (V1) |
+| RN-06 | Máximo 5 apoiadores por meta |
 | RN-07 | Protagonista pode remover apoiador a qualquer momento |
 | RN-08 | Dados privados por padrão — nada é público |
+| RN-09 | Convidar apoiador é 100% opcional |
+| RN-10 | Privacidade granular por meta — apoiador pode ver Meta A mas não Meta B |
+| RN-11 | Conquistas desbloqueadas automaticamente ao cumprir condição |
+| RN-12 | Streak de amigos mostra apenas dias, nunca scores ou notas |
 
 ## Projetos Relacionados
 
@@ -175,10 +203,10 @@ Use as [GitHub Issues](https://github.com/wilderamorim/maisfortes.com.br/issues)
 
 | Fase | Escopo |
 |------|--------|
-| **V1 — MVP** | Auth, metas, check-in, streak, apoiadores, alertas |
-| **V1.1** | Mensagens de incentivo, histórico, perfil |
-| **V2** | Múltiplas metas, gamificação leve |
-| **V3** | Acesso profissional, relatórios |
+| **MVP** | 26 features: core + social + gamificação + landing page + PWA |
+| **V1.1** | Relatório mensal, temas personalizados, deep links |
+| **V2** | Acesso profissional, grupos de apoio, integração wearables |
+| **V3** | App nativo (React Native), marketplace de conquistas |
 
 ## Licença
 

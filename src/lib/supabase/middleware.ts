@@ -36,7 +36,8 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/network") ||
     request.nextUrl.pathname.startsWith("/profile") ||
     request.nextUrl.pathname.startsWith("/goals") ||
-    request.nextUrl.pathname.startsWith("/achievements");
+    request.nextUrl.pathname.startsWith("/achievements") ||
+    request.nextUrl.pathname.startsWith("/onboarding");
 
   if (!user && isAppRoute) {
     const url = request.nextUrl.clone();

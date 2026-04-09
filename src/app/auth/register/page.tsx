@@ -11,6 +11,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [emailSent, setEmailSent] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -19,7 +20,7 @@ export default function RegisterPage() {
     setError(null);
 
     const supabase = createClient();
-    const { error: signUpError } = await supabase.auth.signUp({
+    const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -36,7 +37,15 @@ export default function RegisterPage() {
       return;
     }
 
-    router.push("/onboarding");
+    // If session exists, user is logged in (no email confirmation required)
+    if (data.session) {
+      router.push("/onboarding");
+      return;
+    }
+
+    // No session = email confirmation required
+    setEmailSent(true);
+    setLoading(false);
   }
 
   return (
@@ -51,22 +60,33 @@ export default function RegisterPage() {
             <span className="text-white text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>+</span>
           </div>
           <h1 className="text-2xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
-            Criar conta
+            {emailSent ? "Verifique seu email" : "Criar conta"}
           </h1>
           <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
-            Ninguém muda sozinho
+            {emailSent ? `Enviamos um link de confirmação para ${email}` : "Ninguém muda sozinho"}
           </p>
         </div>
 
+        {emailSent && (
+          <div className="rounded-xl p-5 text-center" style={{ background: "rgba(45,106,79,0.06)", border: "1px solid rgba(45,106,79,0.15)" }}>
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              Clique no link no seu email para ativar sua conta e começar sua jornada.
+            </p>
+            <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
+              Não recebeu? Verifique a pasta de spam.
+            </p>
+          </div>
+        )}
+
         {/* Error */}
-        {error && (
+        {!emailSent && error && (
           <div className="rounded-xl px-4 py-3 text-sm" style={{ background: "rgba(229,56,59,0.1)", color: "var(--danger)" }}>
             {error}
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {!emailSent && <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="text-sm font-medium block mb-1.5" style={{ color: "var(--text)" }}>Nome</label>
             <input
@@ -112,14 +132,22 @@ export default function RegisterPage() {
           >
             {loading ? "Criando..." : "Comece sua jornada"}
           </button>
-        </form>
+        </form>}
 
         {/* Login link */}
         <p className="text-center text-sm" style={{ color: "var(--text-muted)" }}>
-          Já tem conta?{" "}
-          <Link href="/auth/login" className="font-semibold" style={{ color: "var(--forest)" }}>
-            Entrar
-          </Link>
+          {emailSent ? (
+            <Link href="/auth/login" className="font-semibold" style={{ color: "var(--forest)" }}>
+              Ir para o login
+            </Link>
+          ) : (
+            <>
+              Já tem conta?{" "}
+              <Link href="/auth/login" className="font-semibold" style={{ color: "var(--forest)" }}>
+                Entrar
+              </Link>
+            </>
+          )}
         </p>
       </div>
     </div>

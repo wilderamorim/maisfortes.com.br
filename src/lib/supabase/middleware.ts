@@ -25,9 +25,13 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch {
+    // Auth check failed — treat as unauthenticated
+  }
 
   // Protected routes: redirect to login if not authenticated
   const isAppRoute = request.nextUrl.pathname.startsWith("/home") ||

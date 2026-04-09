@@ -189,12 +189,12 @@
 
 ### Tasks
 
-- [ ] **8.1** Service worker completo: cache de assets estáticos — **F22**
-- [ ] **8.2** PWA manifest: ícones, splash screen, cores da marca — **F22**
-- [ ] **8.3** Implementar offline check-in: salvar em IndexedDB — **F23**
-- [ ] **8.4** Sync de check-ins offline quando voltar online — **F23**
-- [ ] **8.5** Indicador visual "offline" + "sincronizando..."
-- [ ] **8.6** Testar instalação PWA (Android Chrome, iOS Safari)
+- [x] **8.1** Service worker completo: cache de assets estáticos — **F22**
+- [x] **8.2** PWA manifest: ícones, splash screen, cores da marca — **F22**
+- [x] **8.3** Implementar offline check-in: salvar em IndexedDB — **F23**
+- [x] **8.4** Sync de check-ins offline quando voltar online — **F23**
+- [x] **8.5** Indicador visual "offline" + "sincronizando..."
+- [x] **8.6** Testar instalação PWA (Android Chrome, iOS Safari)
 - [ ] **8.7** Performance audit: Lighthouse score 90+ em mobile
 - [ ] **8.8** Otimizar bundle: code splitting, lazy loading de rotas
 - [ ] **8.9** Testar todos os fluxos E2E (onboarding, check-in, convite, conquistas)
@@ -250,8 +250,8 @@
 | 5 — Engajamento | 16 | 6 | 38% |
 | 6 — Perfil | 10 | 8 | 80% |
 | 7 — Landing Page | 17 | 14 | 82% |
-| 8 — PWA & Polish | 13 | 0 | 0% |
-| **Total** | **98** | **73** | **74%** |
+| 8 — PWA & Polish | 13 | 6 | 46% |
+| **Total** | **98** | **79** | **81%** |
 
 ---
 

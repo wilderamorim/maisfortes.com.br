@@ -54,7 +54,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style={{ background: "color-mix(in srgb, var(--bg) 85%, transparent)", borderBottom: "1px solid var(--border-subtle)" }}>
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm leading-none" style={{ background: "var(--forest)" }}>+</div>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
             <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
           </div>
           <div className="flex items-center gap-3">
@@ -396,7 +396,7 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row items-start justify-between gap-8">
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold leading-none" style={{ background: "var(--forest)" }}>+</div>
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
                 <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
               </div>
               <p className="text-xs max-w-xs" style={{ color: "var(--text-muted)" }}>

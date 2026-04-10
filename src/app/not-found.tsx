@@ -10,7 +10,7 @@ export default function NotFound() {
             className="w-16 h-16 rounded-2xl flex items-center justify-center"
             style={{ background: "rgba(45,106,79,0.1)", border: "1px solid rgba(45,106,79,0.2)" }}
           >
-            <span className="text-3xl font-bold leading-none" style={{ color: "var(--forest)", fontFamily: "var(--font-display)" }}>+</span>
+            <span className="" style={{ color: "var(--forest)" }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </div>
           <span className="text-7xl font-bold font-mono" style={{ color: "var(--border)" }}>4</span>
         </div>

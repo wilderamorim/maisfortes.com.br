@@ -39,7 +39,7 @@ export default function LoginPage() {
   return (
     <AuthLayout>
       <div className="hidden lg:flex items-center gap-2 mb-10">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold leading-none" style={{ background: "var(--forest)" }}>+</div>
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
         <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
       </div>
 

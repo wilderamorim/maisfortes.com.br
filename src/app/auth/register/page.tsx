@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { AuthLayout } from "@/components/layout/AuthLayout";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -12,7 +12,6 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [emailSent, setEmailSent] = useState(false);
-  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -21,135 +20,70 @@ export default function RegisterPage() {
 
     const supabase = createClient();
     const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: name },
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding`,
-      },
+      email, password,
+      options: { data: { full_name: name }, emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding` },
     });
 
     if (signUpError) {
-      setError(signUpError.message === "User already registered"
-        ? "Este email já está cadastrado."
-        : signUpError.message);
+      setError(signUpError.message === "User already registered" ? "Este email já está cadastrado." : signUpError.message);
       setLoading(false);
       return;
     }
 
-    // If session exists, user is logged in (no email confirmation required)
-    if (data.session) {
-      window.location.href = "/onboarding";
-      return;
-    }
-
-    // No session = email confirmation required
+    if (data.session) { window.location.href = "/onboarding"; return; }
     setEmailSent(true);
     setLoading(false);
   }
 
   return (
-    <div className="min-h-dvh flex items-center justify-center px-4" style={{ background: "var(--bg)" }}>
-      <div className="w-full max-w-sm space-y-8">
-        {/* Logo */}
-        <div className="text-center">
-          <div
-            className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center"
-            style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
-          >
-            <span className="text-white text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>+</span>
-          </div>
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
-            {emailSent ? "Verifique seu email" : "Criar conta"}
-          </h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
-            {emailSent ? `Enviamos um link de confirmação para ${email}` : "Ninguém muda sozinho"}
-          </p>
-        </div>
-
-        {emailSent && (
-          <div className="rounded-xl p-5 text-center" style={{ background: "rgba(45,106,79,0.06)", border: "1px solid rgba(45,106,79,0.15)" }}>
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-              Clique no link no seu email para ativar sua conta e começar sua jornada.
-            </p>
-            <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
-              Não recebeu? Verifique a pasta de spam.
-            </p>
-          </div>
-        )}
-
-        {/* Error */}
-        {!emailSent && error && (
-          <div className="rounded-xl px-4 py-3 text-sm" style={{ background: "rgba(229,56,59,0.1)", color: "var(--danger)" }}>
-            {error}
-          </div>
-        )}
-
-        {/* Form */}
-        {!emailSent && <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="text-sm font-medium block mb-1.5" style={{ color: "var(--text)" }}>Nome</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Seu nome"
-              required
-              className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
-            />
-          </div>
-          <div>
-            <label className="text-sm font-medium block mb-1.5" style={{ color: "var(--text)" }}>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="seu@email.com"
-              required
-              className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
-            />
-          </div>
-          <div>
-            <label className="text-sm font-medium block mb-1.5" style={{ color: "var(--text)" }}>Senha</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              minLength={6}
-              className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-50"
-            style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
-          >
-            {loading ? "Criando..." : "Comece sua jornada"}
-          </button>
-        </form>}
-
-        {/* Login link */}
-        <p className="text-center text-sm" style={{ color: "var(--text-muted)" }}>
-          {emailSent ? (
-            <Link href="/auth/login" className="font-semibold" style={{ color: "var(--forest)" }}>
-              Ir para o login
-            </Link>
-          ) : (
-            <>
-              Já tem conta?{" "}
-              <Link href="/auth/login" className="font-semibold" style={{ color: "var(--forest)" }}>
-                Entrar
-              </Link>
-            </>
-          )}
-        </p>
+    <AuthLayout>
+      <div className="hidden lg:flex items-center gap-2 mb-10">
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold" style={{ background: "var(--forest)" }}>+</div>
+        <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
       </div>
-    </div>
+
+      <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+        {emailSent ? "Verifique seu email" : "Criar conta"}
+      </h1>
+      <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
+        {emailSent ? `Enviamos um link de confirmação para ${email}` : "Ninguém muda sozinho"}
+      </p>
+
+      {emailSent ? (
+        <div className="space-y-6">
+          <div className="rounded-xl p-5 text-center" style={{ background: "rgba(45,106,79,0.06)", border: "1px solid rgba(45,106,79,0.15)" }}>
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>Clique no link no seu email para ativar sua conta e começar sua jornada.</p>
+            <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>Não recebeu? Verifique a pasta de spam.</p>
+          </div>
+          <Link href="/auth/login" className="block w-full py-3 rounded-xl font-semibold text-sm text-center text-white transition-all" style={{ background: "var(--forest)" }}>Ir para o login</Link>
+        </div>
+      ) : (
+        <>
+          {error && <div className="rounded-xl px-4 py-3 text-sm mb-4" style={{ background: "rgba(229,56,59,0.08)", color: "var(--danger)" }}>{error}</div>}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--text-secondary)" }}>Nome</label>
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Seu nome" required autoComplete="name" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }} />
+            </div>
+            <div>
+              <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--text-secondary)" }}>E-mail</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com" required autoComplete="email" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }} />
+            </div>
+            <div>
+              <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--text-secondary)" }}>Senha</label>
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" required minLength={6} autoComplete="new-password" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }} />
+            </div>
+            <button type="submit" disabled={loading} className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-50" style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}>
+              {loading ? "Criando conta..." : "Comece sua jornada"}
+            </button>
+          </form>
+
+          <p className="text-center text-sm mt-6" style={{ color: "var(--text-muted)" }}>
+            Já tem conta?{" "}<Link href="/auth/login" className="font-semibold" style={{ color: "var(--forest)" }}>Entrar</Link>
+          </p>
+        </>
+      )}
+    </AuthLayout>
   );
 }

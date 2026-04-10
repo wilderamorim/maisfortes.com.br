@@ -1,5 +1,6 @@
--- +Fortes Database Schema
+-- +Fortes Database Schema (Completo)
 -- Run this in the Supabase SQL Editor
+-- Atualizado: 2026-04-09
 
 -- Enable UUID extension
 create extension if not exists "uuid-ossp";
@@ -105,6 +106,19 @@ create table public.user_achievements (
   unique(user_id, achievement_id, goal_id)
 );
 
+-- Notifications (in-app)
+create table public.notifications (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  type text not null,
+  title text not null,
+  body text not null,
+  icon text,
+  link text,
+  read_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
 -- ============================================
 -- INDEXES
 -- ============================================
@@ -121,6 +135,8 @@ create index idx_messages_to_user on public.messages(to_user_id);
 create index idx_friendships_user_id on public.friendships(user_id);
 create index idx_friendships_friend_id on public.friendships(friend_id);
 create index idx_user_achievements_user_id on public.user_achievements(user_id);
+create index idx_notifications_user on public.notifications(user_id);
+create index idx_notifications_unread on public.notifications(user_id) where read_at is null;
 
 -- ============================================
 -- ROW LEVEL SECURITY
@@ -134,52 +150,51 @@ alter table public.messages enable row level security;
 alter table public.friendships enable row level security;
 alter table public.achievements enable row level security;
 alter table public.user_achievements enable row level security;
+alter table public.notifications enable row level security;
 
 -- Users: own profile
 create policy "Users can view own profile" on public.users for select using (auth.uid() = id);
 create policy "Users can update own profile" on public.users for update using (auth.uid() = id);
 create policy "Users can insert own profile" on public.users for insert with check (auth.uid() = id);
 
--- Goals: own goals (covers all CRUD for goal owner)
+-- Goals: own goals
 create policy "Users can CRUD own goals" on public.goals for all using (auth.uid() = user_id);
 
--- Checkins: owner can CRUD (uses subquery on goals, which is safe because goals policy is simple)
+-- Checkins: owner can CRUD
 create policy "Users can CRUD own checkins" on public.checkins for all using (
   goal_id in (select id from public.goals where user_id = auth.uid())
 );
 
--- Supporters: goal owner manages (uses subquery on goals — safe, goals policy is auth.uid() = user_id)
+-- Supporters: goal owner manages
 create policy "Goal owner manages supporters" on public.supporters for all using (
   goal_id in (select id from public.goals where user_id = auth.uid())
 );
--- Supporters: can view own supporter records
 create policy "Supporters can view own records" on public.supporters for select using (auth.uid() = user_id);
--- Supporters: can update own record (accept invite)
 create policy "Supporters can accept invite" on public.supporters for update using (auth.uid() = user_id);
 
--- NOTE: Supporter access to goals/checkins is handled at the application layer
--- to avoid cross-table RLS recursion. The app code filters by supporter status.
+-- NOTE: Supporter access to goals/checkins handled at application layer (avoids RLS recursion)
 
--- Messages: participants can view
+-- Messages
 create policy "Message participants can view" on public.messages for select using (
   auth.uid() = from_user_id or auth.uid() = to_user_id
 );
--- Messages: authenticated users can send
 create policy "Authenticated users can send messages" on public.messages for insert with check (auth.uid() = from_user_id);
--- Messages: recipient can mark as read
 create policy "Recipient can update read_at" on public.messages for update using (auth.uid() = to_user_id);
 
--- Friendships: participants manage
+-- Friendships
 create policy "Users manage own friendships" on public.friendships for all using (
   auth.uid() = user_id or auth.uid() = friend_id
 );
 
--- Achievements: everyone can read catalog
+-- Achievements
 create policy "Anyone can read achievements" on public.achievements for select to authenticated using (true);
 
--- User achievements: own records
+-- User achievements
 create policy "Users can view own achievements" on public.user_achievements for select using (auth.uid() = user_id);
 create policy "System can insert achievements" on public.user_achievements for insert with check (auth.uid() = user_id);
+
+-- Notifications
+create policy "Users see own notifications" on public.notifications for all using (auth.uid() = user_id);
 
 -- ============================================
 -- SEED: Achievements

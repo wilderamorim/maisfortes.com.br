@@ -22,7 +22,7 @@ export function CookieConsent() {
       const timer = setTimeout(() => setVisible(true), 1000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isPublicPage]);
 
   function handleAccept() {
     localStorage.setItem("cookie-consent", "accepted");
@@ -34,7 +34,7 @@ export function CookieConsent() {
     setVisible(false);
   }
 
-  if (!visible) return null;
+  if (!visible || !isPublicPage) return null;
 
   return (
     <div

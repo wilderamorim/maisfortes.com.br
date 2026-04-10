@@ -28,9 +28,18 @@ export default async function ProfilePage() {
 
   const { data: bestGoal } = await supabase
     .from("goals")
-    .select("best_streak")
+    .select("best_streak, current_streak")
     .eq("user_id", user.id)
     .order("best_streak", { ascending: false })
+    .limit(1)
+    .single();
+
+  const { data: currentStreakGoal } = await supabase
+    .from("goals")
+    .select("current_streak")
+    .eq("user_id", user.id)
+    .eq("status", "active")
+    .order("current_streak", { ascending: false })
     .limit(1)
     .single();
 
@@ -62,9 +71,10 @@ export default async function ProfilePage() {
       </div>
 
       {/* Quick stats */}
-      <div className="grid grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-4 gap-2 mb-8">
         {[
           { label: "Check-ins", value: String((totalCheckins as number | null) ?? 0) },
+          { label: "Streak atual", value: String(currentStreakGoal?.current_streak ?? 0) },
           { label: "Melhor streak", value: String(bestGoal?.best_streak ?? 0) },
           { label: "Conquistas", value: `${(achievementCount as number | null) ?? 0}/${ACHIEVEMENT_SEEDS.length}` },
         ].map((stat) => (

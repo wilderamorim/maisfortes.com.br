@@ -47,14 +47,53 @@ export async function getActiveGoals() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return [];
 
-  const { data } = await supabase
+  const { data: goals } = await supabase
     .from("goals")
     .select("*")
     .eq("user_id", user.id)
     .in("status", ["active", "paused"])
     .order("order");
 
-  return data ?? [];
+  if (!goals) return [];
+
+  // Recalculate streaks from actual checkin data (fixes stale values)
+  for (const goal of goals) {
+    const { data: checkins } = await supabase
+      .from("checkins")
+      .select("date")
+      .eq("goal_id", goal.id)
+      .order("date", { ascending: false })
+      .limit(400);
+
+    if (!checkins || checkins.length === 0) {
+      if (goal.current_streak !== 0) {
+        await supabase.from("goals").update({ current_streak: 0 }).eq("id", goal.id);
+        goal.current_streak = 0;
+      }
+      continue;
+    }
+
+    let streak = 1;
+    const dates = checkins.map((c) => c.date).sort().reverse();
+    for (let i = 1; i < dates.length; i++) {
+      const curr = new Date(dates[i - 1] + "T12:00:00");
+      const prev = new Date(dates[i] + "T12:00:00");
+      if (Math.round((curr.getTime() - prev.getTime()) / 86400000) === 1) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+
+    if (goal.current_streak !== streak) {
+      const best = Math.max(goal.best_streak, streak);
+      await supabase.from("goals").update({ current_streak: streak, best_streak: best }).eq("id", goal.id);
+      goal.current_streak = streak;
+      goal.best_streak = best;
+    }
+  }
+
+  return goals;
 }
 
 export async function getAllGoals() {

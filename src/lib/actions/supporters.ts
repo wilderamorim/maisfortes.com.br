@@ -116,7 +116,8 @@ export async function getSupportersForGoal(goalId: string) {
     .from("supporters")
     .select("*, users(name, avatar_url)")
     .eq("goal_id", goalId)
-    .in("status", ["pending", "active"])
+    .eq("status", "active")
+    .not("user_id", "is", null)
     .order("invited_at");
 
   return data ?? [];

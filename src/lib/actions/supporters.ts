@@ -8,12 +8,24 @@ export async function createInvite(goalId: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("Não autenticado");
 
-  // Check supporter limit (RN-06: max 5 per goal)
+  // Reuse existing pending invite (no user_id = not yet accepted)
+  const { data: existing } = await supabase
+    .from("supporters")
+    .select("invite_code")
+    .eq("goal_id", goalId)
+    .eq("status", "pending")
+    .is("user_id", null)
+    .limit(1)
+    .single();
+
+  if (existing) return existing.invite_code;
+
+  // Check active supporter limit (RN-06: max 5 per goal)
   const { count } = await supabase
     .from("supporters")
     .select("*", { count: "exact", head: true })
     .eq("goal_id", goalId)
-    .in("status", ["pending", "active"]);
+    .eq("status", "active");
 
   if ((count ?? 0) >= 5) {
     throw new Error("Máximo de 5 apoiadores por meta");

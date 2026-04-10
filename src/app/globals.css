@@ -17,20 +17,20 @@
   --danger: #E5383B;
 
   /* Light theme (default) */
-  --bg: #FFFFFF;
-  --bg-secondary: #F8F9FA;
-  --surface: #F8F9FA;
-  --surface-hover: #F1F3F5;
-  --border: #E9ECEF;
-  --border-subtle: rgba(233, 236, 239, 0.5);
-  --text: #212529;
-  --text-secondary: #495057;
-  --text-muted: #6C757D;
-  --text-inverse: #FFFFFF;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-  --shadow-glow: 0 0 20px rgba(45,106,79,0.12);
+  --mf-bg: #FFFFFF;
+  --mf-bg-secondary: #F8F9FA;
+  --mf-surface: #F8F9FA;
+  --mf-surface-hover: #F1F3F5;
+  --mf-border: #E9ECEF;
+  --mf-border-subtle: rgba(233, 236, 239, 0.5);
+  --mf-text: #212529;
+  --mf-text-secondary: #495057;
+  --mf-text-muted: #6C757D;
+  --mf-text-inverse: #FFFFFF;
+  --mf-shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --mf-shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --mf-shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  --mf-shadow-glow: 0 0 20px rgba(45,106,79,0.12);
 
   /* Radius */
   --radius-sm: 8px;
@@ -44,20 +44,20 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0D1117;
-  --bg-secondary: #161B22;
-  --surface: #161B22;
-  --surface-hover: #1C2128;
-  --border: #30363D;
-  --border-subtle: rgba(48, 54, 61, 0.5);
-  --text: #E6EDF3;
-  --text-secondary: #B1BAC4;
-  --text-muted: #8B949E;
-  --text-inverse: #0D1117;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
-  --shadow-glow: 0 0 20px rgba(45,106,79,0.2);
+  --mf-bg: #0D1117;
+  --mf-bg-secondary: #161B22;
+  --mf-surface: #161B22;
+  --mf-surface-hover: #1C2128;
+  --mf-border: #30363D;
+  --mf-border-subtle: rgba(48, 54, 61, 0.5);
+  --mf-text: #E6EDF3;
+  --mf-text-secondary: #B1BAC4;
+  --mf-text-muted: #8B949E;
+  --mf-text-inverse: #0D1117;
+  --mf-shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --mf-shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --mf-shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  --mf-shadow-glow: 0 0 20px rgba(45,106,79,0.2);
 }
 
 /* ============================================
@@ -65,16 +65,16 @@
    ============================================ */
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-bg-secondary: var(--bg-secondary);
-  --color-surface: var(--surface);
-  --color-surface-hover: var(--surface-hover);
-  --color-border: var(--border);
-  --color-border-subtle: var(--border-subtle);
-  --color-text: var(--text);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
-  --color-text-inverse: var(--text-inverse);
+  --color-bg: var(--mf-bg);
+  --color-bg-secondary: var(--mf-bg-secondary);
+  --color-surface: var(--mf-surface);
+  --color-surface-hover: var(--mf-surface-hover);
+  --color-border: var(--mf-border);
+  --color-border-subtle: var(--mf-border-subtle);
+  --color-text: var(--mf-text);
+  --color-text-secondary: var(--mf-text-secondary);
+  --color-text-muted: var(--mf-text-muted);
+  --color-text-inverse: var(--mf-text-inverse);
 
   --color-forest: var(--forest);
   --color-forest-light: var(--forest-light);
@@ -90,10 +90,10 @@
   --font-display: var(--font-outfit);
   --font-mono: var(--font-jetbrains);
 
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-glow: var(--shadow-glow);
+  --mf-shadow-sm: var(--mf-shadow-sm);
+  --mf-shadow-md: var(--mf-shadow-md);
+  --mf-shadow-lg: var(--mf-shadow-lg);
+  --mf-shadow-glow: var(--mf-shadow-glow);
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -166,8 +166,8 @@ html {
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--mf-bg);
+  color: var(--mf-text);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -176,13 +176,13 @@ body {
 
 ::selection {
   background: rgba(45, 106, 79, 0.2);
-  color: var(--text);
+  color: var(--mf-text);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 9999px; }
+::-webkit-scrollbar-thumb { background: var(--mf-border); border-radius: 9999px; }
 
 /* Safe area for mobile */
 .pb-safe {

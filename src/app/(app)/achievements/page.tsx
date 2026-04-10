@@ -47,10 +47,10 @@ export default async function AchievementsPage() {
   return (
     <div className="px-4 pt-6 max-w-lg mx-auto">
       <div className="flex items-center gap-3 mb-6">
-        <Link href="/profile" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--text-muted)" }}>
+        <Link href="/profile" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--mf-text-muted)" }}>
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+        <h1 className="text-xl font-bold" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
           Conquistas
         </h1>
         <span className="font-mono text-xs ml-auto" style={{ color: "var(--forest)" }}>
@@ -77,24 +77,24 @@ export default async function AchievementsPage() {
                       key={ach.id}
                       className="rounded-xl p-4 text-center transition-all"
                       style={{
-                        background: unlocked ? colors.bg : "var(--surface)",
-                        border: `1px solid ${unlocked ? colors.border : "var(--border-subtle)"}`,
+                        background: unlocked ? colors.bg : "var(--mf-surface)",
+                        border: `1px solid ${unlocked ? colors.border : "var(--mf-border-subtle)"}`,
                         opacity: unlocked ? 1 : 0.5,
                       }}
                     >
-                      <div className="w-12 h-12 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ background: unlocked ? colors.bg : "var(--bg-secondary)" }}>
+                      <div className="w-12 h-12 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ background: unlocked ? colors.bg : "var(--mf-bg-secondary)" }}>
                         {unlocked ? (
                           <span className="text-2xl" style={{ color: colors.text }}>
                             {rarity === "diamond" ? "💎" : rarity === "platinum" ? "👑" : rarity === "gold" ? "🏆" : rarity === "silver" ? "🥈" : "🥉"}
                           </span>
                         ) : (
-                          <Lock className="w-5 h-5" style={{ color: "var(--text-muted)" }} />
+                          <Lock className="w-5 h-5" style={{ color: "var(--mf-text-muted)" }} />
                         )}
                       </div>
-                      <h3 className="font-semibold text-xs" style={{ color: unlocked ? "var(--text)" : "var(--text-muted)" }}>
+                      <h3 className="font-semibold text-xs" style={{ color: unlocked ? "var(--mf-text)" : "var(--mf-text-muted)" }}>
                         {ach.name}
                       </h3>
-                      <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+                      <p className="text-[10px] mt-0.5" style={{ color: "var(--mf-text-muted)" }}>
                         {ach.description}
                       </p>
                     </div>

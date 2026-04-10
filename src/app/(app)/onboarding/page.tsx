@@ -120,7 +120,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-dvh flex flex-col px-4 pt-12 pb-8 max-w-sm mx-auto" style={{ background: "var(--bg)" }}>
+    <div className="min-h-dvh flex flex-col px-4 pt-12 pb-8 max-w-sm mx-auto" style={{ background: "var(--mf-bg)" }}>
       {/* Progress dots */}
       <div className="flex items-center justify-center gap-2 mb-12">
         {steps.map((_, i) => (
@@ -129,7 +129,7 @@ export default function OnboardingPage() {
             className="h-1.5 rounded-full transition-all duration-300"
             style={{
               width: i === step ? "32px" : "8px",
-              background: i <= step ? "var(--forest)" : "var(--border)",
+              background: i <= step ? "var(--forest)" : "var(--mf-border)",
             }}
           />
         ))}
@@ -137,10 +137,10 @@ export default function OnboardingPage() {
 
       {/* Step content */}
       <div className="flex-1">
-        <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+        <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
           {steps[step].title}
         </h1>
-        <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
+        <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
           {steps[step].subtitle}
         </p>
 
@@ -161,7 +161,7 @@ export default function OnboardingPage() {
               maxLength={100}
               autoFocus
               className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
+              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
             />
             <textarea
               value={goalDesc}
@@ -170,7 +170,7 @@ export default function OnboardingPage() {
               rows={2}
               maxLength={300}
               className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
+              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
             />
             <button
               onClick={handleCreateGoal}
@@ -188,19 +188,19 @@ export default function OnboardingPage() {
           <div className="space-y-4">
             <div
               className="rounded-xl p-6 text-center"
-              style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)" }}
+              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
             >
-              <p className="text-sm mb-4" style={{ color: "var(--text)" }}>
+              <p className="text-sm mb-4" style={{ color: "var(--mf-text)" }}>
                 Convide quem te apoia — família, amigos, parceiro(a). Eles vão acompanhar sua jornada sem invadir.
               </p>
-              <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
                 Você pode fazer isso depois nas configurações.
               </p>
             </div>
             <button
               onClick={() => setStep(2)}
               className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
+              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
             >
               <SkipForward className="w-4 h-4" /> Pular por agora
             </button>
@@ -225,7 +225,7 @@ export default function OnboardingPage() {
                   }}
                 >
                   <span className="text-2xl">{opt.emoji}</span>
-                  <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>{opt.label}</span>
+                  <span className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{opt.label}</span>
                 </button>
               ))}
             </div>
@@ -233,7 +233,7 @@ export default function OnboardingPage() {
               onClick={handleCheckin}
               disabled={score === null || loading}
               className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-40"
-              style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
+              style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
             >
               {loading ? "Salvando..." : "Começar minha jornada"}
             </button>

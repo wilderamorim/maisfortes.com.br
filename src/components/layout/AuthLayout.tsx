@@ -4,7 +4,7 @@ import { type ReactNode } from "react";
 
 export function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-dvh flex" style={{ background: "var(--bg)" }}>
+    <div className="min-h-dvh flex" style={{ background: "var(--mf-bg)" }}>
       {/* Left: Branding */}
       <div
         className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative overflow-hidden items-center justify-center"
@@ -63,7 +63,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
           <div className="lg:hidden text-center mb-8">
             <div
               className="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center"
-              style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
+              style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
             >
               <span className="text-white"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
             </div>

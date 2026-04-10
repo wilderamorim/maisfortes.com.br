@@ -54,7 +54,7 @@ export default function ResetPasswordPage() {
     return (
       <AuthLayout>
         <div className="text-center py-12">
-          <p style={{ color: "var(--text-muted)" }}>Verificando link...</p>
+          <p style={{ color: "var(--mf-text-muted)" }}>Verificando link...</p>
         </div>
       </AuthLayout>
     );
@@ -66,7 +66,7 @@ export default function ResetPasswordPage() {
       <AuthLayout>
         <div className="hidden lg:flex items-center gap-2 mb-10">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-          <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
+          <span className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
         </div>
 
         <div className="space-y-6">
@@ -74,10 +74,10 @@ export default function ResetPasswordPage() {
             <AlertTriangle className="w-7 h-7" style={{ color: "var(--danger)" }} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
               Link expirado
             </h1>
-            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+            <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
               Este link de recuperação expirou ou já foi utilizado. Solicite um novo.
             </p>
           </div>
@@ -95,7 +95,7 @@ export default function ResetPasswordPage() {
       <AuthLayout>
         <div className="hidden lg:flex items-center gap-2 mb-10">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-          <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
+          <span className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
         </div>
 
         <div className="space-y-6">
@@ -103,10 +103,10 @@ export default function ResetPasswordPage() {
             <Check className="w-7 h-7" style={{ color: "var(--forest)" }} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
               Senha atualizada
             </h1>
-            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+            <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
               Sua senha foi alterada com sucesso. Você já pode acessar sua conta.
             </p>
           </div>
@@ -123,13 +123,13 @@ export default function ResetPasswordPage() {
     <AuthLayout>
       <div className="hidden lg:flex items-center gap-2 mb-10">
         <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
+        <span className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
       </div>
 
-      <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+      <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
         Nova senha
       </h1>
-      <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
+      <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
         Escolha uma senha segura para sua conta.
       </p>
 
@@ -139,7 +139,7 @@ export default function ResetPasswordPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--text-secondary)" }}>Nova senha</label>
+          <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Nova senha</label>
           <input
             type="password"
             value={password}
@@ -149,11 +149,11 @@ export default function ResetPasswordPage() {
             minLength={6}
             autoComplete="new-password"
             className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
+            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
           />
         </div>
         <div>
-          <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--text-secondary)" }}>Confirmar senha</label>
+          <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Confirmar senha</label>
           <input
             type="password"
             value={confirmPassword}
@@ -163,14 +163,14 @@ export default function ResetPasswordPage() {
             minLength={6}
             autoComplete="new-password"
             className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }}
+            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
           />
         </div>
         <button
           type="submit"
           disabled={loading}
           className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-50"
-          style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
+          style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
         >
           {loading ? "Salvando..." : "Salvar nova senha"}
         </button>

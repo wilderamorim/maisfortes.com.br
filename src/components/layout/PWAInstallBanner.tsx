@@ -82,9 +82,9 @@ export function PWAInstallBanner() {
         <div
           className="rounded-2xl p-4"
           style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            boxShadow: "var(--shadow-lg)",
+            background: "var(--mf-surface)",
+            border: "1px solid var(--mf-border)",
+            boxShadow: "var(--mf-shadow-lg)",
           }}
         >
           <div className="flex items-start gap-3">
@@ -98,10 +98,10 @@ export function PWAInstallBanner() {
 
             {/* Text */}
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-sm" style={{ color: "var(--text)" }}>
+              <h3 className="font-semibold text-sm" style={{ color: "var(--mf-text)" }}>
                 Instale o +Fortes
               </h3>
-              <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
+              <p className="text-xs mt-0.5" style={{ color: "var(--mf-text-muted)" }}>
                 Acesse mais rápido direto da tela inicial do seu celular.
               </p>
             </div>
@@ -110,7 +110,7 @@ export function PWAInstallBanner() {
             <button
               onClick={handleDismiss}
               className="shrink-0 p-1 rounded-lg transition-colors"
-              style={{ color: "var(--text-muted)" }}
+              style={{ color: "var(--mf-text-muted)" }}
               aria-label="Fechar"
             >
               <X className="w-4 h-4" />
@@ -123,7 +123,7 @@ export function PWAInstallBanner() {
               <button
                 onClick={() => setShowIOSGuide(true)}
                 className="flex-1 py-2.5 rounded-xl text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98]"
-                style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
+                style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
               >
                 Como instalar
               </button>
@@ -131,7 +131,7 @@ export function PWAInstallBanner() {
               <button
                 onClick={handleInstall}
                 className="flex-1 py-2.5 rounded-xl text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98]"
-                style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
+                style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
               >
                 <Download className="w-3.5 h-3.5" /> Instalar
               </button>
@@ -139,7 +139,7 @@ export function PWAInstallBanner() {
             <button
               onClick={handleDismiss}
               className="px-4 py-2.5 rounded-xl text-xs font-medium transition-all"
-              style={{ color: "var(--text-muted)" }}
+              style={{ color: "var(--mf-text-muted)" }}
             >
               Agora não
             </button>
@@ -157,13 +157,13 @@ export function PWAInstallBanner() {
           <div
             className="relative w-full max-w-sm rounded-2xl p-6 mb-4"
             style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
+              background: "var(--mf-surface)",
+              border: "1px solid var(--mf-border)",
               animation: "slide-up 0.3s ease-out",
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="font-bold text-base mb-5" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+            <h3 className="font-bold text-base mb-5" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
               Como instalar no iPhone/iPad
             </h3>
 
@@ -177,10 +177,10 @@ export function PWAInstallBanner() {
                   <Share2 className="w-5 h-5" style={{ color: "var(--forest)" }} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium" style={{ color: "var(--text)" }}>
+                  <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>
                     Toque no botão <strong>Compartilhar</strong> do Safari
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--mf-text-muted)" }}>
                     É o ícone de quadrado com seta para cima na barra inferior
                   </p>
                 </div>
@@ -195,10 +195,10 @@ export function PWAInstallBanner() {
                   <Plus className="w-5 h-5" style={{ color: "var(--forest)" }} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium" style={{ color: "var(--text)" }}>
+                  <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>
                     Selecione <strong>"Adicionar à Tela de Início"</strong>
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--mf-text-muted)" }}>
                     Role as opções para encontrar
                   </p>
                 </div>
@@ -213,10 +213,10 @@ export function PWAInstallBanner() {
                   <Download className="w-5 h-5" style={{ color: "var(--forest)" }} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium" style={{ color: "var(--text)" }}>
+                  <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>
                     Toque em <strong>"Adicionar"</strong>
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--mf-text-muted)" }}>
                     O +Fortes aparecerá na sua tela inicial como um app
                   </p>
                 </div>

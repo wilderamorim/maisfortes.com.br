@@ -12,7 +12,7 @@ export default async function ProfilePage() {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    return <div className="px-4 pt-6"><p style={{ color: "var(--text-muted)" }}>Carregando...</p></div>;
+    return <div className="px-4 pt-6"><p style={{ color: "var(--mf-text-muted)" }}>Carregando...</p></div>;
   }
 
   const { data: profile } = await supabase.from("users").select("*").eq("id", user.id).single();
@@ -52,10 +52,10 @@ export default async function ProfilePage() {
           {name[0]?.toUpperCase()}
         </div>
         <div>
-          <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+          <h1 className="text-xl font-bold" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
             {name}
           </h1>
-          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
             Membro desde {memberSince}
           </p>
         </div>
@@ -71,10 +71,10 @@ export default async function ProfilePage() {
           <div
             key={stat.label}
             className="rounded-xl p-3 text-center"
-            style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)" }}
+            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
           >
             <p className="text-lg font-bold font-mono" style={{ color: "var(--forest)" }}>{stat.value}</p>
-            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{stat.label}</p>
+            <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{stat.label}</p>
           </div>
         ))}
       </div>
@@ -84,41 +84,41 @@ export default async function ProfilePage() {
         <Link
           href="/achievements"
           className="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors"
-          style={{ color: "var(--text)" }}
+          style={{ color: "var(--mf-text)" }}
         >
-          <Trophy className="w-5 h-5" style={{ color: "var(--text-muted)" }} />
+          <Trophy className="w-5 h-5" style={{ color: "var(--mf-text-muted)" }} />
           <span className="flex-1 text-sm font-medium">Conquistas</span>
-          <ChevronRight className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+          <ChevronRight className="w-4 h-4" style={{ color: "var(--mf-text-muted)" }} />
         </Link>
 
         <Link
           href="/network"
           className="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors"
-          style={{ color: "var(--text)" }}
+          style={{ color: "var(--mf-text)" }}
         >
-          <Shield className="w-5 h-5" style={{ color: "var(--text-muted)" }} />
+          <Shield className="w-5 h-5" style={{ color: "var(--mf-text-muted)" }} />
           <span className="flex-1 text-sm font-medium">Privacidade</span>
-          <ChevronRight className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+          <ChevronRight className="w-4 h-4" style={{ color: "var(--mf-text-muted)" }} />
         </Link>
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ color: "var(--text)" }}>
-          <Bell className="w-5 h-5" style={{ color: "var(--text-muted)" }} />
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ color: "var(--mf-text)" }}>
+          <Bell className="w-5 h-5" style={{ color: "var(--mf-text-muted)" }} />
           <span className="flex-1 text-sm font-medium">Notificações</span>
-          <span className="text-xs" style={{ color: "var(--text-muted)" }}>Em breve</span>
+          <span className="text-xs" style={{ color: "var(--mf-text-muted)" }}>Em breve</span>
         </div>
 
         {/* Theme toggle */}
         <ThemeToggleRow />
 
-        <div className="h-px my-2" style={{ background: "var(--border)" }} />
+        <div className="h-px my-2" style={{ background: "var(--mf-border)" }} />
 
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ color: "var(--text-muted)" }}>
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ color: "var(--mf-text-muted)" }}>
           <Download className="w-5 h-5" />
           <span className="flex-1 text-sm font-medium">Exportar dados</span>
           <span className="text-xs">Em breve</span>
         </div>
 
-        <div className="h-px my-2" style={{ background: "var(--border)" }} />
+        <div className="h-px my-2" style={{ background: "var(--mf-border)" }} />
 
         <LogoutButton />
       </div>

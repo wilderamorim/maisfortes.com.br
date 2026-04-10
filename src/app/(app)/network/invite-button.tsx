@@ -43,7 +43,7 @@ export function InviteButton({ goalId }: { goalId: string }) {
       <button
         onClick={handleCopy}
         className="text-xs flex items-center gap-1 px-2 py-1 rounded-lg transition-all"
-        style={{ color: copied ? "var(--forest)" : "var(--text-muted)" }}
+        style={{ color: copied ? "var(--forest)" : "var(--mf-text-muted)" }}
       >
         {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
         {copied ? "Copiado!" : "Copiar link"}

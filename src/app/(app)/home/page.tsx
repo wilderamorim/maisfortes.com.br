@@ -13,8 +13,8 @@ export default async function HomePage() {
   if (!user) {
     return (
       <div className="px-4 pt-6 max-w-lg mx-auto">
-        <div className="rounded-xl p-8 text-center" style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)" }}>
-          <p style={{ color: "var(--text-muted)" }}>Carregando...</p>
+        <div className="rounded-xl p-8 text-center" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}>
+          <p style={{ color: "var(--mf-text-muted)" }}>Carregando...</p>
         </div>
       </div>
     );
@@ -39,8 +39,8 @@ export default async function HomePage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-sm" style={{ color: "var(--text-muted)" }}>Oi, {name}</p>
-          <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+          <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>Oi, {name}</p>
+          <h1 className="text-xl font-bold" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
             Como vai hoje?
           </h1>
         </div>
@@ -64,32 +64,32 @@ export default async function HomePage() {
                 href={checked ? `/history?goal=${goal.id}` : `/checkin?goal=${goal.id}`}
                 className="block rounded-xl p-4 transition-all active:scale-[0.98]"
                 style={{
-                  background: "var(--surface)",
-                  border: `1px solid ${checked ? "var(--forest)" : "var(--border-subtle)"}`,
-                  boxShadow: checked ? "var(--shadow-glow)" : "none",
+                  background: "var(--mf-surface)",
+                  border: `1px solid ${checked ? "var(--forest)" : "var(--mf-border-subtle)"}`,
+                  boxShadow: checked ? "var(--mf-shadow-glow)" : "none",
                 }}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-sm" style={{ color: "var(--text)" }}>{goal.title}</h3>
+                      <h3 className="font-semibold text-sm" style={{ color: "var(--mf-text)" }}>{goal.title}</h3>
                       {checked && (
                         <span className="text-[10px] px-2 py-0.5 rounded-full font-mono" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
                           feito
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
+                    <div className="flex items-center gap-3 text-xs" style={{ color: "var(--mf-text-muted)" }}>
                       <span className="flex items-center gap-1">
-                        <Flame className="w-3.5 h-3.5" style={{ color: goal.current_streak > 0 ? "var(--forest)" : "var(--text-muted)" }} />
-                        <span className="font-mono" style={{ color: goal.current_streak > 0 ? "var(--forest)" : "var(--text-muted)" }}>
+                        <Flame className="w-3.5 h-3.5" style={{ color: goal.current_streak > 0 ? "var(--forest)" : "var(--mf-text-muted)" }} />
+                        <span className="font-mono" style={{ color: goal.current_streak > 0 ? "var(--forest)" : "var(--mf-text-muted)" }}>
                           {goal.current_streak} {goal.current_streak === 1 ? "dia" : "dias"}
                         </span>
                       </span>
                       {goal.status === "paused" && <span className="text-amber">pausada</span>}
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+                  <ChevronRight className="w-4 h-4" style={{ color: "var(--mf-text-muted)" }} />
                 </div>
               </Link>
             );
@@ -99,7 +99,7 @@ export default async function HomePage() {
           <Link
             href="/goals"
             className="flex items-center justify-center gap-2 rounded-xl p-3 text-sm font-medium transition-all active:scale-[0.98]"
-            style={{ border: "1px dashed var(--border)", color: "var(--text-muted)" }}
+            style={{ border: "1px dashed var(--mf-border)", color: "var(--mf-text-muted)" }}
           >
             <Plus className="w-4 h-4" />
             Nova meta
@@ -107,20 +107,20 @@ export default async function HomePage() {
         </div>
       ) : (
         /* Empty state */
-        <div className="rounded-xl p-8 text-center" style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)" }}>
+        <div className="rounded-xl p-8 text-center" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}>
           <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: "rgba(45,106,79,0.1)" }}>
             <Flame className="w-7 h-7" style={{ color: "var(--forest)" }} />
           </div>
-          <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+          <h2 className="text-lg font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
             Comece sua jornada
           </h2>
-          <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>
+          <p className="text-sm mb-4" style={{ color: "var(--mf-text-muted)" }}>
             Crie sua primeira meta e faça o primeiro check-in.
           </p>
           <Link
             href="/goals"
             className="inline-block px-6 py-2.5 rounded-xl text-white text-sm font-semibold transition-all active:scale-95"
-            style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
+            style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
           >
             Criar meta
           </Link>

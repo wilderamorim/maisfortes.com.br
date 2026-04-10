@@ -20,8 +20,8 @@ export function BottomTabBar() {
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 border-t"
       style={{
-        background: "var(--bg)",
-        borderColor: "var(--border)",
+        background: "var(--mf-bg)",
+        borderColor: "var(--mf-border)",
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >

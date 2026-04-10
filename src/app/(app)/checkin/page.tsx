@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function CheckinPage() {
   return (
-    <Suspense fallback={<div className="px-4 pt-6 max-w-lg mx-auto"><p style={{ color: "var(--text-muted)" }}>Carregando...</p></div>}>
+    <Suspense fallback={<div className="px-4 pt-6 max-w-lg mx-auto"><p style={{ color: "var(--mf-text-muted)" }}>Carregando...</p></div>}>
       <CheckinContent />
     </Suspense>
   );
@@ -58,14 +58,14 @@ function CheckinContent() {
     return (
       <div className="px-4 pt-6 max-w-lg mx-auto">
         <div className="flex items-center gap-3 mb-8">
-          <Link href="/home" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--text-muted)" }}>
+          <Link href="/home" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--mf-text-muted)" }}>
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+          <h1 className="text-xl font-bold" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
             Check-in
           </h1>
         </div>
-        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+        <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
           Selecione uma meta na Home para fazer o check-in.
         </p>
       </div>
@@ -82,10 +82,10 @@ function CheckinContent() {
           >
             <Check className="w-10 h-10" style={{ color: "var(--forest)" }} />
           </div>
-          <h2 className="text-xl font-bold mb-1" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+          <h2 className="text-xl font-bold mb-1" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
             Check-in registrado!
           </h2>
-          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
             Cada dia conta. Você está +Forte.
           </p>
         </div>
@@ -96,10 +96,10 @@ function CheckinContent() {
   return (
     <div className="px-4 pt-6 max-w-lg mx-auto">
       <div className="flex items-center gap-3 mb-6">
-        <Link href="/home" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--text-muted)" }}>
+        <Link href="/home" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--mf-text-muted)" }}>
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h1 className="text-xl font-bold" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+        <h1 className="text-xl font-bold" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
           Check-in
         </h1>
       </div>
@@ -107,15 +107,15 @@ function CheckinContent() {
       <div
         className="rounded-2xl p-6"
         style={{
-          background: "var(--surface)",
-          border: "1px solid var(--border-subtle)",
-          boxShadow: "var(--shadow-md)",
+          background: "var(--mf-surface)",
+          border: "1px solid var(--mf-border-subtle)",
+          boxShadow: "var(--mf-shadow-md)",
         }}
       >
-        <p className="text-xs font-mono capitalize mb-1" style={{ color: "var(--text-muted)" }}>
+        <p className="text-xs font-mono capitalize mb-1" style={{ color: "var(--mf-text-muted)" }}>
           {today}
         </p>
-        <h2 className="text-lg font-bold mb-6" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+        <h2 className="text-lg font-bold mb-6" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
           Como foi seu dia?
         </h2>
 
@@ -136,7 +136,7 @@ function CheckinContent() {
               }}
             >
               <span className="text-2xl">{opt.emoji}</span>
-              <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>{opt.label}</span>
+              <span className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{opt.label}</span>
             </button>
           ))}
         </div>
@@ -150,13 +150,13 @@ function CheckinContent() {
           rows={2}
           className="w-full rounded-xl px-4 py-3 text-sm resize-none mb-4 outline-none transition-all"
           style={{
-            background: "var(--bg)",
-            border: "1px solid var(--border)",
-            color: "var(--text)",
+            background: "var(--mf-bg)",
+            border: "1px solid var(--mf-border)",
+            color: "var(--mf-text)",
           }}
         />
 
-        <div className="flex items-center justify-between text-[10px] mb-4" style={{ color: "var(--text-muted)" }}>
+        <div className="flex items-center justify-between text-[10px] mb-4" style={{ color: "var(--mf-text-muted)" }}>
           <span>{note.length}/500</span>
         </div>
 
@@ -166,8 +166,8 @@ function CheckinContent() {
           disabled={selected === null || loading}
           className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
           style={{
-            background: selected !== null ? "var(--forest)" : "var(--text-muted)",
-            boxShadow: selected !== null ? "var(--shadow-glow)" : "none",
+            background: selected !== null ? "var(--forest)" : "var(--mf-text-muted)",
+            boxShadow: selected !== null ? "var(--mf-shadow-glow)" : "none",
           }}
         >
           {loading ? "Salvando..." : "Registrar check-in"}

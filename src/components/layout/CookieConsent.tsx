@@ -44,16 +44,16 @@ export function CookieConsent() {
       <div
         className="max-w-lg mx-auto md:mb-6 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
         style={{
-          background: "var(--surface)",
-          border: "1px solid var(--border)",
-          boxShadow: "var(--shadow-lg)",
+          background: "var(--mf-surface)",
+          border: "1px solid var(--mf-border)",
+          boxShadow: "var(--mf-shadow-lg)",
         }}
       >
         <div className="flex-1">
-          <p className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>
+          <p className="text-sm font-semibold mb-1" style={{ color: "var(--mf-text)" }}>
             Cookies essenciais
           </p>
-          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
             Usamos apenas cookies necessários para autenticação e preferências (tema).
             Sem rastreamento. Sem anúncios.{" "}
             <Link href="/privacidade" className="underline" style={{ color: "var(--forest)" }}>
@@ -65,7 +65,7 @@ export function CookieConsent() {
           <button
             onClick={handleDecline}
             className="px-4 py-2 rounded-lg text-xs font-medium transition-all"
-            style={{ color: "var(--text-muted)" }}
+            style={{ color: "var(--mf-text-muted)" }}
           >
             Recusar
           </button>

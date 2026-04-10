@@ -8,16 +8,16 @@ export const metadata = {
 
 export default function PrivacidadePage() {
   return (
-    <div className="min-h-dvh" style={{ background: "var(--bg)" }}>
+    <div className="min-h-dvh" style={{ background: "var(--mf-bg)" }}>
       <div className="max-w-3xl mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm mb-8 transition-colors" style={{ color: "var(--text-muted)" }}>
+        <Link href="/" className="inline-flex items-center gap-2 text-sm mb-8 transition-colors" style={{ color: "var(--mf-text-muted)" }}>
           <ArrowLeft className="w-4 h-4" /> Voltar
         </Link>
 
-        <h1 className="text-3xl font-bold mb-2" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
           Política de Privacidade
         </h1>
-        <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
+        <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
           Última atualização: 09 de abril de 2026
         </p>
 
@@ -27,15 +27,15 @@ export default function PrivacidadePage() {
           </p>
         </div>
 
-        <div className="space-y-8 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+        <div className="space-y-8 text-sm leading-relaxed" style={{ color: "var(--mf-text-secondary)" }}>
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>1. Quem Somos</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>1. Quem Somos</h2>
             <p>O +Fortes é um projeto pessoal open-source, criado por Wilder Amorim, disponível em maisfortes.com.br. Esta política descreve como coletamos, usamos e protegemos seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>2. Dados que Coletamos</h2>
-            <h3 className="font-semibold mb-2" style={{ color: "var(--text)" }}>2.1 Dados fornecidos por você:</h3>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>2. Dados que Coletamos</h2>
+            <h3 className="font-semibold mb-2" style={{ color: "var(--mf-text)" }}>2.1 Dados fornecidos por você:</h3>
             <ul className="list-disc pl-5 space-y-1">
               <li><strong>Cadastro:</strong> Nome, email e senha (ou dados do Google, se usar login social).</li>
               <li><strong>Metas:</strong> Título e descrição das metas que você criar.</li>
@@ -44,13 +44,13 @@ export default function PrivacidadePage() {
               <li><strong>Foto de perfil:</strong> Opcional, enviada por você.</li>
             </ul>
 
-            <h3 className="font-semibold mb-2 mt-4" style={{ color: "var(--text)" }}>2.2 Dados coletados automaticamente:</h3>
+            <h3 className="font-semibold mb-2 mt-4" style={{ color: "var(--mf-text)" }}>2.2 Dados coletados automaticamente:</h3>
             <ul className="list-disc pl-5 space-y-1">
               <li><strong>Dados técnicos:</strong> Tipo de dispositivo, navegador, sistema operacional (para garantir funcionamento do app).</li>
               <li><strong>Cookies essenciais:</strong> Para manter sua sessão autenticada e preferências de tema.</li>
             </ul>
 
-            <h3 className="font-semibold mb-2 mt-4" style={{ color: "var(--text)" }}>2.3 Dados que NÃO coletamos:</h3>
+            <h3 className="font-semibold mb-2 mt-4" style={{ color: "var(--mf-text)" }}>2.3 Dados que NÃO coletamos:</h3>
             <ul className="list-disc pl-5 space-y-1">
               <li>Dados de localização</li>
               <li>Dados de navegação em outros sites</li>
@@ -60,7 +60,7 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>3. Como Usamos seus Dados</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>3. Como Usamos seus Dados</h2>
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>Funcionamento da plataforma:</strong> Autenticação, salvamento de check-ins, cálculo de streaks, desbloqueio de conquistas.</li>
               <li><strong>Rede de apoio:</strong> Compartilhar seu progresso apenas com apoiadores que você autorizar explicitamente.</li>
@@ -70,7 +70,7 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>4. Compartilhamento de Dados</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>4. Compartilhamento de Dados</h2>
             <div className="rounded-xl p-4 mb-3" style={{ background: "rgba(244,132,95,0.06)", border: "1px solid rgba(244,132,95,0.15)" }}>
               <p className="font-semibold text-sm" style={{ color: "var(--coral)" }}>
                 Não vendemos, alugamos ou compartilhamos seus dados pessoais com terceiros para fins comerciais. Nunca.
@@ -85,7 +85,7 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>5. Privacidade por Design</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>5. Privacidade por Design</h2>
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>Privado por padrão:</strong> Nenhum dado é público. Nenhum apoiador vê nada até você autorizar.</li>
               <li><strong>Granular por meta:</strong> Você controla por meta quem vê o quê. Uma meta pode ser visível para Maria e outra não.</li>
@@ -95,7 +95,7 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>6. Segurança</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>6. Segurança</h2>
             <ul className="list-disc pl-5 space-y-2">
               <li>Autenticação segura via Supabase Auth (bcrypt para senhas).</li>
               <li>Row Level Security (RLS) no banco de dados — cada usuário só acessa seus próprios dados.</li>
@@ -105,7 +105,7 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>7. Seus Direitos (LGPD)</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>7. Seus Direitos (LGPD)</h2>
             <p>Conforme a LGPD, você tem direito a:</p>
             <ul className="list-disc pl-5 space-y-2 mt-2">
               <li><strong>Acesso:</strong> Saber quais dados temos sobre você.</li>
@@ -118,7 +118,7 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>8. Cookies</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>8. Cookies</h2>
             <p>Usamos apenas cookies essenciais:</p>
             <ul className="list-disc pl-5 space-y-2 mt-2">
               <li><strong>Sessão de autenticação:</strong> Para manter você logado.</li>
@@ -129,22 +129,22 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>9. Retenção de Dados</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>9. Retenção de Dados</h2>
             <p>Seus dados são mantidos enquanto sua conta estiver ativa. Ao excluir sua conta, todos os dados são removidos permanentemente em até 30 dias.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>10. Dados de Menores</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>10. Dados de Menores</h2>
             <p>O +Fortes não é destinado a menores de 13 anos. Se tomarmos conhecimento de que coletamos dados de um menor de 13 anos, excluiremos a conta imediatamente.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>11. Alterações nesta Política</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>11. Alterações nesta Política</h2>
             <p>Podemos atualizar esta política periodicamente. Alterações significativas serão comunicadas por email ou aviso na Plataforma. A data de última atualização sempre estará visível no topo desta página.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>12. Contato</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>12. Contato</h2>
             <p>Para questões sobre privacidade, entre em contato pelo <a href="https://github.com/wilderamorim/maisfortes.com.br/issues" target="_blank" rel="noopener" className="underline" style={{ color: "var(--forest)" }}>GitHub</a> do projeto.</p>
           </section>
         </div>

@@ -29,7 +29,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
         {/* Content */}
         <div className="relative z-10 max-w-md px-12 text-white">
           <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center mb-8" style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
-            <span className="text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>+</span>
+            <span className="text-3xl font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>+</span>
           </div>
           <h1 className="text-4xl font-bold leading-tight mb-4" style={{ fontFamily: "var(--font-display)" }}>
             Ninguém muda sozinho.
@@ -65,7 +65,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
               className="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center"
               style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
             >
-              <span className="text-white text-2xl font-bold" style={{ fontFamily: "var(--font-display)" }}>+</span>
+              <span className="text-white text-2xl font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>+</span>
             </div>
           </div>
           {children}

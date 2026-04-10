@@ -10,7 +10,7 @@ export default function NotFound() {
             className="w-16 h-16 rounded-2xl flex items-center justify-center"
             style={{ background: "rgba(45,106,79,0.1)", border: "1px solid rgba(45,106,79,0.2)" }}
           >
-            <span className="text-3xl font-bold" style={{ color: "var(--forest)", fontFamily: "var(--font-display)" }}>+</span>
+            <span className="text-3xl font-bold leading-none" style={{ color: "var(--forest)", fontFamily: "var(--font-display)" }}>+</span>
           </div>
           <span className="text-7xl font-bold font-mono" style={{ color: "var(--border)" }}>4</span>
         </div>

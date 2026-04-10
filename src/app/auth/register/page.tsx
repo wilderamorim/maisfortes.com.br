@@ -38,7 +38,7 @@ export default function RegisterPage() {
   return (
     <AuthLayout>
       <div className="hidden lg:flex items-center gap-2 mb-10">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold" style={{ background: "var(--forest)" }}>+</div>
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold leading-none" style={{ background: "var(--forest)" }}>+</div>
         <span className="font-bold text-sm" style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>Fortes</span>
       </div>
 

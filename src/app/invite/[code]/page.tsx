@@ -30,7 +30,7 @@ export default function InvitePage() {
           className="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center"
           style={{ background: "var(--forest)", boxShadow: "var(--shadow-glow)" }}
         >
-          <span className="text-white text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>+</span>
+          <span className="text-white text-3xl font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>+</span>
         </div>
 
         <div>

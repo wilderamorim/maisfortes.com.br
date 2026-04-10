@@ -5,6 +5,7 @@ import { getFriendsWithStreaks } from "@/lib/actions/friendships";
 import { Users, Flame, Link2, UserPlus, Share2 } from "lucide-react";
 import Link from "next/link";
 import { InviteButton } from "./invite-button";
+import { AddFriendButton } from "./add-friend-button";
 
 export const metadata = { title: "Rede" };
 
@@ -38,9 +39,7 @@ export default async function NetworkPage() {
       <section>
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-semibold text-sm" style={{ color: "var(--mf-text)" }}>Streak de Amigos</h2>
-          <button className="text-xs flex items-center gap-1" style={{ color: "var(--forest)" }}>
-            <UserPlus className="w-3.5 h-3.5" /> Adicionar
-          </button>
+          <AddFriendButton />
         </div>
 
         {friends.length > 0 ? (

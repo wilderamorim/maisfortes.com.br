@@ -8,12 +8,11 @@ export function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const pathname = usePathname();
 
-  // Don't show on auth or app pages
-  const isAuthPage = pathname.startsWith("/auth/");
-  const isAppPage = pathname.startsWith("/home") || pathname.startsWith("/checkin") || pathname.startsWith("/history") || pathname.startsWith("/network") || pathname.startsWith("/profile") || pathname.startsWith("/onboarding") || pathname.startsWith("/goals") || pathname.startsWith("/achievements");
+  // Only show on landing/public pages
+  const isPublicPage = pathname === "/" || pathname === "/landing" || pathname === "/termos" || pathname === "/privacidade";
 
   useEffect(() => {
-    if (isAuthPage || isAppPage) {
+    if (!isPublicPage) {
       setVisible(false);
       return;
     }

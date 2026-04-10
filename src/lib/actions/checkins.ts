@@ -76,23 +76,18 @@ async function updateStreak(goalId: string) {
     return;
   }
 
-  // Calculate streak: count consecutive days from today
-  let streak = 0;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  // Calculate streak: count consecutive days from most recent check-in
+  let streak = 1; // The most recent check-in counts as 1
+  const dates = checkins.map((c) => c.date).sort().reverse();
 
-  const dates = checkins.map((c) => c.date);
+  // Check consecutive days backwards from most recent
+  for (let i = 1; i < dates.length; i++) {
+    const current = new Date(dates[i - 1] + "T12:00:00");
+    const prev = new Date(dates[i] + "T12:00:00");
+    const diffDays = Math.round((current.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24));
 
-  for (let i = 0; i < 400; i++) {
-    const checkDate = new Date(today);
-    checkDate.setDate(checkDate.getDate() - i);
-    const dateStr = checkDate.toISOString().split("T")[0];
-
-    if (dates.includes(dateStr)) {
+    if (diffDays === 1) {
       streak++;
-    } else if (i === 0) {
-      // Today hasn't been checked in yet — check if yesterday was
-      continue;
     } else {
       break;
     }

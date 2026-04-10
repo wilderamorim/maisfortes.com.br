@@ -3,6 +3,7 @@ import { Outfit, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { ServiceWorkerRegistration } from "@/components/layout/ServiceWorkerRegistration";
 import { CookieConsent } from "@/components/layout/CookieConsent";
+import { PWAInstallBanner } from "@/components/layout/PWAInstallBanner";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -70,6 +71,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* iOS PWA */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="+Fortes" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+        {/* Theme init (prevent flash) */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',t)})()`,
@@ -80,6 +88,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <CookieConsent />
+          <PWAInstallBanner />
           <ServiceWorkerRegistration />
         </ThemeProvider>
       </body>

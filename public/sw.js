@@ -1,4 +1,4 @@
-const CACHE_NAME = "maisfortes-v1";
+const CACHE_NAME = "maisfortes-1775818328850";
 const STATIC_ASSETS = [
   "/",
   "/manifest.json",

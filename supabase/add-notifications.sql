@@ -21,4 +21,3 @@ ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users see own notifications"
   ON public.notifications FOR ALL
   USING (auth.uid() = user_id);
-@

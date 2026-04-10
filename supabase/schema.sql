@@ -17,6 +17,7 @@ create table public.users (
   avatar_url text,
   theme text not null default 'light' check (theme in ('light', 'dark')),
   push_subscription jsonb,
+  notification_time smallint not null default 21 check (notification_time between 0 and 23),
   onboarding_completed boolean not null default false,
   created_at timestamptz not null default now()
 );

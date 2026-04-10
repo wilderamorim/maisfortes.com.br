@@ -32,7 +32,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
             <span className=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </div>
           <h1 className="text-4xl font-bold leading-tight mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            Ninguém muda sozinho.
+            +Forte a cada dia.
           </h1>
           <p className="text-lg opacity-80 leading-relaxed mb-8">
             Registre seu progresso diário, mantenha a constância e conte com quem te apoia. Tudo grátis, tudo privado.

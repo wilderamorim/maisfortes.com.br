@@ -1,9 +1,11 @@
 import { getActiveGoals } from "@/lib/actions/goals";
 import { getTodayCheckins } from "@/lib/actions/checkins";
+import { getMessagesForUser } from "@/lib/actions/messages";
 import { createClient } from "@/lib/supabase/server";
-import { Flame, Plus, ChevronRight } from "lucide-react";
+import { Flame, Plus, ChevronRight, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { NotificationBell } from "@/components/layout/NotificationBell";
+import { SupportMessages } from "@/components/home/SupportMessages";
 
 export const metadata = { title: "Home" };
 
@@ -23,11 +25,13 @@ export default async function HomePage() {
 
   let goals: Awaited<ReturnType<typeof getActiveGoals>> = [];
   let checkedGoalIds = new Set<string>();
+  let recentMessages: Awaited<ReturnType<typeof getMessagesForUser>> = [];
 
   try {
     goals = await getActiveGoals();
     const todayCheckins = await getTodayCheckins();
     checkedGoalIds = new Set(todayCheckins.map((c: { goal_id: string }) => c.goal_id));
+    recentMessages = await getMessagesForUser(5);
   } catch {
     // Graceful fallback — show empty state
   }
@@ -56,6 +60,11 @@ export default async function HomePage() {
           </Link>
         </div>
       </div>
+
+      {/* Support messages */}
+      {recentMessages.length > 0 && (
+        <SupportMessages messages={recentMessages} />
+      )}
 
       {/* Goals list */}
       {goals.length > 0 ? (

@@ -1,6 +1,6 @@
 # +Fortes — Plataforma de Acompanhamento com Rede de Apoio
 
-> Ninguém muda sozinho. +Fortes conecta quem está na jornada de mudança com quem apoia.
+> +Forte a cada dia.
 
 **Live:** [maisfortes.com.br](https://maisfortes.com.br)
 

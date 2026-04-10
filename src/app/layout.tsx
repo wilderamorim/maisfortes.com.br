@@ -30,20 +30,30 @@ export const metadata: Metadata = {
     template: "%s | +Fortes",
   },
   description:
-    "Plataforma gratuita de acompanhamento com rede de apoio. Check-in diário, streak, conquistas e rede de apoio — ninguém muda sozinho.",
+    "Plataforma gratuita de acompanhamento com rede de apoio. Check-in diário, streak, conquistas e rede de apoio — +forte a cada dia.",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/icons/apple-touch-icon.png",
+  },
   openGraph: {
     title: "+Fortes — Juntos, somos mais fortes",
-    description: "Ninguém muda sozinho. +Fortes conecta você com quem te apoia.",
+    description: "+Forte a cada dia.",
     url: "https://maisfortes.com.br",
     siteName: "+Fortes",
     locale: "pt_BR",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "+Fortes — +Forte a cada dia." }],
   },
   twitter: {
     card: "summary_large_image",
     title: "+Fortes — Juntos, somos mais fortes",
-    description: "Ninguém muda sozinho. +Fortes conecta você com quem te apoia.",
+    description: "+Forte a cada dia.",
+    images: ["/og-twitter.png"],
   },
 };
 
@@ -75,7 +85,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="+Fortes" />
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
         {/* Theme init (prevent flash) */}
         <script

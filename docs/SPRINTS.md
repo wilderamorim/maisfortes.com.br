@@ -3,7 +3,7 @@
 > **Status:** Em andamento
 > **Total de features:** 26
 > **Total de tasks:** 98
-> **Atualizado:** 2026-04-09
+> **Atualizado:** 2026-04-10
 
 ---
 
@@ -75,7 +75,7 @@
 - [ ] **3.11** Feed mostra: check-in feito, conquista desbloqueada, streak milestone — **F20**
 - [x] **3.12** Implementar envio de mensagem de incentivo (max 500 chars) — **F8**
 - [x] **3.13** Implementar reação rápida (coração, força, palma, abraço) — **F21**
-- [ ] **3.14** Mostrar mensagens/reações para o protagonista na Home
+- [x] **3.14** Mostrar mensagens/reações para o protagonista na Home
 - [x] **3.15** Marcar mensagens como lidas (read_at)
 - [x] **3.16** Protagonista pode remover apoiador a qualquer momento (RN-07)
 
@@ -119,16 +119,16 @@
 - [x] **5.4** Passo 3: "Como está se sentindo hoje?" (primeiro check-in)
 - [x] **5.5** Animação de conquista "Primeiro Passo" ao final do onboarding
 - [x] **5.6** Marcar onboarding_completed no perfil
-- [ ] **5.7** Implementar Web Push API (pedir permissão, salvar subscription) — **F16**
-- [ ] **5.8** Criar Supabase Edge Function para enviar push diário — **F16**
-- [ ] **5.9** Push de lembrete: "Ei, como foi hoje?" (configurável horário)
-- [ ] **5.10** Push de alerta para apoiadores: inatividade 48h — **F7**
+- [x] **5.7** Implementar Web Push API (pedir permissão, salvar subscription) — **F16**
+- [x] **5.8** Criar Vercel Cron API route para enviar push diário — **F16**
+- [x] **5.9** Push de lembrete: "Ei, como foi hoje?" (configurável horário)
+- [x] **5.10** Push de alerta para apoiadores: inatividade 48h — **F7**
 - [ ] **5.11** Criar resumo semanal (cron todo domingo) — **F17**
 - [ ] **5.12** Conteúdo do resumo: check-ins da semana, score médio, streak atual, conquistas
 - [ ] **5.13** Exibir resumo como card na Home todo domingo/segunda
-- [ ] **5.14** Implementar modo "dia difícil" — **F26**
-- [ ] **5.15** Score 1 → tela especial: "Quer falar com alguém da sua rede?" + opção de enviar alerta
-- [ ] **5.16** Configuração de notificações no perfil (horário do lembrete, ativar/desativar)
+- [x] **5.14** Implementar modo "dia difícil" — **F26**
+- [x] **5.15** Score 1 → tela especial: "Quer falar com alguém da sua rede?" + opção de enviar alerta
+- [x] **5.16** Configuração de notificações no perfil (horário do lembrete, ativar/desativar)
 
 **Features cobertas:** F7, F15, F16, F17, F26
 
@@ -171,7 +171,7 @@
 - [x] **7.8** Seção "Como funciona" (4 passos visuais com ícones SVG)
 - [x] **7.9** Seção "Features" com grid de cards + ícones Lucide
 - [ ] **7.10** Seção "Conquistas" preview (badges visuais)
-- [x] **7.11** Seção CTA final ("Ninguém muda sozinho. Comece agora — é grátis.")
+- [x] **7.11** Seção CTA final ("+Forte a cada dia.")
 - [x] **7.12** Implementar motion on scroll (Intersection Observer + CSS transitions)
 - [ ] **7.13** Implementar animated counters (streak, dias, usuários)
 - [x] **7.14** CTA fixo no mobile (bottom sticky bar)
@@ -201,7 +201,7 @@
 - [ ] **8.10** Testar responsividade em 5 dispositivos (iPhone SE, iPhone 15, Pixel, Galaxy, iPad)
 - [ ] **8.11** Testar dark mode em todas as telas
 - [ ] **8.12** Revisar acessibilidade: contrast ratios, focus states, screen reader
-- [ ] **8.13** Deploy final no Vercel + configurar domínio maisfortes.com.br
+- [x] **8.13** Deploy final no Vercel + configurar domínio maisfortes.com.br
 
 **Features cobertas:** F22, F23
 
@@ -245,13 +245,13 @@
 |--------|-------|------------|---|
 | 1 — Fundação | 12 | 11 | 92% |
 | 2 — Core | 15 | 12 | 80% |
-| 3 — Social | 16 | 13 | 81% |
+| 3 — Social | 16 | 14 | 88% |
 | 4 — Gamificação | 13 | 9 | 69% |
-| 5 — Engajamento | 16 | 6 | 38% |
+| 5 — Engajamento | 16 | 13 | 81% |
 | 6 — Perfil | 10 | 8 | 80% |
 | 7 — Landing Page | 17 | 14 | 82% |
-| 8 — PWA & Polish | 13 | 6 | 46% |
-| **Total** | **98** | **79** | **81%** |
+| 8 — PWA & Polish | 13 | 7 | 54% |
+| **Total** | **98** | **88** | **90%** |
 
 ---
 

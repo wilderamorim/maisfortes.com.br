@@ -1,435 +1,493 @@
 import Link from "next/link";
-import { Flame, Users, Shield, Bell, Trophy, CheckCircle, ArrowRight, Heart, Zap, Lock, Star, MessageCircle, Target } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { AppMockup } from "./app-mockup";
-import { ScrollReveal } from "./scroll-reveal";
-import { AnimatedCounter } from "./animated-counter";
+import { BlurReveal } from "./blur-reveal";
+import { Marquee } from "./marquee";
 
 export const metadata = {
-  title: "+Fortes — Juntos, somos mais fortes",
-  description: "Plataforma gratuita de acompanhamento com rede de apoio. Check-in diário, streak, conquistas — ninguém muda sozinho.",
+  title: "+Fortes — +Forte a cada dia",
+  description: "Plataforma gratuita de acompanhamento com rede de apoio. Check-in diário, streak, conquistas — +forte a cada dia.",
 };
-
-const features = [
-  { icon: CheckCircle, title: "Check-in diário", desc: "Como foi hoje? Um toque e pronto. Leva 10 segundos." },
-  { icon: Flame, title: "Streak", desc: "Cada dia conta. Mantenha a sequência e veja sua força crescer." },
-  { icon: Users, title: "Rede de apoio", desc: "Convide quem se importa. Eles acompanham, você controla." },
-  { icon: Bell, title: "Alertas inteligentes", desc: "Sua rede percebe se você sumir. Cuidado, não cobrança." },
-  { icon: Shield, title: "Privacidade granular", desc: "Você decide quem vê o quê. Por meta. Sem exceção." },
-  { icon: Trophy, title: "Conquistas", desc: "De Bronze a Diamante. Cada conquista é sua." },
-];
-
-const steps = [
-  { num: "01", title: "Crie sua meta", desc: "Parar de beber? Emagrecer? Largar o celular? Vale qualquer mudança." },
-  { num: "02", title: "Faça check-in diário", desc: "Como foi hoje? Escolha de 1 a 5. Pronto. Não precisa de mais." },
-  { num: "03", title: "Convide quem te apoia", desc: "Mande o link pelo WhatsApp. Sem app, sem cadastro complicado." },
-  { num: "04", title: "Evolua acompanhado", desc: "Veja seu streak crescer, desbloqueie conquistas e sinta sua rede torcendo." },
-];
-
-const achievements = [
-  { name: "Primeiro Passo", rarity: "bronze", color: "#CD7F32" },
-  { name: "Semana Firme", rarity: "bronze", color: "#CD7F32" },
-  { name: "Quinzena", rarity: "prata", color: "#A0A0A0" },
-  { name: "Mês de Ferro", rarity: "ouro", color: "#FFB703" },
-  { name: "Trimestre", rarity: "platina", color: "#2D6A4F" },
-  { name: "Um Ano", rarity: "diamante", color: "#90E0EF" },
-];
-
-const comparisons = [
-  { them: "Apps de hábitos", us: "+Fortes", diff: "Você sozinho contra o hábito → Você com uma rede ao seu lado" },
-  { them: "Grupos de WhatsApp", us: "+Fortes", diff: "Mensagens perdidas → Check-in organizado com histórico real" },
-  { them: "Apps de recovery", us: "+Fortes", diff: "Desconhecidos na internet → As pessoas que te conhecem de verdade" },
-];
-
-const testimonials = [
-  { text: "Eu tentei parar de beber sozinho várias vezes. Quando minha irmã começou a acompanhar pelo app, tudo mudou.", author: "Protagonista, 34 anos" },
-  { text: "Não sabia como ajudar meu irmão sem parecer que estava controlando. O +Fortes me deu um papel claro.", author: "Apoiadora, 28 anos" },
-  { text: "O streak virou um jogo comigo mesmo. Quando vi que estava há 30 dias, chorei.", author: "Protagonista, 41 anos" },
-];
 
 export default function LandingPage() {
   return (
     <div className="min-h-dvh" style={{ background: "var(--mf-bg)" }}>
 
       {/* ═══════════════ NAV ═══════════════ */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style={{ background: "color-mix(in srgb, var(--mf-bg) 85%, transparent)", borderBottom: "1px solid var(--mf-border-subtle)" }}>
-        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl" style={{ background: "color-mix(in srgb, var(--mf-bg) 80%, transparent)" }}>
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110" style={{ background: "var(--forest)" }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <span className="font-bold text-sm tracking-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
+          </Link>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-            <span className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/auth/login" className="hidden sm:inline-block px-4 py-2 rounded-lg text-xs font-semibold transition-all" style={{ color: "var(--mf-text-secondary)" }}>
+            <Link href="/auth/login" className="hidden sm:inline-block px-5 py-2 rounded-full text-xs font-medium transition-all hover:opacity-70" style={{ color: "var(--mf-text-secondary)" }}>
               Entrar
             </Link>
-            <Link href="/auth/register" className="px-4 py-2 rounded-lg text-white text-xs font-semibold transition-all active:scale-95" style={{ background: "var(--forest)" }}>
-              Começar
+            <Link href="/auth/register" className="px-5 py-2.5 rounded-full text-white text-xs font-semibold transition-all hover:opacity-90 active:scale-95" style={{ background: "var(--forest)" }}>
+              Começar agora
             </Link>
           </div>
         </div>
       </nav>
 
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
+      <section className="relative min-h-dvh flex items-center overflow-hidden">
+        {/* Gradient mesh background */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-60" style={{ background: "radial-gradient(ellipse, rgba(45,106,79,0.08) 0%, transparent 70%)", animation: "float 8s ease-in-out infinite" }} />
-          <div className="absolute top-1/3 right-1/4 w-[300px] h-[200px] rounded-full opacity-40" style={{ background: "radial-gradient(ellipse, rgba(244,132,95,0.06) 0%, transparent 70%)", animation: "float 10s ease-in-out 2s infinite" }} />
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, var(--mf-text-muted) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+          <div className="absolute -top-1/2 -right-1/4 w-[800px] h-[800px] rounded-full opacity-[0.07]" style={{ background: "radial-gradient(circle, var(--forest) 0%, transparent 70%)" }} />
+          <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, var(--coral) 0%, transparent 70%)" }} />
+          <div className="absolute top-1/3 left-1/2 w-[400px] h-[400px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, var(--amber) 0%, transparent 70%)" }} />
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-mono mb-6" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
-                100% gratuito e open-source
-              </span>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Ninguém muda{" "}
-                <span style={{ background: "linear-gradient(90deg, var(--forest), var(--forest-light))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  sozinho
-                </span>
-              </h1>
-              <p className="text-lg mb-8 max-w-lg" style={{ color: "var(--mf-text-secondary)" }}>
-                A plataforma que conecta quem está lutando por uma mudança com quem se importa de verdade. Registre seu progresso, mantenha a constância e evolua com quem te apoia ao lado.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/auth/register" className="px-8 py-3.5 rounded-xl text-white font-semibold text-sm inline-flex items-center justify-center gap-2 transition-all active:scale-[0.98]" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
-                  Comece sua jornada <ArrowRight className="w-4 h-4" />
-                </Link>
-                <a href="#como-funciona" className="px-8 py-3.5 rounded-xl font-semibold text-sm inline-flex items-center justify-center transition-all" style={{ border: "1px solid var(--mf-border)", color: "var(--mf-text-secondary)" }}>
-                  Como funciona
-                </a>
-              </div>
+        <div className="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div className="lg:col-span-7">
+              {/* Eyebrow */}
+              <BlurReveal>
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="h-px w-8" style={{ background: "var(--forest)" }} />
+                  <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--forest)" }}>Mudança comportamental</span>
+                </div>
+              </BlurReveal>
+
+              {/* Headline — mixed typography */}
+              <BlurReveal delay={100}>
+                <h1 className="mb-8" style={{ fontFamily: "var(--font-display)" }}>
+                  <span className="block text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight" style={{ color: "var(--mf-text)" }}>
+                    <span style={{ background: "linear-gradient(135deg, var(--forest), var(--forest-light))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>+Forte</span>
+                  </span>
+                  <span className="block text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight mt-1" style={{ color: "var(--mf-text)" }}>
+                    a cada dia.
+                  </span>
+                </h1>
+              </BlurReveal>
+
+              {/* Subtitle */}
+              <BlurReveal delay={200}>
+                <p className="text-lg sm:text-xl max-w-md leading-relaxed mb-10" style={{ color: "var(--mf-text-muted)" }}>
+                  Registre como você está. Veja sua constância crescer. E se quiser, com quem te importa ao lado.
+                </p>
+              </BlurReveal>
+
+              {/* CTA */}
+              <BlurReveal delay={300}>
+                <div className="flex flex-col sm:flex-row gap-4 items-start">
+                  <Link
+                    href="/auth/register"
+                    className="group px-8 py-4 rounded-full text-white font-semibold text-sm inline-flex items-center gap-3 transition-all hover:gap-4 active:scale-[0.98]"
+                    style={{ background: "var(--forest)", boxShadow: "0 0 0 0 rgba(45,106,79,0.3)", animation: "pulse-glow 3s ease-in-out infinite" }}
+                  >
+                    Comece sua jornada
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                  <a href="#como-funciona" className="px-6 py-4 text-sm font-medium transition-all hover:opacity-70 inline-flex items-center gap-2" style={{ color: "var(--mf-text-secondary)" }}>
+                    Como funciona
+                    <span className="w-5 h-5 rounded-full border flex items-center justify-center" style={{ borderColor: "var(--mf-border)" }}>
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </a>
+                </div>
+              </BlurReveal>
+
+              {/* Micro stats */}
+              <BlurReveal delay={400}>
+                <div className="flex items-center gap-8 mt-14 pt-8" style={{ borderTop: "1px solid var(--mf-border-subtle)" }}>
+                  {[
+                    { value: "10s", label: "por check-in" },
+                    { value: "13", label: "conquistas" },
+                    { value: "R$0", label: "para sempre" },
+                  ].map((stat) => (
+                    <div key={stat.label}>
+                      <span className="text-2xl font-bold font-mono tracking-tight" style={{ color: "var(--forest)" }}>{stat.value}</span>
+                      <span className="block text-[10px] font-mono uppercase tracking-wider mt-1" style={{ color: "var(--mf-text-muted)" }}>{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </BlurReveal>
             </div>
-            <div className="hidden lg:block">
-              <AppMockup />
+
+            {/* Mockup */}
+            <div className="lg:col-span-5 hidden lg:flex justify-center">
+              <BlurReveal delay={300}>
+                <AppMockup />
+              </BlurReveal>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════ STATS TICKER ═══════════════ */}
-      <section className="py-6 border-y" style={{ borderColor: "var(--mf-border-subtle)", background: "var(--mf-bg)" }}>
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <ScrollReveal>
-              <div>
-                <AnimatedCounter target={13} suffix="" />
-                <p className="text-xs mt-1" style={{ color: "var(--mf-text-muted)" }}>conquistas para desbloquear</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={100}>
-              <div>
-                <AnimatedCounter target={26} suffix="" />
-                <p className="text-xs mt-1" style={{ color: "var(--mf-text-muted)" }}>recursos disponíveis</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={200}>
-              <div>
-                <AnimatedCounter target={0} prefix="R$" suffix="" />
-                <p className="text-xs mt-1" style={{ color: "var(--mf-text-muted)" }}>para sempre</p>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
+      {/* ═══════════════ MARQUEE ═══════════════ */}
+      <section className="py-6 border-y" style={{ borderColor: "var(--mf-border-subtle)" }}>
+        <Marquee items={["Check-in diário", "Streak", "Conquistas", "Rede de apoio", "Privacidade total", "100% gratuito", "Open-source", "PWA", "Offline"]} />
       </section>
 
       {/* ═══════════════ PROBLEMA ═══════════════ */}
-      <section className="py-20">
-        <div className="max-w-3xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--coral)" }}>O problema</span>
-              <h2 className="text-3xl font-bold mt-3 mb-4" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Você já tentou mudar sozinho. Sabe como é.
-              </h2>
+      <section className="py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+            <div className="lg:sticky lg:top-32">
+              <BlurReveal>
+                <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--coral)" }}>O problema</span>
+                <h2 className="text-4xl sm:text-5xl font-bold mt-4 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  Você já tentou<br />mudar sozinho.
+                </h2>
+                <p className="text-lg mt-4" style={{ color: "var(--mf-text-muted)" }}>
+                  Sabe como é.
+                </p>
+              </BlurReveal>
             </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { icon: Target, text: "Começa motivado, mas em duas semanas já esqueceu" },
-              { icon: Heart, text: "Ninguém sabe pelo que você está passando" },
-              { icon: Zap, text: "A vontade de desistir aparece mais que a de continuar" },
-              { icon: Users, text: "Quem te ama quer ajudar, mas não sabe o que fazer" },
-            ].map((item, i) => (
-              <ScrollReveal key={item.text} delay={i * 100}>
-                <div className="flex items-start gap-3 rounded-xl p-4" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
-                  <div className="w-8 h-8 rounded-lg shrink-0 flex items-center justify-center" style={{ background: "rgba(244,132,95,0.1)" }}>
-                    <item.icon className="w-4 h-4" style={{ color: "var(--coral)" }} />
+            <div className="space-y-4">
+              {[
+                { num: "01", text: "Começa motivado, mas em duas semanas já esqueceu" },
+                { num: "02", text: "A vontade de desistir aparece mais que a de continuar" },
+                { num: "03", text: "Quem te ama quer ajudar, mas não sabe o que fazer" },
+                { num: "04", text: "Sem registro, parece que nada muda — mas muda" },
+              ].map((item, i) => (
+                <BlurReveal key={item.num} delay={i * 100}>
+                  <div
+                    className="group rounded-2xl p-6 transition-all hover:translate-x-1"
+                    style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="text-xs font-mono shrink-0 mt-0.5" style={{ color: "var(--coral)", opacity: 0.5 }}>{item.num}</span>
+                      <p className="text-base" style={{ color: "var(--mf-text-secondary)" }}>{item.text}</p>
+                    </div>
                   </div>
-                  <p className="text-sm" style={{ color: "var(--mf-text-secondary)" }}>{item.text}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+                </BlurReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════ SOLUÇÃO (3 PILARES) ═══════════════ */}
-      <section className="py-20" style={{ background: "var(--mf-bg-secondary)" }}>
-        <div className="max-w-4xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--forest)" }}>A solução</span>
-              <h2 className="text-3xl font-bold mt-3 mb-4" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Três pilares em um único lugar
-              </h2>
+      {/* ═══════════════ BENTO GRID — FEATURES ═══════════════ */}
+      <section className="py-32" style={{ background: "var(--mf-bg-secondary)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <BlurReveal>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-8" style={{ background: "var(--forest)" }} />
+              <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--forest)" }}>Como funciona</span>
             </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { icon: CheckCircle, title: "Autogestão", desc: "10 segundos por dia. Registre, acompanhe e veja sua evolução crescer.", color: "var(--forest)" },
-              { icon: Users, title: "Apoio social", desc: "Família e amigos acompanham sem sufocor. Cada um com um papel claro.", color: "var(--coral)" },
-              { icon: Trophy, title: "Gamificação", desc: "Troféus, streaks e celebrações. A motivação certa na hora certa.", color: "var(--amber)" },
-            ].map((pillar, i) => (
-              <ScrollReveal key={pillar.title} delay={i * 150}>
-                <div className="rounded-2xl p-8 text-center h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}>
-                  <div className="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center" style={{ background: `color-mix(in srgb, ${pillar.color} 10%, transparent)` }}>
-                    <pillar.icon className="w-7 h-7" style={{ color: pillar.color }} />
-                  </div>
-                  <h3 className="text-lg font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>{pillar.title}</h3>
-                  <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>{pillar.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-16 max-w-2xl leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Simples por design.<br />Poderoso por constância.
+            </h2>
+          </BlurReveal>
 
-      {/* ═══════════════ FEATURES GRID ═══════════════ */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--mf-text-muted)" }}>Features</span>
-              <h2 className="text-3xl font-bold mt-3 mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Tudo que você precisa
-              </h2>
-              <p style={{ color: "var(--mf-text-muted)" }}>Simples, privado e gratuito.</p>
-            </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {features.map((f, i) => (
-              <ScrollReveal key={f.title} delay={i * 80}>
-                <div className="rounded-xl p-6 transition-all hover:shadow-md group" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
-                  <div className="w-10 h-10 rounded-lg mb-4 flex items-center justify-center transition-transform group-hover:scale-110" style={{ background: "rgba(45,106,79,0.1)" }}>
-                    <f.icon className="w-5 h-5" style={{ color: "var(--forest)" }} />
+          {/* Bento grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="como-funciona">
+            {/* Card 1 — Check-in (large) */}
+            <BlurReveal delay={0} className="md:col-span-2 lg:col-span-2">
+              <div className="rounded-3xl p-8 sm:p-10 relative overflow-hidden group h-full" style={{ background: "var(--forest)", minHeight: "280px" }}>
+                <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-20 transition-transform group-hover:scale-110" style={{ background: "radial-gradient(circle, var(--forest-light), transparent)" }} />
+                <div className="relative z-10">
+                  <span className="text-xs font-mono uppercase tracking-[0.2em] text-white/50">01 — Check-in</span>
+                  <h3 className="text-2xl sm:text-3xl font-bold mt-3 text-white leading-tight" style={{ fontFamily: "var(--font-display)" }}>
+                    Como foi hoje?<br />Um toque. 10 segundos.
+                  </h3>
+                  <p className="text-sm text-white/60 mt-4 max-w-md">
+                    Score de 1 a 5, nota opcional. Sem formulário, sem fricção. Registrar como você está já é o primeiro passo.
+                  </p>
+                  {/* Emoji row */}
+                  <div className="flex gap-3 mt-8">
+                    {["😔", "😕", "😐", "🙂", "😊"].map((e, i) => (
+                      <div
+                        key={e}
+                        className="w-12 h-12 rounded-xl flex items-center justify-center text-xl transition-all hover:scale-110"
+                        style={{
+                          background: i === 4 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.08)",
+                          border: i === 4 ? "2px solid rgba(255,255,255,0.4)" : "2px solid transparent",
+                        }}
+                      >
+                        {e}
+                      </div>
+                    ))}
                   </div>
-                  <h3 className="font-semibold mb-1" style={{ color: "var(--mf-text)" }}>{f.title}</h3>
-                  <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>{f.desc}</p>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+              </div>
+            </BlurReveal>
 
-      {/* ═══════════════ COMO FUNCIONA ═══════════════ */}
-      <section id="como-funciona" className="py-20" style={{ background: "var(--mf-bg-secondary)" }}>
-        <div className="max-w-3xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--mf-text-muted)" }}>Passo a passo</span>
-              <h2 className="text-3xl font-bold mt-3 mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Como funciona
-              </h2>
-              <p style={{ color: "var(--mf-text-muted)" }}>4 passos. 30 segundos.</p>
-            </div>
-          </ScrollReveal>
-          <div className="space-y-1">
-            {steps.map((s, i) => (
-              <ScrollReveal key={s.num} delay={i * 120}>
-                <div className="flex gap-5 items-start rounded-xl p-5 transition-all" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}>
-                  <div className="w-12 h-12 rounded-xl shrink-0 flex items-center justify-center font-mono font-bold text-lg" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
-                    {s.num}
+            {/* Card 2 — Streak */}
+            <BlurReveal delay={100}>
+              <div className="rounded-3xl p-8 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "280px" }}>
+                <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--mf-text-muted)" }}>02 — Streak</span>
+                <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  Cada dia<br />conta.
+                </h3>
+                <p className="text-sm mt-3" style={{ color: "var(--mf-text-muted)" }}>
+                  Mantenha a sequência. Veja sua força crescer dia após dia.
+                </p>
+                {/* Streak visual */}
+                <div className="flex items-end gap-1.5 mt-8">
+                  {[3, 4, 3, 5, 4, 5, 5, 4, 5, 5, 4, 5].map((score, i) => (
+                    <div
+                      key={i}
+                      className="w-full rounded-sm transition-all group-hover:opacity-100"
+                      style={{
+                        height: `${score * 12}px`,
+                        background: `color-mix(in srgb, var(--forest) ${40 + i * 5}%, transparent)`,
+                        opacity: 0.4 + i * 0.05,
+                      }}
+                    />
+                  ))}
+                </div>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="text-4xl font-bold font-mono" style={{ color: "var(--forest)" }}>12</span>
+                  <span className="text-xs" style={{ color: "var(--mf-text-muted)" }}>dias seguidos</span>
+                </div>
+              </div>
+            </BlurReveal>
+
+            {/* Card 3 — Rede de apoio */}
+            <BlurReveal delay={150}>
+              <div className="rounded-3xl p-8 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "280px" }}>
+                <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--mf-text-muted)" }}>03 — Apoio</span>
+                <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  Sua rede.<br />Se quiser.
+                </h3>
+                <p className="text-sm mt-3" style={{ color: "var(--mf-text-muted)" }}>
+                  Convide família ou amigos. Eles acompanham, você controla quem vê o quê.
+                </p>
+                {/* Avatars stack */}
+                <div className="flex items-center mt-8">
+                  {["M", "J", "A", "L"].map((letter, i) => (
+                    <div
+                      key={letter}
+                      className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold border-2 -ml-3 first:ml-0 transition-transform group-hover:translate-x-1"
+                      style={{
+                        background: `color-mix(in srgb, var(--forest) ${20 + i * 10}%, var(--mf-bg-secondary))`,
+                        color: "var(--forest)",
+                        borderColor: "var(--mf-bg)",
+                        transitionDelay: `${i * 50}ms`,
+                      }}
+                    >
+                      {letter}
+                    </div>
+                  ))}
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-mono -ml-3 border-2 border-dashed"
+                    style={{ borderColor: "var(--mf-border)", color: "var(--mf-text-muted)", background: "var(--mf-bg)" }}
+                  >
+                    +
                   </div>
+                </div>
+                <p className="text-[10px] font-mono mt-3" style={{ color: "var(--mf-text-muted)" }}>100% opcional • max 5 por meta</p>
+              </div>
+            </BlurReveal>
+
+            {/* Card 4 — Conquistas */}
+            <BlurReveal delay={200} className="md:col-span-2 lg:col-span-2">
+              <div className="rounded-3xl p-8 sm:p-10 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "200px" }}>
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
                   <div>
-                    <h3 className="font-semibold mb-1" style={{ color: "var(--mf-text)" }}>{s.title}</h3>
-                    <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>{s.desc}</p>
+                    <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--amber)" }}>04 — Conquistas</span>
+                    <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                      De Bronze a Diamante.
+                    </h3>
+                    <p className="text-sm mt-3 max-w-sm" style={{ color: "var(--mf-text-muted)" }}>
+                      13 conquistas para desbloquear. Cada marco merece ser celebrado.
+                    </p>
+                  </div>
+                  {/* Achievement badges */}
+                  <div className="flex gap-3 flex-wrap sm:flex-nowrap">
+                    {[
+                      { emoji: "👣", label: "7d", color: "#CD7F32" },
+                      { emoji: "🔥", label: "14d", color: "#A0A0A0" },
+                      { emoji: "🛡️", label: "30d", color: "#FFB703" },
+                      { emoji: "🏆", label: "90d", color: "#2D6A4F" },
+                      { emoji: "💎", label: "365d", color: "#90E0EF" },
+                    ].map((a, i) => (
+                      <div
+                        key={a.label}
+                        className="w-14 h-14 rounded-2xl flex flex-col items-center justify-center transition-all hover:scale-110 hover:-translate-y-1"
+                        style={{
+                          background: `color-mix(in srgb, ${a.color} 10%, var(--mf-bg-secondary))`,
+                          border: `1px solid color-mix(in srgb, ${a.color} 25%, transparent)`,
+                          transitionDelay: `${i * 50}ms`,
+                        }}
+                      >
+                        <span className="text-lg">{a.emoji}</span>
+                        <span className="text-[8px] font-mono" style={{ color: a.color }}>{a.label}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </ScrollReveal>
-            ))}
+              </div>
+            </BlurReveal>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════ CONQUISTAS PREVIEW ═══════════════ */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--amber)" }}>Gamificação</span>
-              <h2 className="text-3xl font-bold mt-3 mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Conquistas que motivam
-              </h2>
-              <p style={{ color: "var(--mf-text-muted)" }}>De Bronze a Diamante. Cada marco merece ser celebrado.</p>
-            </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            {achievements.map((a, i) => (
-              <ScrollReveal key={a.name} delay={i * 80}>
-                <div className="rounded-xl p-4 text-center" style={{ background: `color-mix(in srgb, ${a.color} 8%, var(--mf-bg-secondary))`, border: `1px solid color-mix(in srgb, ${a.color} 20%, transparent)` }}>
-                  <div className="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ background: `color-mix(in srgb, ${a.color} 15%, transparent)` }}>
-                    <Star className="w-5 h-5" style={{ color: a.color }} />
-                  </div>
-                  <p className="text-[10px] font-semibold" style={{ color: "var(--mf-text)" }}>{a.name}</p>
-                  <p className="text-[8px] font-mono uppercase" style={{ color: a.color }}>{a.rarity}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ COMPARAÇÃO ═══════════════ */}
-      <section className="py-20" style={{ background: "var(--mf-bg-secondary)" }}>
-        <div className="max-w-3xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--mf-text-muted)" }}>Por que +Fortes?</span>
-              <h2 className="text-3xl font-bold mt-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Diferente de tudo que existe
-              </h2>
-            </div>
-          </ScrollReveal>
-          <div className="space-y-3">
-            {comparisons.map((c, i) => (
-              <ScrollReveal key={c.them} delay={i * 100}>
-                <div className="rounded-xl p-5" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}>
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(244,132,95,0.1)", color: "var(--coral)" }}>{c.them}</span>
-                    <ArrowRight className="w-3 h-3" style={{ color: "var(--mf-text-muted)" }} />
-                    <span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>{c.us}</span>
-                  </div>
-                  <p className="text-sm" style={{ color: "var(--mf-text-secondary)" }}>{c.diff}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+      {/* ═══════════════ PRIVACIDADE + GRATUITO ═══════════════ */}
+      <section className="py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <BlurReveal>
+              <div className="rounded-3xl p-10 h-full" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
+                <span className="text-4xl">🔒</span>
+                <h3 className="text-2xl font-bold mt-4 mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  Privacidade por padrão.
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>
+                  Você decide quem vê o quê. Por meta. Sem exceção. Nenhum dado é vendido, compartilhado ou usado para anúncio. Nunca.
+                </p>
+              </div>
+            </BlurReveal>
+            <BlurReveal delay={100}>
+              <div className="rounded-3xl p-10 h-full" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
+                <span className="text-4xl">💚</span>
+                <h3 className="text-2xl font-bold mt-4 mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  Gratuito. Para sempre.
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>
+                  Sem plano pago, sem período de teste, sem pegadinha. Código aberto no GitHub. O propósito é ajudar — e pronto.
+                </p>
+              </div>
+            </BlurReveal>
           </div>
         </div>
       </section>
 
       {/* ═══════════════ DEPOIMENTOS ═══════════════ */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--mf-text-muted)" }}>Depoimentos</span>
-              <h2 className="text-3xl font-bold mt-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Histórias reais
-              </h2>
-            </div>
-          </ScrollReveal>
+      <section className="py-32" style={{ background: "var(--mf-bg-secondary)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <BlurReveal>
+            <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--mf-text-muted)" }}>Histórias</span>
+            <h2 className="text-4xl sm:text-5xl font-bold mt-4 mb-16 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Quem usa, sente.
+            </h2>
+          </BlurReveal>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {testimonials.map((t, i) => (
-              <ScrollReveal key={i} delay={i * 100}>
-                <div className="rounded-xl p-6 h-full flex flex-col" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
-                  <div className="flex gap-0.5 mb-4">
-                    {[1,2,3,4,5].map((s) => (
-                      <Star key={s} className="w-3.5 h-3.5 fill-current" style={{ color: "var(--amber)" }} />
-                    ))}
+            {[
+              { text: "Eu tentei parar de beber sozinho várias vezes. Quando minha irmã começou a acompanhar pelo app, tudo mudou.", who: "Protagonista", age: "34 anos" },
+              { text: "Não sabia como ajudar meu irmão sem parecer que estava controlando. O +Fortes me deu um papel claro.", who: "Apoiadora", age: "28 anos" },
+              { text: "O streak virou um jogo comigo mesmo. Quando vi que estava há 30 dias, chorei.", who: "Protagonista", age: "41 anos" },
+            ].map((t, i) => (
+              <BlurReveal key={i} delay={i * 100}>
+                <div
+                  className="rounded-3xl p-8 h-full flex flex-col justify-between transition-all hover:-translate-y-1"
+                  style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
+                >
+                  <p className="text-base leading-relaxed mb-8" style={{ color: "var(--mf-text-secondary)" }}>
+                    &ldquo;{t.text}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
+                      {t.who[0]}
+                    </div>
+                    <div>
+                      <span className="text-xs font-semibold block" style={{ color: "var(--mf-text)" }}>{t.who}</span>
+                      <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>{t.age}</span>
+                    </div>
                   </div>
-                  <p className="text-sm flex-1 mb-4" style={{ color: "var(--mf-text-secondary)" }}>"{t.text}"</p>
-                  <p className="text-xs font-mono" style={{ color: "var(--mf-text-muted)" }}>— {t.author}</p>
                 </div>
-              </ScrollReveal>
+              </BlurReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* ═══════════════ FAQ ═══════════════ */}
-      <section className="py-20" style={{ background: "var(--mf-bg-secondary)" }}>
-        <div className="max-w-3xl mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Perguntas frequentes
-              </h2>
-            </div>
-          </ScrollReveal>
-          <div className="space-y-3">
+      <section className="py-32">
+        <div className="max-w-3xl mx-auto px-6">
+          <BlurReveal>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-16 text-center leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Perguntas<br />frequentes.
+            </h2>
+          </BlurReveal>
+          <div className="space-y-0">
             {[
               { q: "É realmente grátis?", a: "Sim. Sem plano pago, sem anúncio, sem venda de dados. O código é aberto e o propósito é ajudar." },
               { q: "Preciso convidar alguém?", a: "Não. O app funciona completo sozinho. A rede de apoio está lá quando você quiser — sem pressa." },
               { q: "Meus dados são seguros?", a: "Sim. Criptografia, controle por meta e nada é público. Você decide tudo." },
-              { q: "Funciona para qualquer tipo de mudança?", a: "Sim. Álcool, dieta, cigarro, celular, exercício — qualquer comportamento que você queira mudar." },
-              { q: "Preciso baixar na App Store?", a: "Não precisa. Acesse pelo navegador e instale direto na tela do celular — funciona como app." },
+              { q: "Funciona para qualquer mudança?", a: "Sim. Álcool, dieta, cigarro, celular, exercício — qualquer comportamento que você queira mudar." },
+              { q: "Preciso baixar na App Store?", a: "Não. Acesse pelo navegador e instale direto na tela do celular — funciona como app." },
             ].map((faq, i) => (
-              <ScrollReveal key={i} delay={i * 80}>
-                <div className="rounded-xl p-5" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}>
+              <BlurReveal key={i} delay={i * 60}>
+                <div className="py-6" style={{ borderBottom: "1px solid var(--mf-border-subtle)" }}>
                   <h3 className="font-semibold mb-2" style={{ color: "var(--mf-text)" }}>{faq.q}</h3>
-                  <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>{faq.a}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>{faq.a}</p>
                 </div>
-              </ScrollReveal>
+              </BlurReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* ═══════════════ CTA FINAL ═══════════════ */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full opacity-40" style={{ background: "radial-gradient(ellipse, rgba(45,106,79,0.1), transparent 70%)" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, var(--forest), transparent 70%)" }} />
         </div>
-        <div className="max-w-2xl mx-auto px-4 text-center relative z-10">
-          <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-              Ninguém muda sozinho.
+        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+          <BlurReveal>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Sua mudança começa<br />com um <span style={{ whiteSpace: "nowrap" }}>check-in.</span>
             </h2>
-            <p className="text-lg mb-8" style={{ color: "var(--mf-text-muted)" }}>
-              Sua mudança começa com um passo. E você não precisa dar ele sozinho.
+          </BlurReveal>
+          <BlurReveal delay={100}>
+            <p className="text-lg mb-10" style={{ color: "var(--mf-text-muted)" }}>
+              10 segundos por dia. Sem cobranças, sem julgamento.<br className="hidden sm:block" />
+              E se quiser, com quem te importa ao lado.
             </p>
-            <Link href="/auth/register" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold transition-all active:scale-[0.98]" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
-              Comece agora — é grátis <ArrowRight className="w-5 h-5" />
+          </BlurReveal>
+          <BlurReveal delay={200}>
+            <Link
+              href="/auth/register"
+              className="group inline-flex items-center gap-3 px-10 py-5 rounded-full text-white font-semibold transition-all hover:gap-4 active:scale-[0.98]"
+              style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
+            >
+              Comece agora — é grátis
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <p className="text-xs mt-4" style={{ color: "var(--mf-text-muted)" }}>
-              Gratuito. Sem pegadinha. Sem anúncio. Para sempre.
-            </p>
-          </ScrollReveal>
+          </BlurReveal>
         </div>
       </section>
 
       {/* ═══════════════ FOOTER ═══════════════ */}
-      <footer className="py-10 border-t" style={{ borderColor: "var(--mf-border-subtle)" }}>
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-start justify-between gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-                <span className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
+      <footer className="py-16 border-t" style={{ borderColor: "var(--mf-border-subtle)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div className="md:col-span-4">
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </div>
+                <span className="font-bold text-sm tracking-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
               </div>
-              <p className="text-xs max-w-xs" style={{ color: "var(--mf-text-muted)" }}>
+              <p className="text-xs leading-relaxed max-w-xs" style={{ color: "var(--mf-text-muted)" }}>
                 Plataforma gratuita de acompanhamento com rede de apoio para mudança comportamental.
               </p>
             </div>
-            <div className="flex gap-12">
-              <div>
-                <h4 className="text-xs font-semibold mb-3" style={{ color: "var(--mf-text)" }}>Produto</h4>
-                <div className="space-y-2">
-                  <a href="#como-funciona" className="text-xs block" style={{ color: "var(--mf-text-muted)" }}>Como funciona</a>
-                  <Link href="/auth/register" className="text-xs block" style={{ color: "var(--mf-text-muted)" }}>Criar conta</Link>
-                  <a href="https://brand.maisfortes.com.br" target="_blank" rel="noopener" className="text-xs block" style={{ color: "var(--mf-text-muted)" }}>Brandbook</a>
+            {[
+              { title: "Produto", links: [{ label: "Como funciona", href: "#como-funciona" }, { label: "Criar conta", href: "/auth/register" }, { label: "Brandbook", href: "https://brand.maisfortes.com.br", ext: true }] },
+              { title: "Legal", links: [{ label: "Termos de uso", href: "/termos" }, { label: "Privacidade", href: "/privacidade" }] },
+              { title: "Open-source", links: [{ label: "GitHub", href: "https://github.com/wilderamorim/maisfortes.com.br", ext: true }, { label: "Licença MIT", href: "https://github.com/wilderamorim/maisfortes.com.br/blob/main/LICENSE", ext: true }] },
+            ].map((col) => (
+              <div key={col.title} className="md:col-span-2">
+                <h4 className="text-xs font-semibold mb-4 uppercase tracking-wider" style={{ color: "var(--mf-text-muted)" }}>{col.title}</h4>
+                <div className="space-y-3">
+                  {col.links.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      {...("ext" in link ? { target: "_blank", rel: "noopener" } : {})}
+                      className="text-xs flex items-center gap-1 transition-all hover:opacity-70"
+                      style={{ color: "var(--mf-text-secondary)" }}
+                    >
+                      {link.label}
+                      {"ext" in link && <ArrowUpRight className="w-3 h-3 opacity-40" />}
+                    </a>
+                  ))}
                 </div>
               </div>
-              <div>
-                <h4 className="text-xs font-semibold mb-3" style={{ color: "var(--mf-text)" }}>Legal</h4>
-                <div className="space-y-2">
-                  <Link href="/termos" className="text-xs block" style={{ color: "var(--mf-text-muted)" }}>Termos de uso</Link>
-                  <Link href="/privacidade" className="text-xs block" style={{ color: "var(--mf-text-muted)" }}>Política de privacidade</Link>
-                </div>
-              </div>
-              <div>
-                <h4 className="text-xs font-semibold mb-3" style={{ color: "var(--mf-text)" }}>Open-source</h4>
-                <div className="space-y-2">
-                  <a href="https://github.com/wilderamorim/maisfortes.com.br" target="_blank" rel="noopener" className="text-xs block" style={{ color: "var(--mf-text-muted)" }}>GitHub</a>
-                  <a href="https://github.com/wilderamorim/maisfortes.com.br/blob/main/LICENSE" target="_blank" rel="noopener" className="text-xs block" style={{ color: "var(--mf-text-muted)" }}>Licença MIT</a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-          <div className="mt-8 pt-6 border-t flex items-center justify-between" style={{ borderColor: "var(--mf-border-subtle)" }}>
-            <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>+Fortes — Juntos, somos mais fortes.</span>
+          <div className="mt-16 pt-8 flex items-center justify-between" style={{ borderTop: "1px solid var(--mf-border-subtle)" }}>
+            <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>+Fortes — +Forte a cada dia.</span>
             <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>&copy; 2026</span>
           </div>
         </div>

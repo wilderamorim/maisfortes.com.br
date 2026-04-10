@@ -1,7 +1,7 @@
 # +Fortes — Status do MVP
 
-> **Progresso: 79/98 tasks (81%)**
-> **Atualizado: 2026-04-09**
+> **Progresso: 88/98 tasks (90%)**
+> **Atualizado: 2026-04-10**
 
 ---
 
@@ -31,12 +31,17 @@
 - [x] Conquista "Multi-Jornada" (2+ metas)
 - [x] Conquista "Volta por Cima" (retomar streak)
 
-### Engajamento (60%)
+### Engajamento (90%)
 - [x] Onboarding guiado (3 passos, apoiador opcional)
 - [x] Sistema de notificações in-app (sininho + badge)
 - [x] Centro de notificações (página)
 - [x] Push Permission component
 - [x] Service Worker com push handler
+- [x] Push diário "Ei, como foi hoje?" com horário configurável
+- [x] Alerta de inatividade 48h para apoiadores
+- [x] Modo dia difícil (score 1 → tela de apoio + CVV)
+- [x] Mensagens/reações visíveis na Home
+- [x] Configuração de notificações no perfil
 
 ### Perfil (80%)
 - [x] Perfil com avatar, nome, stats (check-ins, streak atual, melhor streak, conquistas)
@@ -63,13 +68,13 @@
 
 | # | Task | Impacto |
 |---|------|---------|
-| **8.13** | Deploy no Vercel + domínio maisfortes.com.br | Sem deploy, não existe |
-| **5.8** | Edge Function para push diário ("Ei, como foi hoje?") | Principal driver de retenção |
-| **5.9** | Push configurável (horário do lembrete) | Complementa o push diário |
-| **5.10** | Push de alerta para apoiadores (inatividade 48h) | Core da rede de apoio |
-| **5.14** | Modo "dia difícil" (score 1 → recursos de apoio) | Diferencial emocional do app |
-| **5.15** | Tela especial: "Quer falar com alguém da sua rede?" | Complementa dia difícil |
-| **3.14** | Mostrar mensagens/reações na Home | Sem isso, protagonista não vê apoio |
+| ~~**8.13**~~ | ~~Deploy no Vercel + domínio maisfortes.com.br~~ | ✅ **FEITO** (2026-04-10) |
+| ~~**5.8**~~ | ~~Edge Function para push diário ("Ei, como foi hoje?")~~ | ✅ **FEITO** (2026-04-10) |
+| ~~**5.9**~~ | ~~Push configurável (horário do lembrete)~~ | ✅ **FEITO** (2026-04-10) |
+| ~~**5.10**~~ | ~~Push de alerta para apoiadores (inatividade 48h)~~ | ✅ **FEITO** (2026-04-10) |
+| ~~**5.14**~~ | ~~Modo "dia difícil" (score 1 → recursos de apoio)~~ | ✅ **FEITO** (2026-04-10) |
+| ~~**5.15**~~ | ~~Tela especial: "Quer falar com alguém da sua rede?"~~ | ✅ **FEITO** (2026-04-10) |
+| ~~**3.14**~~ | ~~Mostrar mensagens/reações na Home~~ | ✅ **FEITO** (2026-04-10) |
 
 ### Prioridade MÉDIA — Melhora a experiência
 
@@ -137,13 +142,13 @@
 
 ## Recomendação para lançar
 
-**MVP mínimo para lançar (7 tasks restantes de alta prioridade):**
+**MVP mínimo para lançar — TODAS AS TASKS CONCLUÍDAS ✅**
 
-1. Deploy no Vercel (**8.13**)
-2. Push diário + configuração (**5.8, 5.9**)
-3. Alerta para apoiadores (**5.10**)
-4. Mensagens na Home (**3.14**)
-5. Modo dia difícil (**5.14, 5.15**)
+1. ~~Deploy no Vercel (**8.13**)~~ ✅ FEITO
+2. ~~Push diário + configuração (**5.8, 5.9**)~~ ✅ FEITO
+3. ~~Alerta para apoiadores (**5.10**)~~ ✅ FEITO
+4. ~~Mensagens na Home (**3.14**)~~ ✅ FEITO
+5. ~~Modo dia difícil (**5.14, 5.15**)~~ ✅ FEITO
 
 **Com essas 7 tasks, o app tem:**
 - Fluxo completo: cadastro → meta → check-in → streak → conquistas

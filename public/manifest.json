@@ -1,7 +1,7 @@
 {
   "name": "+Fortes",
   "short_name": "+Fortes",
-  "description": "Juntos, somos mais fortes. Plataforma de acompanhamento com rede de apoio.",
+  "description": "+Forte a cada dia.",
   "start_url": "/home",
   "display": "standalone",
   "background_color": "#FFFFFF",
@@ -19,6 +19,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

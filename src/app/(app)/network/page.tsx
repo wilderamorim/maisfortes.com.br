@@ -71,7 +71,7 @@ export default async function NetworkPage() {
         ) : (
           <div className="rounded-xl p-6 text-center" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}>
             <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
-              Adicione amigos para ver os streaks lado a lado.
+              Convide amigos e acompanhem os streaks um do outro.
             </p>
           </div>
         )}
@@ -119,7 +119,7 @@ export default async function NetworkPage() {
                   </div>
                 ) : (
                   <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
-                    Nenhum apoiador ainda. Convide quando estiver pronto.
+                    Sem apoiador por enquanto — e tudo bem. Convide quando quiser.
                   </p>
                 )}
               </div>

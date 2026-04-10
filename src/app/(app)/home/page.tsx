@@ -119,14 +119,14 @@ export default async function HomePage() {
             Comece sua jornada
           </h2>
           <p className="text-sm mb-4" style={{ color: "var(--mf-text-muted)" }}>
-            Crie sua primeira meta e faça o primeiro check-in.
+            Defina o que quer mudar e dê o primeiro passo.
           </p>
           <Link
             href="/goals"
             className="inline-block px-6 py-2.5 rounded-xl text-white text-sm font-semibold transition-all active:scale-95"
             style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
           >
-            Criar meta
+            Definir minha meta
           </Link>
         </div>
       )}

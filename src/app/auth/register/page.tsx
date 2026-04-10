@@ -46,7 +46,7 @@ export default function RegisterPage() {
         {emailSent ? "Verifique seu email" : "Criar conta"}
       </h1>
       <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
-        {emailSent ? `Enviamos um link de confirmação para ${email}` : "Ninguém muda sozinho"}
+        {emailSent ? `Enviamos um link de confirmação para ${email}` : "Sua jornada começa aqui"}
       </p>
 
       {emailSent ? (

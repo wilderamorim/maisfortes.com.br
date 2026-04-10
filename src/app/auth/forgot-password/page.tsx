@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
           </div>
           <div className="rounded-xl p-4" style={{ background: "rgba(45,106,79,0.05)", border: "1px solid rgba(45,106,79,0.1)" }}>
             <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
-              O link expira em 1 hora. Caso não receba, tente novamente.
+              O link vale por 1 hora. Se não chegar, olhe no spam ou tente de novo.
             </p>
           </div>
           <button
@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
             Recuperar senha
           </h1>
           <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
-            Digite seu email e enviaremos um link para criar uma nova senha.
+            Sem problema. Digite seu email que enviamos um link para criar uma nova.
           </p>
 
           {error && (

@@ -17,7 +17,7 @@ export default async function HistoryPage() {
       {goals.length === 0 ? (
         <div className="rounded-xl p-8 text-center" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}>
           <CalendarDays className="w-12 h-12 mx-auto mb-3" style={{ color: "var(--mf-text-muted)" }} />
-          <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>Seus check-ins aparecerão aqui.</p>
+          <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>Faça seu primeiro check-in e ele aparecerá aqui.</p>
         </div>
       ) : (
         <div className="space-y-6">

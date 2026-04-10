@@ -49,7 +49,7 @@ export default function NewGoalPage() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Ex: Parar de beber, Emagrecer, Largar o celular..."
+            placeholder="Ex: Parar de beber, emagrecer, largar o cigarro..."
             required
             maxLength={100}
             className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
@@ -64,7 +64,7 @@ export default function NewGoalPage() {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Por que essa meta é importante pra você?"
+            placeholder="O que te motiva a mudar isso?"
             rows={3}
             maxLength={300}
             className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none transition-all focus:ring-2"
@@ -78,7 +78,7 @@ export default function NewGoalPage() {
           className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-40"
           style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
         >
-          {loading ? "Criando..." : "Começar jornada"}
+          {loading ? "Criando..." : "Começar essa jornada"}
         </button>
       </form>
     </div>

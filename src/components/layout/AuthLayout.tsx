@@ -35,7 +35,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
             Ninguém muda sozinho.
           </h1>
           <p className="text-lg opacity-80 leading-relaxed mb-8">
-            +Fortes conecta quem está mudando um comportamento com quem apoia. Check-in diário, streak e rede de apoio.
+            Registre seu progresso diário, mantenha a constância e conte com quem te apoia. Tudo grátis, tudo privado.
           </p>
           <div className="flex items-center gap-6 text-sm opacity-60">
             <div>

@@ -86,7 +86,7 @@ function CheckinContent() {
             Check-in registrado!
           </h2>
           <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
-            Cada dia conta. Você está +Forte.
+            Mais um dia. Você está mais forte.
           </p>
         </div>
       </div>

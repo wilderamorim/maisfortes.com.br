@@ -10,19 +10,19 @@ export const metadata = {
 };
 
 const features = [
-  { icon: CheckCircle, title: "Check-in diário", desc: "Registre como foi seu dia em 10 segundos. Score de 1 a 5 + nota opcional." },
-  { icon: Flame, title: "Streak", desc: "Acompanhe sua sequência de dias. Consistência importa mais que perfeição." },
-  { icon: Users, title: "Rede de apoio", desc: "Convide quem te apoia — opcional, privado, sem julgamento." },
-  { icon: Bell, title: "Alertas inteligentes", desc: "Sua rede recebe alerta se você precisar de apoio. Sem ser invasivo." },
-  { icon: Shield, title: "Privacidade granular", desc: "Controle por meta quem vê o quê. Seus dados, suas regras." },
-  { icon: Trophy, title: "Conquistas", desc: "Desbloqueie troféus de Bronze a Diamante à medida que evolui." },
+  { icon: CheckCircle, title: "Check-in diário", desc: "Como foi hoje? Um toque e pronto. Leva 10 segundos." },
+  { icon: Flame, title: "Streak", desc: "Cada dia conta. Mantenha a sequência e veja sua força crescer." },
+  { icon: Users, title: "Rede de apoio", desc: "Convide quem se importa. Eles acompanham, você controla." },
+  { icon: Bell, title: "Alertas inteligentes", desc: "Sua rede percebe se você sumir. Cuidado, não cobrança." },
+  { icon: Shield, title: "Privacidade granular", desc: "Você decide quem vê o quê. Por meta. Sem exceção." },
+  { icon: Trophy, title: "Conquistas", desc: "De Bronze a Diamante. Cada conquista é sua." },
 ];
 
 const steps = [
-  { num: "01", title: "Crie sua meta", desc: "Defina o que quer mudar — dieta, vício, hábito. Pode ter várias." },
-  { num: "02", title: "Faça check-in diário", desc: "Score de 1 a 5 + nota opcional. Leva 10 segundos. Todo dia conta." },
-  { num: "03", title: "Convide quem te apoia", desc: "Família, amigos — opcional, por link. Eles acompanham sem invadir." },
-  { num: "04", title: "Evolua acompanhado", desc: "Streak, conquistas e sua rede torcendo por você. Um dia de cada vez." },
+  { num: "01", title: "Crie sua meta", desc: "Parar de beber? Emagrecer? Largar o celular? Vale qualquer mudança." },
+  { num: "02", title: "Faça check-in diário", desc: "Como foi hoje? Escolha de 1 a 5. Pronto. Não precisa de mais." },
+  { num: "03", title: "Convide quem te apoia", desc: "Mande o link pelo WhatsApp. Sem app, sem cadastro complicado." },
+  { num: "04", title: "Evolua acompanhado", desc: "Veja seu streak crescer, desbloqueie conquistas e sinta sua rede torcendo." },
 ];
 
 const achievements = [
@@ -35,9 +35,9 @@ const achievements = [
 ];
 
 const comparisons = [
-  { them: "Apps de hábitos", us: "+Fortes", diff: "Foco individual → Rede de apoio estruturada" },
-  { them: "Grupos de WhatsApp", us: "+Fortes", diff: "Sem estrutura → Check-in diário + streak + dados" },
-  { them: "Apps de recovery", us: "+Fortes", diff: "Comunidade anônima → Pessoas que você escolhe" },
+  { them: "Apps de hábitos", us: "+Fortes", diff: "Você sozinho contra o hábito → Você com uma rede ao seu lado" },
+  { them: "Grupos de WhatsApp", us: "+Fortes", diff: "Mensagens perdidas → Check-in organizado com histórico real" },
+  { them: "Apps de recovery", us: "+Fortes", diff: "Desconhecidos na internet → As pessoas que te conhecem de verdade" },
 ];
 
 const testimonials = [
@@ -89,7 +89,7 @@ export default function LandingPage() {
                 </span>
               </h1>
               <p className="text-lg mb-8 max-w-lg" style={{ color: "var(--mf-text-secondary)" }}>
-                +Fortes conecta quem está mudando um comportamento com quem apoia. Check-in diário, streak, conquistas e rede de apoio privada.
+                A plataforma que conecta quem está lutando por uma mudança com quem se importa de verdade. Registre seu progresso, mantenha a constância e evolua com quem te apoia ao lado.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link href="/auth/register" className="px-8 py-3.5 rounded-xl text-white font-semibold text-sm inline-flex items-center justify-center gap-2 transition-all active:scale-[0.98]" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
@@ -120,7 +120,7 @@ export default function LandingPage() {
             <ScrollReveal delay={100}>
               <div>
                 <AnimatedCounter target={26} suffix="" />
-                <p className="text-xs mt-1" style={{ color: "var(--mf-text-muted)" }}>features no MVP</p>
+                <p className="text-xs mt-1" style={{ color: "var(--mf-text-muted)" }}>recursos disponíveis</p>
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200}>
@@ -140,16 +140,16 @@ export default function LandingPage() {
             <div className="text-center mb-12">
               <span className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--coral)" }}>O problema</span>
               <h2 className="text-3xl font-bold mt-3 mb-4" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                Mudar sozinho é mais difícil do que parece
+                Você já tentou mudar sozinho. Sabe como é.
               </h2>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { icon: Target, text: "Falta de acompanhamento constante" },
-              { icon: Heart, text: "Isolamento emocional na jornada" },
-              { icon: Zap, text: "Dificuldade em manter disciplina" },
-              { icon: Users, text: "Família quer ajudar mas não sabe como" },
+              { icon: Target, text: "Começa motivado, mas em duas semanas já esqueceu" },
+              { icon: Heart, text: "Ninguém sabe pelo que você está passando" },
+              { icon: Zap, text: "A vontade de desistir aparece mais que a de continuar" },
+              { icon: Users, text: "Quem te ama quer ajudar, mas não sabe o que fazer" },
             ].map((item, i) => (
               <ScrollReveal key={item.text} delay={i * 100}>
                 <div className="flex items-start gap-3 rounded-xl p-4" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
@@ -177,9 +177,9 @@ export default function LandingPage() {
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: CheckCircle, title: "Autogestão", desc: "Check-in diário, streak, histórico. Você no controle da sua evolução.", color: "var(--forest)" },
-              { icon: Users, title: "Apoio social", desc: "Rede de apoio estruturada. Família e amigos com papel claro — sem invadir.", color: "var(--coral)" },
-              { icon: Trophy, title: "Gamificação", desc: "Conquistas, milestones e streak de amigos. Motivação que funciona.", color: "var(--amber)" },
+              { icon: CheckCircle, title: "Autogestão", desc: "10 segundos por dia. Registre, acompanhe e veja sua evolução crescer.", color: "var(--forest)" },
+              { icon: Users, title: "Apoio social", desc: "Família e amigos acompanham sem sufocor. Cada um com um papel claro.", color: "var(--coral)" },
+              { icon: Trophy, title: "Gamificação", desc: "Troféus, streaks e celebrações. A motivação certa na hora certa.", color: "var(--amber)" },
             ].map((pillar, i) => (
               <ScrollReveal key={pillar.title} delay={i * 150}>
                 <div className="rounded-2xl p-8 text-center h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}>
@@ -350,11 +350,11 @@ export default function LandingPage() {
           </ScrollReveal>
           <div className="space-y-3">
             {[
-              { q: "É realmente grátis?", a: "Sim, 100%. Sem planos pagos, sem anúncios, sem venda de dados. É um projeto open-source." },
-              { q: "Preciso convidar alguém?", a: "Não. O app funciona perfeitamente sozinho. A rede de apoio é opcional — convide quando e se quiser." },
-              { q: "Meus dados são seguros?", a: "Sim. Usamos criptografia, controle de acesso por linha no banco e você controla quem vê o quê. Nada é público." },
-              { q: "Funciona para qualquer tipo de mudança?", a: "Sim. Vício, dieta, exercício, hábito digital, saúde mental — qualquer comportamento que você queira mudar." },
-              { q: "Preciso baixar na App Store?", a: "Não. É um Progressive Web App (PWA). Acesse pelo navegador e instale direto na tela do seu celular." },
+              { q: "É realmente grátis?", a: "Sim. Sem plano pago, sem anúncio, sem venda de dados. O código é aberto e o propósito é ajudar." },
+              { q: "Preciso convidar alguém?", a: "Não. O app funciona completo sozinho. A rede de apoio está lá quando você quiser — sem pressa." },
+              { q: "Meus dados são seguros?", a: "Sim. Criptografia, controle por meta e nada é público. Você decide tudo." },
+              { q: "Funciona para qualquer tipo de mudança?", a: "Sim. Álcool, dieta, cigarro, celular, exercício — qualquer comportamento que você queira mudar." },
+              { q: "Preciso baixar na App Store?", a: "Não precisa. Acesse pelo navegador e instale direto na tela do celular — funciona como app." },
             ].map((faq, i) => (
               <ScrollReveal key={i} delay={i * 80}>
                 <div className="rounded-xl p-5" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}>
@@ -378,13 +378,13 @@ export default function LandingPage() {
               Ninguém muda sozinho.
             </h2>
             <p className="text-lg mb-8" style={{ color: "var(--mf-text-muted)" }}>
-              Comece sua jornada e convide quem te apoia. É grátis, sempre.
+              Sua mudança começa com um passo. E você não precisa dar ele sozinho.
             </p>
             <Link href="/auth/register" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold transition-all active:scale-[0.98]" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
               Comece agora — é grátis <ArrowRight className="w-5 h-5" />
             </Link>
             <p className="text-xs mt-4" style={{ color: "var(--mf-text-muted)" }}>
-              Sem cartão de crédito. Sem período de teste. Grátis de verdade.
+              Gratuito. Sem pegadinha. Sem anúncio. Para sempre.
             </p>
           </ScrollReveal>
         </div>

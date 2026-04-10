@@ -18,13 +18,12 @@ export async function GET(request: Request) {
   }
 
   const now = new Date();
-  const currentHour = now.getUTCHours();
 
-  // Get ALL users whose notification_time matches (not just those with push)
+  // Hobby plan: cron runs once/day at 21:00 UTC (18:00 BRT)
+  // Send to ALL users who haven't checked in today
   const { data: users } = await supabase
     .from("users")
-    .select("id, email, name, push_subscription, notification_time")
-    .eq("notification_time", currentHour);
+    .select("id, email, name, push_subscription");
 
   if (!users || users.length === 0) {
     return NextResponse.json({ sent: 0 });

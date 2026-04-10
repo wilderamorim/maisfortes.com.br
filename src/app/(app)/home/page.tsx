@@ -3,6 +3,7 @@ import { getTodayCheckins } from "@/lib/actions/checkins";
 import { createClient } from "@/lib/supabase/server";
 import { Flame, Plus, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { NotificationBell } from "@/components/layout/NotificationBell";
 
 export const metadata = { title: "Home" };
 
@@ -44,13 +45,16 @@ export default async function HomePage() {
             Como vai hoje?
           </h1>
         </div>
-        <Link
-          href="/profile"
-          className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm"
-          style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)", fontFamily: "var(--font-display)" }}
-        >
-          {name[0]?.toUpperCase()}
-        </Link>
+        <div className="flex items-center gap-1">
+          <NotificationBell />
+          <Link
+            href="/profile"
+            className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm"
+            style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)", fontFamily: "var(--font-display)" }}
+          >
+            {name[0]?.toUpperCase()}
+          </Link>
+        </div>
       </div>
 
       {/* Goals list */}

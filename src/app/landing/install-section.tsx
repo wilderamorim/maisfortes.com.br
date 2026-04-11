@@ -15,13 +15,13 @@ function detectPlatform(): Platform {
 
 const STEPS_IOS = [
   { icon: <SquareArrowOutUp className="w-5 h-5" />, text: "Toque no botão Compartilhar", detail: "Na barra inferior do Safari" },
-  { icon: <Plus className="w-5 h-5" />, text: "Toque em "Adicionar à Tela Inicial"", detail: "Role para baixo se necessário" },
-  { icon: <Download className="w-5 h-5" />, text: "Confirme tocando em "Adicionar"", detail: "O ícone aparecerá na sua tela" },
+  { icon: <Plus className="w-5 h-5" />, text: 'Toque em "Adicionar à Tela Inicial"', detail: "Role para baixo se necessário" },
+  { icon: <Download className="w-5 h-5" />, text: 'Confirme tocando em "Adicionar"', detail: "O ícone aparecerá na sua tela" },
 ];
 
 const STEPS_ANDROID = [
-  { icon: <Download className="w-5 h-5" />, text: "Toque em "Instalar app"", detail: "O banner aparece automaticamente" },
-  { icon: <Smartphone className="w-5 h-5" />, text: "Confirme a instalação", detail: "Toque em "Instalar" no popup" },
+  { icon: <Download className="w-5 h-5" />, text: 'Toque em "Instalar app"', detail: "O banner aparece automaticamente" },
+  { icon: <Smartphone className="w-5 h-5" />, text: "Confirme a instalação", detail: 'Toque em "Instalar" no popup' },
   { icon: <Plus className="w-5 h-5" />, text: "Pronto! Abra pela tela inicial", detail: "Funciona offline como app nativo" },
 ];
 

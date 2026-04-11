@@ -1,7 +1,7 @@
 # +Fortes — Status do MVP
 
-> **Progresso: 88/98 tasks (90%)**
-> **Atualizado: 2026-04-10**
+> **Progresso: 95/98 tasks (97%)**
+> **Atualizado: 2026-04-11**
 
 ---
 
@@ -80,13 +80,13 @@
 
 | # | Task | Impacto |
 |---|------|---------|
-| **4.7** | Toast ao desbloquear conquista | Feedback imediato de gamificação |
-| **4.8** | Animação de celebração (milestones) | Momentos memoráveis |
-| **2.4** | Pausar / reativar / completar meta | Gestão de metas |
-| **5.11** | Resumo semanal (cron domingo) | Retenção de longo prazo |
-| **5.13** | Card de resumo na Home (domingo/segunda) | Visualização do resumo |
-| **6.2** | Upload de avatar | Personalização |
-| **5.16** | Configuração de notificações no perfil | Controle do usuário |
+| ~~**4.7**~~ | ~~Toast ao desbloquear conquista~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**4.8**~~ | ~~Animação de celebração (milestones)~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**2.4**~~ | ~~Pausar / reativar / completar meta~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**5.11**~~ | ~~Resumo semanal (cron domingo)~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**5.13**~~ | ~~Card de resumo na Home (domingo/segunda)~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**6.2**~~ | ~~Upload de avatar~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**5.16**~~ | ~~Configuração de notificações no perfil~~ | ✅ **FEITO** (2026-04-11) — fixo 18h BRT |
 
 ### Prioridade BAIXA — Nice to have
 

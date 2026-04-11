@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download, Smartphone, Share, Plus, SquareArrowOutUp } from "lucide-react";
+import { Download, Smartphone, Share, Plus, SquareArrowUp } from "lucide-react";
 
 type Platform = "android" | "ios" | "desktop";
 
@@ -14,7 +14,7 @@ function detectPlatform(): Platform {
 }
 
 const STEPS_IOS = [
-  { icon: <SquareArrowOutUp className="w-5 h-5" />, text: "Toque no botão Compartilhar", detail: "Na barra inferior do Safari" },
+  { icon: <SquareArrowUp className="w-5 h-5" />, text: "Toque no botão Compartilhar", detail: "Na barra inferior do Safari" },
   { icon: <Plus className="w-5 h-5" />, text: 'Toque em "Adicionar à Tela Inicial"', detail: "Role para baixo se necessário" },
   { icon: <Download className="w-5 h-5" />, text: 'Confirme tocando em "Adicionar"', detail: "O ícone aparecerá na sua tela" },
 ];

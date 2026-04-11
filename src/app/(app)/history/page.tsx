@@ -2,6 +2,8 @@ import { getActiveGoals } from "@/lib/actions/goals";
 import { getCheckinsByGoal } from "@/lib/actions/checkins";
 import { CalendarDays } from "lucide-react";
 import { SCORE_OPTIONS } from "@/lib/types";
+import { WeeklyScoreChart } from "@/components/history/WeeklyScoreChart";
+import { MoodDistribution } from "@/components/history/MoodDistribution";
 
 export const metadata = { title: "Histórico" };
 
@@ -34,7 +36,18 @@ export default async function HistoryPage() {
                 </div>
 
                 {checkins.length > 0 ? (
-                  <div className="space-y-2">
+                  <div className="space-y-4">
+                    {/* Charts */}
+                    <div
+                      className="rounded-xl p-4 space-y-5"
+                      style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
+                    >
+                      <WeeklyScoreChart checkins={checkins} />
+                      <MoodDistribution checkins={checkins} />
+                    </div>
+
+                    {/* Timeline */}
+                    <div className="space-y-2">
                     {checkins.map((checkin) => {
                       const scoreOpt = SCORE_OPTIONS.find((o) => o.value === checkin.score);
                       const date = new Date(checkin.date + "T12:00:00");
@@ -61,6 +74,7 @@ export default async function HistoryPage() {
                         </div>
                       );
                     })}
+                    </div>
                   </div>
                 ) : (
                   <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>

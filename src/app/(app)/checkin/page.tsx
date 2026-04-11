@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function CheckinPage() {
   return (
-    <Suspense fallback={<div className="px-4 pt-6 max-w-lg mx-auto"><p style={{ color: "var(--mf-text-muted)" }}>Carregando...</p></div>}>
+    <Suspense fallback={null}>
       <CheckinContent />
     </Suspense>
   );

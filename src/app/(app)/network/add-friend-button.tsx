@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { createClient } from "@/lib/supabase/client";
 import { createFriendStreak } from "@/lib/actions/friend-streaks";
 import { TARGET_DAYS_OPTIONS } from "@/lib/types";
@@ -119,11 +120,15 @@ export function AddFriendButton() {
   }
 
   if (step === "setup") {
-    return (
-      <div className="fixed inset-0 z-50 flex items-end justify-center" style={{ background: "rgba(0,0,0,0.4)" }}>
+    const modal = (
+      <div
+        className="fixed inset-0 z-[9999] flex items-end justify-center"
+        style={{ background: "rgba(0,0,0,0.4)" }}
+        onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
+      >
         <div
-          className="w-full max-w-lg rounded-t-2xl p-5 pb-8 space-y-4 animate-slide-up"
-          style={{ background: "var(--mf-surface)", borderTop: "1px solid var(--mf-border-subtle)" }}
+          className="w-full max-w-lg rounded-t-2xl p-5 space-y-4"
+          style={{ background: "var(--mf-surface)", paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))" }}
         >
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
@@ -208,6 +213,7 @@ export function AddFriendButton() {
         </div>
       </div>
     );
+    return createPortal(modal, document.body);
   }
 
   return (

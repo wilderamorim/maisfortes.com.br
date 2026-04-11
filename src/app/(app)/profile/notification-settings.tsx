@@ -16,7 +16,19 @@ export function NotificationSettingsRow({ hasPush }: { hasPush: boolean }) {
       </div>
       <div className="flex items-center gap-1">
         <Clock className="w-3.5 h-3.5" style={{ color: "var(--mf-text-muted)" }} />
-        <span className="text-xs font-mono" style={{ color: "var(--mf-text-muted)" }}>18:00</span>
+        <select
+          value={18}
+          disabled
+          className="text-xs font-mono rounded-lg px-2 py-1 outline-none"
+          style={{
+            background: "var(--mf-bg)",
+            border: "1px solid var(--mf-border)",
+            color: "var(--mf-text-muted)",
+            opacity: 0.6,
+          }}
+        >
+          <option value={18}>18:00</option>
+        </select>
       </div>
     </div>
   );

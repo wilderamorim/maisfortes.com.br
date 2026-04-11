@@ -23,6 +23,54 @@ interface CheckinData {
   note: string | null;
 }
 
+function GoalSelect({ goals, selectedId, onSelect }: { goals: GoalData[]; selectedId: string | null; onSelect: (id: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const selected = goals.find((g) => g.id === selectedId);
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 text-xs font-medium rounded-xl px-3 py-2 transition-all active:scale-95"
+        style={{
+          background: "var(--mf-surface)",
+          border: "1px solid var(--mf-border-subtle)",
+          color: "var(--mf-text)",
+        }}
+      >
+        <span className="max-w-[120px] truncate">{selected?.title ?? "Meta"}</span>
+        <ChevronDown className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--mf-text-muted)", transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+      </button>
+
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div
+            className="absolute right-0 top-full mt-1 z-50 rounded-xl py-1 min-w-[180px] shadow-lg"
+            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
+          >
+            {goals.map((g) => (
+              <button
+                key={g.id}
+                onClick={() => { onSelect(g.id); setOpen(false); }}
+                className="flex items-center gap-2 w-full px-4 py-2.5 text-xs text-left transition-colors"
+                style={{
+                  color: g.id === selectedId ? "var(--forest)" : "var(--mf-text)",
+                  background: g.id === selectedId ? "rgba(45,106,79,0.06)" : "transparent",
+                }}
+              >
+                <Flame className="w-3 h-3 flex-shrink-0" style={{ color: g.current_streak > 0 ? "var(--forest)" : "var(--mf-text-muted)" }} />
+                <span className="flex-1 truncate">{g.title}</span>
+                <span className="font-mono text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{g.current_streak}d</span>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function HistoryPage() {
   const searchParams = useSearchParams();
   const goalParam = searchParams.get("goal");
@@ -92,26 +140,11 @@ export default function HistoryPage() {
         </h1>
 
         {goals.length > 1 && (
-          <div className="relative">
-            <select
-              value={selectedGoalId ?? ""}
-              onChange={(e) => setSelectedGoalId(e.target.value)}
-              className="appearance-none text-xs font-medium rounded-xl pl-3 pr-7 py-2 outline-none cursor-pointer"
-              style={{
-                background: "var(--mf-surface)",
-                border: "1px solid var(--mf-border-subtle)",
-                color: "var(--mf-text)",
-              }}
-            >
-              {goals.map((g) => (
-                <option key={g.id} value={g.id}>{g.title}</option>
-              ))}
-            </select>
-            <ChevronDown
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none"
-              style={{ color: "var(--mf-text-muted)" }}
-            />
-          </div>
+          <GoalSelect
+            goals={goals}
+            selectedId={selectedGoalId}
+            onSelect={setSelectedGoalId}
+          />
         )}
       </div>
 

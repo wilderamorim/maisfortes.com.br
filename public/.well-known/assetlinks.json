@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "br.com.maisfortes.app",
+      "sha256_cert_fingerprints": ["TODO_SUBSTITUIR_PELO_SHA256_DO_PWABUILDER"]
+    }
+  }
+]

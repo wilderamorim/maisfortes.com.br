@@ -1,13 +1,13 @@
 "use client";
 
 import { SCORE_OPTIONS } from "@/lib/types";
-import { createCheckin } from "@/lib/actions/checkins";
+import { createCheckin, getGoalsForCheckin } from "@/lib/actions/checkins";
 import { getSupportersForGoal } from "@/lib/actions/supporters";
 import { sendMessage } from "@/lib/actions/messages";
 import { getFriendStreaksForGoal, nudgeFriend } from "@/lib/actions/friend-streaks";
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Check, Heart, MessageCircle, Phone, Flame } from "lucide-react";
+import { ArrowLeft, Check, Heart, MessageCircle, Phone, Flame, Target, PartyPopper } from "lucide-react";
 import Link from "next/link";
 
 export default function CheckinPage() {
@@ -20,9 +20,10 @@ export default function CheckinPage() {
 
 function CheckinContent() {
   const searchParams = useSearchParams();
-  const goalId = searchParams.get("goal");
+  const goalIdParam = searchParams.get("goal");
   const router = useRouter();
 
+  const [goalId, setGoalId] = useState<string | null>(goalIdParam);
   const [selected, setSelected] = useState<number | null>(null);
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,33 @@ function CheckinContent() {
   const [sendingAlert, setSendingAlert] = useState(false);
   const [friendStreaks, setFriendStreaks] = useState<{ id: string; friend_name: string; friend_checked_today: boolean; current_streak: number; target_days: number }[]>([]);
   const [nudgedIds, setNudgedIds] = useState<Set<string>>(new Set());
+
+  // Goal picker state (when no goalId)
+  const [pendingGoals, setPendingGoals] = useState<{ id: string; title: string; current_streak: number }[]>([]);
+  const [doneGoals, setDoneGoals] = useState<{ id: string; title: string; current_streak: number }[]>([]);
+  const [loadingGoals, setLoadingGoals] = useState(!goalIdParam);
+
+  useEffect(() => {
+    if (!goalIdParam) {
+      loadGoals();
+    }
+  }, [goalIdParam]);
+
+  async function loadGoals() {
+    setLoadingGoals(true);
+    try {
+      const { pending, done } = await getGoalsForCheckin();
+      setPendingGoals(pending);
+      setDoneGoals(done);
+      // Auto-select if only 1 pending
+      if (pending.length === 1) {
+        setGoalId(pending[0].id);
+      }
+    } catch {
+      // Silently fail
+    }
+    setLoadingGoals(false);
+  }
 
   const today = new Date().toLocaleDateString("pt-BR", {
     weekday: "long",
@@ -76,10 +104,78 @@ function CheckinContent() {
     }
   }
 
-  if (!goalId) {
+  // No goal param — show goal picker
+  if (!goalId && !goalIdParam) {
+    if (loadingGoals) {
+      return (
+        <div className="px-4 pt-6 max-w-lg mx-auto">
+          <p style={{ color: "var(--mf-text-muted)" }}>Carregando...</p>
+        </div>
+      );
+    }
+
+    // No goals at all
+    if (pendingGoals.length === 0 && doneGoals.length === 0) {
+      return (
+        <div className="min-h-dvh flex items-center justify-center px-4">
+          <div className="text-center max-w-sm">
+            <div
+              className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"
+              style={{ background: "rgba(45,106,79,0.1)" }}
+            >
+              <Target className="w-10 h-10" style={{ color: "var(--forest)" }} />
+            </div>
+            <h2 className="text-xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Crie sua primeira meta
+            </h2>
+            <p className="text-sm mb-6" style={{ color: "var(--mf-text-muted)" }}>
+              Para fazer check-in, você precisa ter uma meta ativa.
+            </p>
+            <Link
+              href="/goals"
+              className="inline-block w-full py-3 rounded-xl text-white font-semibold text-sm text-center transition-all active:scale-[0.98]"
+              style={{ background: "var(--forest)" }}
+            >
+              Criar meta
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
+    // All goals done for today
+    if (pendingGoals.length === 0 && doneGoals.length > 0) {
+      return (
+        <div className="min-h-dvh flex items-center justify-center px-4">
+          <div className="text-center max-w-sm">
+            <div
+              className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"
+              style={{ background: "rgba(45,106,79,0.1)" }}
+            >
+              <PartyPopper className="w-10 h-10" style={{ color: "var(--forest)" }} />
+            </div>
+            <h2 className="text-xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Tudo feito por hoje!
+            </h2>
+            <p className="text-sm mb-6" style={{ color: "var(--mf-text-muted)" }}>
+              Você já fez check-in em todas as suas metas. Descanse, você merece.
+            </p>
+            <button
+              onClick={() => router.push("/home")}
+              className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98]"
+              style={{ background: "var(--forest)" }}
+            >
+              Voltar para Home
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // Multiple pending goals — show picker
     return (
       <div className="px-4 pt-6 max-w-lg mx-auto">
-        <div className="flex items-center gap-3 mb-8">
+        <div className="flex items-center gap-3 mb-6">
           <Link href="/home" className="p-2 -ml-2 rounded-lg" style={{ color: "var(--mf-text-muted)" }}>
             <ArrowLeft className="w-5 h-5" />
           </Link>
@@ -87,9 +183,54 @@ function CheckinContent() {
             Check-in
           </h1>
         </div>
-        <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
-          Selecione uma meta na Home para fazer o check-in.
+
+        <p className="text-sm mb-4" style={{ color: "var(--mf-text-muted)" }}>
+          Qual meta você quer registrar?
         </p>
+
+        <div className="space-y-2">
+          {pendingGoals.map((g) => (
+            <button
+              key={g.id}
+              onClick={() => setGoalId(g.id)}
+              className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all active:scale-[0.98]"
+              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
+            >
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ background: "rgba(45,106,79,0.1)" }}
+              >
+                <Flame className="w-4 h-4" style={{ color: "var(--forest)" }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium truncate" style={{ color: "var(--mf-text)" }}>{g.title}</p>
+                <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>
+                  {g.current_streak > 0 ? `${g.current_streak} dias de streak` : "Sem streak ativo"}
+                </p>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {doneGoals.length > 0 && (
+          <div className="mt-6">
+            <p className="text-xs font-medium mb-2" style={{ color: "var(--mf-text-muted)" }}>
+              Feitos hoje
+            </p>
+            <div className="space-y-1.5">
+              {doneGoals.map((g) => (
+                <div
+                  key={g.id}
+                  className="flex items-center gap-3 rounded-xl px-4 py-2.5 opacity-60"
+                  style={{ background: "var(--mf-surface)" }}
+                >
+                  <Check className="w-4 h-4 flex-shrink-0" style={{ color: "var(--forest)" }} />
+                  <span className="text-sm truncate" style={{ color: "var(--mf-text)" }}>{g.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     );
   }

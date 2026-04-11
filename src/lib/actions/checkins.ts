@@ -210,6 +210,36 @@ export async function getCheckinsByGoal(goalId: string, limit = 30) {
   return data ?? [];
 }
 
+export async function getGoalsForCheckin() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { pending: [], done: [] };
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const { data: goals } = await supabase
+    .from("goals")
+    .select("id, title, current_streak")
+    .eq("user_id", user.id)
+    .eq("status", "active")
+    .order("order");
+
+  if (!goals || goals.length === 0) return { pending: [], done: [] };
+
+  const { data: todayCheckins } = await supabase
+    .from("checkins")
+    .select("goal_id")
+    .in("goal_id", goals.map((g) => g.id))
+    .eq("date", today);
+
+  const checkedIds = new Set(todayCheckins?.map((c) => c.goal_id) ?? []);
+
+  return {
+    pending: goals.filter((g) => !checkedIds.has(g.id)),
+    done: goals.filter((g) => checkedIds.has(g.id)),
+  };
+}
+
 export async function getTodayCheckins() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

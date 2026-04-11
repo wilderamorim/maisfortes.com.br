@@ -112,10 +112,7 @@ export default async function ProfilePage() {
           <ChevronRight className="w-4 h-4" style={{ color: "var(--mf-text-muted)" }} />
         </Link>
 
-        <NotificationSettingsRow
-          notificationTimeUtc={profile?.notification_time ?? 21}
-          hasPush={!!profile?.push_subscription}
-        />
+        <NotificationSettingsRow hasPush={!!profile?.push_subscription} />
 
         {/* Theme toggle */}
         <ThemeToggleRow />

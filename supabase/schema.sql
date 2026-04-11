@@ -157,6 +157,12 @@ alter table public.notifications enable row level security;
 create policy "Users can view own profile" on public.users for select using (auth.uid() = id);
 create policy "Users can update own profile" on public.users for update using (auth.uid() = id);
 create policy "Users can insert own profile" on public.users for insert with check (auth.uid() = id);
+create policy "Users can view friends profiles" on public.users for select using (
+  id in (
+    select friend_id from public.friendships
+    where user_id = auth.uid() and status = 'active'
+  )
+);
 
 -- Goals: own goals
 create policy "Users can CRUD own goals" on public.goals for all using (auth.uid() = user_id);

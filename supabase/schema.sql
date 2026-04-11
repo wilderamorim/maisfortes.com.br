@@ -198,8 +198,11 @@ create policy "Users can view connected profiles" on public.users for select usi
   )
 );
 
--- Goals: own goals
+-- Goals: own goals + supporters can view goals they support
 create policy "Users can CRUD own goals" on public.goals for all using (auth.uid() = user_id);
+create policy "Supporters can view supported goals" on public.goals for select using (
+  id in (select goal_id from public.supporters where user_id = auth.uid() and status = 'active')
+);
 
 -- Checkins: owner can CRUD
 create policy "Users can CRUD own checkins" on public.checkins for all using (

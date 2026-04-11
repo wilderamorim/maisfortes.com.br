@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { ACHIEVEMENT_SEEDS } from "@/lib/types";
-import { Trophy, ChevronRight, Shield, Download } from "lucide-react";
+import { Trophy, ChevronRight, Download } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggleRow } from "./theme-toggle";
 import { LogoutButton } from "./logout-button";
@@ -99,16 +99,6 @@ export default async function ProfilePage() {
         >
           <Trophy className="w-5 h-5" style={{ color: "var(--mf-text-muted)" }} />
           <span className="flex-1 text-sm font-medium">Conquistas</span>
-          <ChevronRight className="w-4 h-4" style={{ color: "var(--mf-text-muted)" }} />
-        </Link>
-
-        <Link
-          href="/network"
-          className="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors"
-          style={{ color: "var(--mf-text)" }}
-        >
-          <Shield className="w-5 h-5" style={{ color: "var(--mf-text-muted)" }} />
-          <span className="flex-1 text-sm font-medium">Privacidade</span>
           <ChevronRight className="w-4 h-4" style={{ color: "var(--mf-text-muted)" }} />
         </Link>
 

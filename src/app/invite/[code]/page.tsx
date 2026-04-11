@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { acceptInvite } from "@/lib/actions/supporters";
@@ -10,44 +10,33 @@ export default function InvitePage() {
   const { code } = useParams<{ code: string }>();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [checking, setChecking] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  async function checkAuth() {
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      window.location.href = `/auth/login?next=/invite/${code}`;
-      return;
-    }
-    setChecking(false);
-  }
 
   async function handleAccept() {
     setLoading(true);
     setError(null);
+
+    // Check auth on action, not on mount
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      window.location.href = `/auth/login?next=/invite/${code}`;
+      return;
+    }
+
     try {
       await acceptInvite(code);
       router.push("/network");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erro ao aceitar convite");
+      const msg = e instanceof Error ? e.message : "Erro ao aceitar convite";
+      if (msg === "Não autenticado") {
+        window.location.href = `/auth/login?next=/invite/${code}`;
+        return;
+      }
+      setError(msg);
       setLoading(false);
     }
-  }
-
-  if (checking) {
-    return (
-      <div className="min-h-dvh flex items-center justify-center" style={{ background: "var(--mf-bg)" }}>
-        <div
-          className="w-8 h-8 rounded-full border-2 animate-spin"
-          style={{ borderColor: "var(--mf-border-subtle)", borderTopColor: "var(--forest)" }}
-        />
-      </div>
-    );
   }
 
   return (

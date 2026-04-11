@@ -46,7 +46,23 @@ export async function acceptInvite(inviteCode: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("Não autenticado");
 
-  // Find the invite
+  // Find the invite — check all statuses first for better error messages
+  const { data: anySupporter } = await supabase
+    .from("supporters")
+    .select("status, user_id")
+    .eq("invite_code", inviteCode)
+    .single();
+
+  if (!anySupporter) throw new Error("Convite não encontrado. Verifique o link.");
+  if (anySupporter.status === "active") {
+    if (anySupporter.user_id === user.id) {
+      throw new Error("Você já aceitou este convite.");
+    }
+    throw new Error("Este convite já foi aceito por outra pessoa.");
+  }
+  if (anySupporter.status === "removed") throw new Error("Este convite foi cancelado.");
+
+  // Get full data for pending invite
   const { data: supporter, error: findError } = await supabase
     .from("supporters")
     .select("*, goals!inner(user_id, title)")

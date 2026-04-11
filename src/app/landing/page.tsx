@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { AppMockup } from "./app-mockup";
 import { BlurReveal } from "./blur-reveal";
 import { Marquee } from "./marquee";
+import { InstallSection } from "./install-section";
 
 export const metadata = {
   title: "+Fortes — +Forte a cada dia",
@@ -446,6 +447,9 @@ export default function LandingPage() {
           </BlurReveal>
         </div>
       </section>
+
+      {/* ═══════════════ INSTALL ═══════════════ */}
+      <InstallSection />
 
       {/* ═══════════════ FOOTER ═══════════════ */}
       <footer className="py-16 border-t" style={{ borderColor: "var(--mf-border-subtle)" }}>

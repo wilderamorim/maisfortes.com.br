@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { PageHero } from "@/components/layout/PageHero";
+import { Footer } from "@/components/layout/Footer";
+import { FileText } from "lucide-react";
 
 export const metadata = {
   title: "Termos de Uso",
@@ -9,18 +10,13 @@ export const metadata = {
 export default function TermosPage() {
   return (
     <div className="min-h-dvh" style={{ background: "var(--mf-bg)" }}>
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm mb-8 transition-colors" style={{ color: "var(--mf-text-muted)" }}>
-          <ArrowLeft className="w-4 h-4" /> Voltar
-        </Link>
+      <PageHero
+        title="Termos de Uso"
+        subtitle="Última atualização: 09 de abril de 2026"
+        icon={<FileText className="w-6 h-6 text-white" />}
+      />
 
-        <h1 className="text-3xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-          Termos de Uso
-        </h1>
-        <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
-          Última atualização: 09 de abril de 2026
-        </p>
-
+      <div className="max-w-3xl mx-auto px-6 py-12">
         <div className="space-y-8 text-sm leading-relaxed" style={{ color: "var(--mf-text-secondary)" }}>
           <section>
             <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>1. Aceitação dos Termos</h2>
@@ -94,6 +90,8 @@ export default function TermosPage() {
           </section>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { PageHero } from "@/components/layout/PageHero";
+import { Footer } from "@/components/layout/Footer";
+import { Shield } from "lucide-react";
 
 export const metadata = {
   title: "Política de Privacidade",
@@ -9,17 +10,13 @@ export const metadata = {
 export default function PrivacidadePage() {
   return (
     <div className="min-h-dvh" style={{ background: "var(--mf-bg)" }}>
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm mb-8 transition-colors" style={{ color: "var(--mf-text-muted)" }}>
-          <ArrowLeft className="w-4 h-4" /> Voltar
-        </Link>
+      <PageHero
+        title="Política de Privacidade"
+        subtitle="Última atualização: 09 de abril de 2026"
+        icon={<Shield className="w-6 h-6 text-white" />}
+      />
 
-        <h1 className="text-3xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-          Política de Privacidade
-        </h1>
-        <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
-          Última atualização: 09 de abril de 2026
-        </p>
+      <div className="max-w-3xl mx-auto px-6 py-12">
 
         <div className="rounded-xl p-5 mb-8" style={{ background: "rgba(45,106,79,0.06)", border: "1px solid rgba(45,106,79,0.15)" }}>
           <p className="text-sm font-semibold" style={{ color: "var(--forest)" }}>
@@ -149,6 +146,8 @@ export default function PrivacidadePage() {
           </section>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

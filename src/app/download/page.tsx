@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Download, Smartphone, Plus, SquareArrowUp, ArrowLeft,
-  Wifi, WifiOff, Bell, Gauge, Shield, Zap,
+  Download, Smartphone, Plus, SquareArrowUp,
+  WifiOff, Bell, Gauge, Shield, Zap, Wifi,
   ChevronDown,
 } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";

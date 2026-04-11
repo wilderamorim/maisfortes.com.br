@@ -135,6 +135,61 @@ export async function getGoalsISupport() {
   return data ?? [];
 }
 
+export async function getSupportedGoalDetail(supporterId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  // Get supporter record (must be the supporter)
+  const { data: supporter } = await supabase
+    .from("supporters")
+    .select("*, goals(id, title, current_streak, best_streak, status, user_id, users(name, avatar_url))")
+    .eq("id", supporterId)
+    .eq("user_id", user.id)
+    .eq("status", "active")
+    .single();
+
+  if (!supporter) return null;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const goal = supporter.goals as any;
+
+  // Get checkins based on permissions
+  let checkins: { date: string; score: number; mood: string; note: string | null }[] = [];
+  if (supporter.can_see_score) {
+    const { data } = await supabase
+      .from("checkins")
+      .select("date, score, mood, note")
+      .eq("goal_id", goal.id)
+      .order("date", { ascending: false })
+      .limit(400);
+
+    checkins = (data ?? []).map((c) => ({
+      date: c.date,
+      score: c.score,
+      mood: c.mood,
+      note: supporter.can_see_notes ? c.note : null,
+    }));
+  }
+
+  return {
+    supporter_id: supporter.id,
+    can_see_score: supporter.can_see_score,
+    can_see_notes: supporter.can_see_notes,
+    goal: {
+      id: goal.id,
+      title: goal.title,
+      current_streak: goal.current_streak,
+      best_streak: goal.best_streak,
+    },
+    owner: {
+      name: goal.users?.name ?? "",
+      avatar_url: goal.users?.avatar_url ?? null,
+    },
+    checkins,
+  };
+}
+
 export async function updateSupporterPrivacy(supporterId: string, canSeeScore: boolean, canSeeNotes: boolean) {
   const supabase = await createClient();
   const { error } = await supabase

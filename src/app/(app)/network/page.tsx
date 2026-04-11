@@ -7,6 +7,7 @@ import Link from "next/link";
 import { InviteButton } from "./invite-button";
 import { AddFriendButton } from "./add-friend-button";
 import { NudgeButton } from "./nudge-button";
+import { SupporterConfig } from "./supporter-config";
 import { Avatar } from "@/components/ui/Avatar";
 
 export const metadata = { title: "Rede" };
@@ -137,29 +138,38 @@ export default async function NetworkPage() {
 
                 {supporters.length > 0 ? (
                   <div className="space-y-2">
-                    {supporters.map((s) => (
-                      <div key={s.id} className="flex items-center gap-2">
-                        <Avatar
-                          name={(s.users as Record<string, unknown>)?.name as string ?? "?"}
-                          avatarUrl={(s.users as Record<string, unknown>)?.avatar_url as string | null}
-                          size={28}
-                          bgColor="rgba(244,132,95,0.1)"
-                          textColor="var(--coral)"
-                        />
-                        <span className="text-xs flex-1" style={{ color: "var(--mf-text)" }}>
-                          {(s.users as Record<string, unknown>)?.name as string ?? "Pendente"}
-                        </span>
-                        <span
-                          className="text-[10px] px-2 py-0.5 rounded-full font-mono"
-                          style={{
-                            background: s.status === "active" ? "rgba(45,106,79,0.1)" : "rgba(255,183,3,0.1)",
-                            color: s.status === "active" ? "var(--forest)" : "var(--amber)",
-                          }}
-                        >
-                          {s.status === "active" ? "ativo" : "pendente"}
-                        </span>
-                      </div>
-                    ))}
+                    {supporters.map((s) => {
+                      const sName = (s.users as Record<string, unknown>)?.name as string ?? "Pendente";
+                      return (
+                        <div key={s.id} className="flex items-center gap-2">
+                          <Avatar
+                            name={sName}
+                            avatarUrl={(s.users as Record<string, unknown>)?.avatar_url as string | null}
+                            size={28}
+                            bgColor="rgba(244,132,95,0.1)"
+                            textColor="var(--coral)"
+                          />
+                          <span className="text-xs flex-1" style={{ color: "var(--mf-text)" }}>
+                            {sName}
+                          </span>
+                          {s.status === "active" ? (
+                            <SupporterConfig
+                              supporterId={s.id}
+                              name={sName}
+                              canSeeScore={s.can_see_score}
+                              canSeeNotes={s.can_see_notes}
+                            />
+                          ) : (
+                            <span
+                              className="text-[10px] px-2 py-0.5 rounded-full font-mono"
+                              style={{ background: "rgba(255,183,3,0.1)", color: "var(--amber)" }}
+                            >
+                              pendente
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
                   <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
@@ -181,9 +191,10 @@ export default async function NetworkPage() {
               const goal = s.goals as Record<string, unknown>;
               const owner = goal?.users as Record<string, unknown>;
               return (
-                <div
+                <Link
                   key={s.id}
-                  className="flex items-center gap-3 rounded-xl px-4 py-3"
+                  href={`/network/supported/${s.id}`}
+                  className="flex items-center gap-3 rounded-xl px-4 py-3 transition-all active:scale-[0.98]"
                   style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
                 >
                   <Avatar
@@ -203,7 +214,7 @@ export default async function NetworkPage() {
                       {(goal?.current_streak as number) ?? 0}
                     </span>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

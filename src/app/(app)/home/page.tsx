@@ -7,6 +7,7 @@ import Link from "next/link";
 import { NotificationBell } from "@/components/layout/NotificationBell";
 import { SupportMessages } from "@/components/home/SupportMessages";
 import { WeeklySummary } from "@/components/home/WeeklySummary";
+import { Avatar } from "@/components/ui/Avatar";
 import { GoalMenu } from "./goal-menu";
 
 export const metadata = { title: "Home" };
@@ -38,7 +39,7 @@ export default async function HomePage() {
     // Graceful fallback — show empty state
   }
 
-  const { data: profile } = await supabase.from("users").select("name").eq("id", user.id).single();
+  const { data: profile } = await supabase.from("users").select("name, avatar_url").eq("id", user.id).single();
   const name = profile?.name || user.email?.split("@")[0] || "Você";
 
   return (
@@ -53,12 +54,8 @@ export default async function HomePage() {
         </div>
         <div className="flex items-center gap-1">
           <NotificationBell />
-          <Link
-            href="/profile"
-            className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm"
-            style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)", fontFamily: "var(--font-display)" }}
-          >
-            {name[0]?.toUpperCase()}
+          <Link href="/profile">
+            <Avatar name={name} avatarUrl={profile?.avatar_url} size={40} />
           </Link>
         </div>
       </div>

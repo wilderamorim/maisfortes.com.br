@@ -7,6 +7,7 @@ import Link from "next/link";
 import { InviteButton } from "./invite-button";
 import { AddFriendButton } from "./add-friend-button";
 import { NudgeButton } from "./nudge-button";
+import { Avatar } from "@/components/ui/Avatar";
 
 export const metadata = { title: "Rede" };
 
@@ -53,12 +54,7 @@ export default async function NetworkPage() {
               >
                 {/* Header: avatar + name + streak counter */}
                 <div className="flex items-center gap-3 mb-2">
-                  <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs"
-                    style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}
-                  >
-                    {fs.friend.name?.[0]?.toUpperCase() ?? "?"}
-                  </div>
+                  <Avatar name={fs.friend.name} avatarUrl={fs.friend.avatar_url} size={36} />
                   <span className="flex-1 text-sm font-medium" style={{ color: "var(--mf-text)" }}>
                     {fs.friend.name}
                   </span>
@@ -143,12 +139,13 @@ export default async function NetworkPage() {
                   <div className="space-y-2">
                     {supporters.map((s) => (
                       <div key={s.id} className="flex items-center gap-2">
-                        <div
-                          className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold"
-                          style={{ background: "rgba(244,132,95,0.1)", color: "var(--coral)" }}
-                        >
-                          {(s.users as Record<string, unknown>)?.name ? ((s.users as Record<string, unknown>).name as string)[0]?.toUpperCase() : "?"}
-                        </div>
+                        <Avatar
+                          name={(s.users as Record<string, unknown>)?.name as string ?? "?"}
+                          avatarUrl={(s.users as Record<string, unknown>)?.avatar_url as string | null}
+                          size={28}
+                          bgColor="rgba(244,132,95,0.1)"
+                          textColor="var(--coral)"
+                        />
                         <span className="text-xs flex-1" style={{ color: "var(--mf-text)" }}>
                           {(s.users as Record<string, unknown>)?.name as string ?? "Pendente"}
                         </span>
@@ -189,12 +186,13 @@ export default async function NetworkPage() {
                   className="flex items-center gap-3 rounded-xl px-4 py-3"
                   style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
                 >
-                  <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs"
-                    style={{ background: "rgba(244,132,95,0.1)", color: "var(--coral)" }}
-                  >
-                    {(owner?.name as string)?.[0]?.toUpperCase() ?? "?"}
-                  </div>
+                  <Avatar
+                    name={(owner?.name as string) ?? "?"}
+                    avatarUrl={owner?.avatar_url as string | null}
+                    size={36}
+                    bgColor="rgba(244,132,95,0.1)"
+                    textColor="var(--coral)"
+                  />
                   <div className="flex-1">
                     <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>{owner?.name as string}</p>
                     <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{goal?.title as string}</p>

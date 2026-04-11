@@ -178,13 +178,23 @@ alter table public.notifications enable row level security;
 create policy "Users can view own profile" on public.users for select using (auth.uid() = id);
 create policy "Users can update own profile" on public.users for update using (auth.uid() = id);
 create policy "Users can insert own profile" on public.users for insert with check (auth.uid() = id);
-create policy "Users can view friends profiles" on public.users for select using (
+create policy "Users can view connected profiles" on public.users for select using (
   id in (
+    -- Friend streaks (both directions)
     select friend_id from public.friend_streaks
     where user_id = auth.uid() and status in ('pending', 'active', 'completed')
     union
     select user_id from public.friend_streaks
     where friend_id = auth.uid() and status in ('pending', 'active', 'completed')
+    union
+    -- Supporters: goal owner can see supporter profile
+    select user_id from public.supporters
+    where goal_id in (select id from public.goals where user_id = auth.uid()) and status = 'active'
+    union
+    -- Supporters: supporter can see goal owner profile
+    select g.user_id from public.goals g
+    inner join public.supporters s on s.goal_id = g.id
+    where s.user_id = auth.uid() and s.status = 'active'
   )
 );
 

@@ -3,6 +3,7 @@
 import { markMessagesAsRead } from "@/lib/actions/messages";
 import { MessageCircle } from "lucide-react";
 import { useEffect } from "react";
+import { Avatar } from "@/components/ui/Avatar";
 
 type Message = {
   id: string;
@@ -53,7 +54,6 @@ export function SupportMessages({ messages }: { messages: Message[] }) {
       <div className="space-y-2">
         {messages.map((msg) => {
           const name = msg.from_user?.name || "Apoiador";
-          const initial = name[0]?.toUpperCase() || "?";
           const isReaction = msg.type === "reaction";
 
           return (
@@ -65,12 +65,7 @@ export function SupportMessages({ messages }: { messages: Message[] }) {
                 border: `1px solid ${msg.read_at ? "var(--mf-border-subtle)" : "rgba(45,106,79,0.15)"}`,
               }}
             >
-              <div
-                className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold"
-                style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}
-              >
-                {initial}
-              </div>
+              <Avatar name={name} avatarUrl={msg.from_user?.avatar_url} size={32} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-semibold" style={{ color: "var(--mf-text)" }}>

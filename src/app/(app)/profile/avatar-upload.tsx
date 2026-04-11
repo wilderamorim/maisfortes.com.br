@@ -81,8 +81,8 @@ export function AvatarUpload({ name, currentUrl }: { name: string; currentUrl: s
       </div>
 
       <div
-        className="absolute bottom-0 right-0 w-5 h-5 rounded-full flex items-center justify-center"
-        style={{ background: "var(--forest)" }}
+        className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center"
+        style={{ background: "var(--forest)", border: "2px solid var(--mf-bg)" }}
       >
         <Camera className="w-3 h-3 text-white" />
       </div>

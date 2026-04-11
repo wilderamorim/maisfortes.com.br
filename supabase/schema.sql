@@ -202,9 +202,12 @@ create policy "Users can view connected profiles" on public.users for select usi
 create policy "Users can CRUD own goals" on public.goals for all using (auth.uid() = user_id);
 create policy "Authenticated can read goals" on public.goals for select to authenticated using (true);
 
--- Checkins: owner can CRUD
+-- Checkins: owner can CRUD, supporters can read
 create policy "Users can CRUD own checkins" on public.checkins for all using (
   goal_id in (select id from public.goals where user_id = auth.uid())
+);
+create policy "Supporters can view checkins" on public.checkins for select using (
+  goal_id in (select goal_id from public.supporters where user_id = auth.uid() and status = 'active')
 );
 
 -- Supporters: managed at application layer to avoid RLS recursion

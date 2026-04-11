@@ -108,25 +108,11 @@ function CheckinContent() {
   if (!goalId && !goalIdParam) {
     if (loadingGoals) {
       return (
-        <div className="px-4 pt-6 max-w-lg mx-auto space-y-4">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-5 w-5 rounded animate-pulse" style={{ background: "var(--mf-border-subtle)" }} />
-            <div className="h-7 w-24 rounded-xl animate-pulse" style={{ background: "var(--mf-border-subtle)" }} />
-          </div>
-          <div className="h-4 w-48 rounded-md animate-pulse" style={{ background: "var(--mf-border-subtle)" }} />
-          {[1, 2].map((i) => (
-            <div
-              key={i}
-              className="flex items-center gap-3 rounded-xl px-4 py-3"
-              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-            >
-              <div className="h-9 w-9 rounded-full animate-pulse" style={{ background: "var(--mf-border-subtle)" }} />
-              <div className="flex-1 space-y-1.5">
-                <div className="h-3.5 w-32 rounded-md animate-pulse" style={{ background: "var(--mf-border-subtle)" }} />
-                <div className="h-2.5 w-24 rounded-md animate-pulse" style={{ background: "var(--mf-border-subtle)" }} />
-              </div>
-            </div>
-          ))}
+        <div className="min-h-dvh flex items-center justify-center">
+          <div
+            className="w-8 h-8 rounded-full border-2 animate-spin"
+            style={{ borderColor: "var(--mf-border-subtle)", borderTopColor: "var(--forest)" }}
+          />
         </div>
       );
     }

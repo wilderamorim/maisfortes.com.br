@@ -153,7 +153,7 @@ export function CheckinHeatmap({ checkins }: Props) {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-2 mt-3 justify-end">
+      <div className="flex items-center gap-2 mt-3">
         <span className="text-[9px]" style={{ color: "var(--mf-text-muted)" }}>Menos</span>
         {[null, 1, 2, 3, 4, 5].map((score, i) => (
           <div

@@ -4,11 +4,9 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getSupportedGoalDetail } from "@/lib/actions/supporters";
 import { ArrowLeft, Flame, Lock } from "lucide-react";
-import { SCORE_OPTIONS } from "@/lib/types";
 import { Avatar } from "@/components/ui/Avatar";
-import { WeeklyScoreChart } from "@/components/history/WeeklyScoreChart";
-import { MoodDistribution } from "@/components/history/MoodDistribution";
-import { CheckinHeatmap } from "@/components/history/CheckinHeatmap";
+import { CheckinCharts } from "@/components/history/CheckinCharts";
+import { CheckinTimeline } from "@/components/history/CheckinTimeline";
 import Link from "next/link";
 
 type DetailData = Awaited<ReturnType<typeof getSupportedGoalDetail>>;
@@ -95,67 +93,8 @@ export default function SupportedGoalPage() {
       {/* Content based on permissions */}
       {data.can_see_score ? (
         <div className="space-y-4">
-          {/* Heatmap */}
-          {data.checkins.length > 0 && (
-            <div
-              className="rounded-xl p-4"
-              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-            >
-              <CheckinHeatmap checkins={data.checkins} />
-            </div>
-          )}
-
-          {/* Charts */}
-          {data.checkins.length > 0 && (
-            <div
-              className="rounded-xl p-4 space-y-5"
-              style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-            >
-              <WeeklyScoreChart checkins={data.checkins} />
-              <MoodDistribution checkins={data.checkins} />
-            </div>
-          )}
-
-          {/* Recent checkins */}
-          {data.checkins.length > 0 ? (
-            <div className="space-y-2">
-              <h3 className="text-xs font-semibold" style={{ color: "var(--mf-text-muted)" }}>
-                Últimos check-ins
-              </h3>
-              {data.checkins.slice(0, 14).map((checkin) => {
-                const scoreOpt = SCORE_OPTIONS.find((o) => o.value === checkin.score);
-                const date = new Date(checkin.date + "T12:00:00");
-                return (
-                  <div
-                    key={checkin.date}
-                    className="flex items-center gap-3 rounded-xl px-4 py-3"
-                    style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-                  >
-                    <span className="text-lg">{scoreOpt?.emoji}</span>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>
-                        {scoreOpt?.label}
-                      </p>
-                      {checkin.note && data.can_see_notes && (
-                        <p className="text-xs mt-0.5 line-clamp-2" style={{ color: "var(--mf-text-muted)" }}>
-                          {checkin.note}
-                        </p>
-                      )}
-                    </div>
-                    <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>
-                      {date.toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="rounded-xl p-6 text-center" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}>
-              <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
-                Nenhum check-in ainda.
-              </p>
-            </div>
-          )}
+          <CheckinCharts checkins={data.checkins} />
+          <CheckinTimeline checkins={data.checkins} showNotes={data.can_see_notes} limit={14} />
         </div>
       ) : (
         /* Score hidden by owner */

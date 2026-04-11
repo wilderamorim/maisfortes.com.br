@@ -3,10 +3,8 @@
 import { getActiveGoals } from "@/lib/actions/goals";
 import { getCheckinsByGoal } from "@/lib/actions/checkins";
 import { CalendarDays, ChevronDown, Flame } from "lucide-react";
-import { SCORE_OPTIONS } from "@/lib/types";
-import { WeeklyScoreChart } from "@/components/history/WeeklyScoreChart";
-import { MoodDistribution } from "@/components/history/MoodDistribution";
-import { CheckinHeatmap } from "@/components/history/CheckinHeatmap";
+import { CheckinCharts } from "@/components/history/CheckinCharts";
+import { CheckinTimeline } from "@/components/history/CheckinTimeline";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -165,59 +163,11 @@ export default function HistoryPage() {
       {/* Charts */}
       {checkins.length > 0 ? (
         <div className="space-y-4">
-          {/* Heatmap */}
-          <div
-            className="rounded-xl p-4"
-            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-          >
-            <CheckinHeatmap checkins={checkins} />
-          </div>
-
-          {/* Score + Mood charts */}
-          <div
-            className="rounded-xl p-4 space-y-5"
-            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-          >
-            <WeeklyScoreChart checkins={checkins} />
-            <MoodDistribution checkins={checkins} />
-          </div>
-
-          {/* Timeline */}
-          <div className="space-y-2">
-            {checkins.map((checkin) => {
-              const scoreOpt = SCORE_OPTIONS.find((o) => o.value === checkin.score);
-              const date = new Date(checkin.date + "T12:00:00");
-              return (
-                <div
-                  key={checkin.id}
-                  className="flex items-center gap-3 rounded-xl px-4 py-3"
-                  style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-                >
-                  <span className="text-lg">{scoreOpt?.emoji}</span>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>
-                      {scoreOpt?.label}
-                    </p>
-                    {checkin.note && (
-                      <p className="text-xs mt-0.5 line-clamp-1" style={{ color: "var(--mf-text-muted)" }}>
-                        {checkin.note}
-                      </p>
-                    )}
-                  </div>
-                  <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>
-                    {date.toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+          <CheckinCharts checkins={checkins} />
+          <CheckinTimeline checkins={checkins} limit={30} />
         </div>
       ) : (
-        <div className="rounded-xl p-6 text-center" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}>
-          <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
-            Nenhum check-in nesta meta ainda.
-          </p>
-        </div>
+        <CheckinTimeline checkins={[]} />
       )}
     </div>
   );

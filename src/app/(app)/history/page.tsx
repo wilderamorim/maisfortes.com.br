@@ -6,6 +6,7 @@ import { CalendarDays, ChevronDown, Flame } from "lucide-react";
 import { SCORE_OPTIONS } from "@/lib/types";
 import { WeeklyScoreChart } from "@/components/history/WeeklyScoreChart";
 import { MoodDistribution } from "@/components/history/MoodDistribution";
+import { CheckinHeatmap } from "@/components/history/CheckinHeatmap";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -100,7 +101,7 @@ export default function HistoryPage() {
   }
 
   async function loadCheckins(goalId: string) {
-    const data = await getCheckinsByGoal(goalId, 30);
+    const data = await getCheckinsByGoal(goalId, 400);
     setCheckins(data as CheckinData[]);
   }
 
@@ -164,6 +165,15 @@ export default function HistoryPage() {
       {/* Charts */}
       {checkins.length > 0 ? (
         <div className="space-y-4">
+          {/* Heatmap */}
+          <div
+            className="rounded-xl p-4"
+            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
+          >
+            <CheckinHeatmap checkins={checkins} />
+          </div>
+
+          {/* Score + Mood charts */}
           <div
             className="rounded-xl p-4 space-y-5"
             style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}

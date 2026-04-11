@@ -7,6 +7,7 @@ import {
   Wifi, WifiOff, Bell, Gauge, Shield, Zap,
   ChevronDown,
 } from "lucide-react";
+import { Footer } from "@/components/layout/Footer";
 
 type Platform = "android" | "ios" | "desktop";
 
@@ -245,6 +246,8 @@ export default function DownloadPage() {
           Sem cartão de crédito. Sem período de teste. Grátis para sempre.
         </p>
       </div>
+
+      <Footer />
     </div>
   );
 }

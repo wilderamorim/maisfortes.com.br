@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { AppMockup } from "./app-mockup";
 import { BlurReveal } from "./blur-reveal";
 import { Marquee } from "./marquee";
 import { InstallSection } from "./install-section";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata = {
   title: "+Fortes — +Forte a cada dia",
@@ -452,50 +453,7 @@ export default function LandingPage() {
       <InstallSection />
 
       {/* ═══════════════ FOOTER ═══════════════ */}
-      <footer className="py-16 border-t" style={{ borderColor: "var(--mf-border-subtle)" }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-            <div className="md:col-span-4">
-              <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}>
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </div>
-                <span className="font-bold text-sm tracking-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
-              </div>
-              <p className="text-xs leading-relaxed max-w-xs" style={{ color: "var(--mf-text-muted)" }}>
-                Plataforma gratuita de acompanhamento com rede de apoio para mudança comportamental.
-              </p>
-            </div>
-            {[
-              { title: "Produto", links: [{ label: "Como funciona", href: "#como-funciona" }, { label: "Criar conta", href: "/auth/register" }, { label: "Brandbook", href: "https://brand.maisfortes.com.br", ext: true }] },
-              { title: "Legal", links: [{ label: "Termos de uso", href: "/termos" }, { label: "Privacidade", href: "/privacidade" }] },
-              { title: "Open-source", links: [{ label: "GitHub", href: "https://github.com/wilderamorim/maisfortes.com.br", ext: true }, { label: "Licença MIT", href: "https://github.com/wilderamorim/maisfortes.com.br/blob/main/LICENSE", ext: true }] },
-            ].map((col) => (
-              <div key={col.title} className="md:col-span-2">
-                <h4 className="text-xs font-semibold mb-4 uppercase tracking-wider" style={{ color: "var(--mf-text-muted)" }}>{col.title}</h4>
-                <div className="space-y-3">
-                  {col.links.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      {...("ext" in link ? { target: "_blank", rel: "noopener" } : {})}
-                      className="text-xs flex items-center gap-1 transition-all hover:opacity-70"
-                      style={{ color: "var(--mf-text-secondary)" }}
-                    >
-                      {link.label}
-                      {"ext" in link && <ArrowUpRight className="w-3 h-3 opacity-40" />}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-16 pt-8 flex items-center justify-between" style={{ borderTop: "1px solid var(--mf-border-subtle)" }}>
-            <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>+Fortes — +Forte a cada dia.</span>
-            <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>&copy; 2026</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

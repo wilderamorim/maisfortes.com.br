@@ -81,7 +81,7 @@ export function InstallSection() {
             {/* Play Store button (Android) */}
             {selected === "android" && (
               <a
-                href="https://play.google.com/store/apps/details?id=br.com.maisfortes.app"
+                href="https://play.google.com/store/apps/details?id=br.com.maisfortes.twa"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-6 py-3 rounded-xl transition-all hover:opacity-90 active:scale-[0.98]"

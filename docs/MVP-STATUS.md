@@ -1,6 +1,6 @@
 # +Fortes — Status do MVP
 
-> **Progresso: 95/98 tasks (97%)**
+> **Progresso: 98/98 tasks (100%)**
 > **Atualizado: 2026-04-11**
 
 ---
@@ -92,11 +92,11 @@
 
 | # | Task | Impacto |
 |---|------|---------|
-| **3.3** | QR code do link de convite | Alternativa ao link |
-| **2.13** | Gráfico de score semanal | Visualização de dados |
-| **2.14** | Gráfico de distribuição de humor | Visualização de dados |
-| **4.9** | Confetti/particles na celebração | Polish visual |
-| **4.13** | Nudge quando amigo quebra streak | Social sutil |
+| ~~**3.3**~~ | ~~QR code do link de convite~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**2.13**~~ | ~~Gráfico de score semanal~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**2.14**~~ | ~~Gráfico de distribuição de humor~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**4.9**~~ | ~~Confetti/particles na celebração~~ | ✅ **FEITO** (2026-04-11) |
+| ~~**4.13**~~ | ~~Nudge quando amigo quebra streak~~ | ✅ **FEITO** (2026-04-11) |
 
 ---
 

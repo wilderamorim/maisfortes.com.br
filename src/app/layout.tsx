@@ -40,9 +40,16 @@ export const metadata: Metadata = {
     ],
     apple: "/icons/apple-touch-icon.png",
   },
+  metadataBase: new URL("https://maisfortes.com.br"),
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   openGraph: {
     title: "+Fortes — Juntos, somos mais fortes",
-    description: "+Forte a cada dia.",
+    description: "Plataforma gratuita de acompanhamento com rede de apoio. Check-in diário, streak, conquistas e rede de apoio — +forte a cada dia.",
     url: "https://maisfortes.com.br",
     siteName: "+Fortes",
     locale: "pt_BR",
@@ -52,9 +59,12 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "+Fortes — Juntos, somos mais fortes",
-    description: "+Forte a cada dia.",
+    description: "Plataforma gratuita de acompanhamento com rede de apoio — +forte a cada dia.",
     images: ["/og-twitter.png"],
   },
+  category: "health",
+  creator: "MaisFortes",
+  publisher: "MaisFortes",
 };
 
 export const viewport: Viewport = {
@@ -86,6 +96,67 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="+Fortes" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  name: "+Fortes",
+                  alternateName: "MaisFortes",
+                  url: "https://maisfortes.com.br",
+                  description: "Plataforma gratuita de acompanhamento com rede de apoio para mudança comportamental.",
+                  inLanguage: "pt-BR",
+                },
+                {
+                  "@type": "Organization",
+                  name: "+Fortes",
+                  url: "https://maisfortes.com.br",
+                  logo: "https://maisfortes.com.br/icons/icon-512.png",
+                  sameAs: ["https://github.com/wilderamorim/maisfortes.com.br"],
+                },
+                {
+                  "@type": "WebApplication",
+                  name: "+Fortes",
+                  url: "https://maisfortes.com.br",
+                  applicationCategory: "HealthApplication",
+                  operatingSystem: "Web, Android, iOS",
+                  offers: {
+                    "@type": "Offer",
+                    price: "0",
+                    priceCurrency: "BRL",
+                  },
+                  description: "Acompanhe sua jornada de mudança com check-in diário, streaks, conquistas e rede de apoio.",
+                  featureList: [
+                    "Check-in diário com score e humor",
+                    "Streaks automáticos",
+                    "Rede de apoio com convite por link",
+                    "Ofensiva de amigos",
+                    "17 conquistas desbloqueáveis",
+                    "Heatmap de check-ins",
+                    "Notificações push",
+                    "Funciona offline",
+                  ],
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  name: "+Fortes",
+                  applicationCategory: "HealthApplication",
+                  operatingSystem: "Android",
+                  offers: {
+                    "@type": "Offer",
+                    price: "0",
+                    priceCurrency: "BRL",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
 
         {/* Theme init (prevent flash) */}
         <script

@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Allow: /landing
+Allow: /termos
+Allow: /privacidade
+Disallow: /home
+Disallow: /checkin
+Disallow: /history
+Disallow: /network
+Disallow: /profile
+Disallow: /goals
+Disallow: /achievements
+Disallow: /notifications
+Disallow: /onboarding
+Disallow: /auth/
+Disallow: /invite/
+Disallow: /api/
+
+Sitemap: https://maisfortes.com.br/sitemap.xml

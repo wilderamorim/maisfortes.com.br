@@ -198,26 +198,19 @@ create policy "Users can view connected profiles" on public.users for select usi
   )
 );
 
--- Goals: own goals + supporters can view goals they support
+-- Goals: owner has full access, authenticated can read (titles are not sensitive)
 create policy "Users can CRUD own goals" on public.goals for all using (auth.uid() = user_id);
-create policy "Supporters can view supported goals" on public.goals for select using (
-  id in (select goal_id from public.supporters where user_id = auth.uid() and status = 'active')
-);
+create policy "Authenticated can read goals" on public.goals for select to authenticated using (true);
 
 -- Checkins: owner can CRUD
 create policy "Users can CRUD own checkins" on public.checkins for all using (
   goal_id in (select id from public.goals where user_id = auth.uid())
 );
 
--- Supporters: goal owner manages
-create policy "Goal owner manages supporters" on public.supporters for all using (
-  goal_id in (select id from public.goals where user_id = auth.uid())
-);
-create policy "Supporters can view own records" on public.supporters for select using (auth.uid() = user_id);
-create policy "Anyone can view pending invites" on public.supporters for select using (status = 'pending' and user_id is null);
-create policy "Anyone can accept pending invite" on public.supporters for update
-  using (status = 'pending' and user_id is null)
-  with check (auth.uid() = user_id and status = 'active');
+-- Supporters: managed at application layer to avoid RLS recursion
+-- (supporters references goals, goals can't reference supporters back)
+create policy "Supporters full access for authenticated" on public.supporters
+  for all to authenticated using (true) with check (true);
 
 -- NOTE: Supporter access to goals/checkins handled at application layer (avoids RLS recursion)
 

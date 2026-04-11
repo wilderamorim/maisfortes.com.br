@@ -211,7 +211,8 @@ create policy "Goal owner manages supporters" on public.supporters for all using
   goal_id in (select id from public.goals where user_id = auth.uid())
 );
 create policy "Supporters can view own records" on public.supporters for select using (auth.uid() = user_id);
-create policy "Supporters can accept invite" on public.supporters for update using (auth.uid() = user_id);
+create policy "Anyone can view pending invites" on public.supporters for select using (status = 'pending' and user_id is null);
+create policy "Anyone can accept pending invite" on public.supporters for update using (status = 'pending' and user_id is null);
 
 -- NOTE: Supporter access to goals/checkins handled at application layer (avoids RLS recursion)
 

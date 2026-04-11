@@ -1,6 +1,6 @@
 -- +Fortes Database Schema (Completo)
 -- Run this in the Supabase SQL Editor
--- Atualizado: 2026-04-09
+-- Atualizado: 2026-04-11
 
 -- Enable UUID extension
 create extension if not exists "uuid-ossp";

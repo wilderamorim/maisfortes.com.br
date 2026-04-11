@@ -46,34 +46,32 @@ export async function acceptInvite(inviteCode: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("Não autenticado");
 
-  // Find the invite — check all statuses first for better error messages
-  const { data: anySupporter } = await supabase
+  // Find the invite
+  const { data: supporter } = await supabase
     .from("supporters")
-    .select("status, user_id")
+    .select("id, goal_id, status, user_id, invite_code")
     .eq("invite_code", inviteCode)
     .single();
 
-  if (!anySupporter) throw new Error("Convite não encontrado. Verifique o link.");
-  if (anySupporter.status === "active") {
-    if (anySupporter.user_id === user.id) {
+  if (!supporter) throw new Error("Convite não encontrado. Verifique o link.");
+  if (supporter.status === "active") {
+    if (supporter.user_id === user.id) {
       throw new Error("Você já aceitou este convite.");
     }
     throw new Error("Este convite já foi aceito por outra pessoa.");
   }
-  if (anySupporter.status === "removed") throw new Error("Este convite foi cancelado.");
+  if (supporter.status === "removed") throw new Error("Este convite foi cancelado.");
+  if (supporter.status !== "pending") throw new Error("Convite não disponível.");
 
-  // Get full data for pending invite
-  const { data: supporter, error: findError } = await supabase
-    .from("supporters")
-    .select("*, goals!inner(user_id, title)")
-    .eq("invite_code", inviteCode)
-    .eq("status", "pending")
+  // Get goal info separately (avoids RLS issue with goals join)
+  const { data: goal } = await supabase
+    .from("goals")
+    .select("user_id, title")
+    .eq("id", supporter.goal_id)
     .single();
 
-  if (findError || !supporter) throw new Error("Convite não encontrado ou já utilizado");
-
   // Can't support your own goal
-  if ((supporter as Record<string, unknown>).goals && ((supporter as Record<string, unknown>).goals as Record<string, unknown>).user_id === user.id) {
+  if (goal?.user_id === user.id) {
     throw new Error("Você não pode ser apoiador da própria meta");
   }
 
@@ -90,7 +88,9 @@ export async function acceptInvite(inviteCode: string) {
   if (error) throw new Error(error.message);
 
   // Check achievements for goal owner
-  await checkSupporterAchievements((supporter as Record<string, unknown>).goals as Record<string, unknown>);
+  if (goal) {
+    await checkSupporterAchievements(goal as Record<string, unknown>);
+  }
 
   revalidatePath("/network");
   return supporter;

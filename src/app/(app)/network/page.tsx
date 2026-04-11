@@ -197,7 +197,12 @@ export default async function NetworkPage() {
                     <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>{owner?.name as string}</p>
                     <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{goal?.title as string}</p>
                   </div>
-                  <Flame className="w-4 h-4" style={{ color: "var(--forest)" }} />
+                  <div className="flex items-center gap-1">
+                    <Flame className="w-3.5 h-3.5" style={{ color: (goal?.current_streak as number) > 0 ? "var(--forest)" : "var(--mf-text-muted)" }} />
+                    <span className="font-mono text-xs" style={{ color: (goal?.current_streak as number) > 0 ? "var(--forest)" : "var(--mf-text-muted)" }}>
+                      {(goal?.current_streak as number) ?? 0}
+                    </span>
+                  </div>
                 </div>
               );
             })}

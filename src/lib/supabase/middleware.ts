@@ -52,7 +52,9 @@ export async function updateSession(request: NextRequest) {
   // Redirect authenticated users away from auth pages (except callback)
   if (user && request.nextUrl.pathname.startsWith("/auth/") && !request.nextUrl.pathname.startsWith("/auth/callback")) {
     const url = request.nextUrl.clone();
-    url.pathname = "/home";
+    const next = request.nextUrl.searchParams.get("next");
+    url.pathname = next || "/home";
+    url.search = "";
     return NextResponse.redirect(url);
   }
 

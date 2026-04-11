@@ -1,8 +1,8 @@
 "use client";
 
 import { updateNotificationTime } from "@/lib/actions/notification-settings";
-import { Bell, Clock } from "lucide-react";
-import { useState } from "react";
+import { Bell, Clock, Check } from "lucide-react";
+import { useState, useRef } from "react";
 
 // BRT offset from UTC (UTC-3)
 const BRT_OFFSET = -3;
@@ -28,16 +28,25 @@ export function NotificationSettingsRow({
 }) {
   const [brtHour, setBrtHour] = useState(utcToBrt(notificationTimeUtc));
   const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const savedRef = useRef(utcToBrt(notificationTimeUtc));
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   async function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const newBrt = parseInt(e.target.value);
     setBrtHour(newBrt);
     setSaving(true);
+    setSaved(false);
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     try {
       await updateNotificationTime(brtToUtc(newBrt));
+      savedRef.current = newBrt;
+      setSaved(true);
+      timeoutRef.current = setTimeout(() => setSaved(false), 2000);
     } catch {
-      // revert
-      setBrtHour(utcToBrt(notificationTimeUtc));
+      setBrtHour(savedRef.current);
     }
     setSaving(false);
   }
@@ -53,7 +62,8 @@ export function NotificationSettingsRow({
           </p>
         )}
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
+        {saved && <Check className="w-3.5 h-3.5" style={{ color: "var(--forest)" }} />}
         <Clock className="w-3.5 h-3.5" style={{ color: "var(--mf-text-muted)" }} />
         <select
           value={brtHour}
@@ -64,6 +74,7 @@ export function NotificationSettingsRow({
             background: "var(--mf-bg)",
             border: "1px solid var(--mf-border)",
             color: "var(--mf-text)",
+            opacity: saving ? 0.5 : 1,
           }}
         >
           {Array.from({ length: 24 }, (_, i) => (

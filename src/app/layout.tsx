@@ -94,7 +94,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-dvh antialiased">
+      <body className="min-h-dvh antialiased" suppressHydrationWarning>
         <ThemeProvider>
           {children}
           <CookieConsent />

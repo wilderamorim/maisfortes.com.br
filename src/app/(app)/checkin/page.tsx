@@ -1,13 +1,15 @@
 "use client";
 
-import { SCORE_OPTIONS } from "@/lib/types";
+import { SCORE_OPTIONS, ACHIEVEMENT_SEEDS } from "@/lib/types";
 import { createCheckin, getGoalsForCheckin } from "@/lib/actions/checkins";
+import { showAchievementToast } from "@/components/ui/AchievementToast";
 import { getSupportersForGoal } from "@/lib/actions/supporters";
 import { sendMessage } from "@/lib/actions/messages";
 import { getFriendStreaksForGoal, nudgeFriend } from "@/lib/actions/friend-streaks";
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Check, Heart, MessageCircle, Phone, Flame, Target, PartyPopper } from "lucide-react";
+import { Confetti } from "@/components/ui/Confetti";
 import Link from "next/link";
 
 export default function CheckinPage() {
@@ -33,6 +35,7 @@ function CheckinContent() {
   const [sendingAlert, setSendingAlert] = useState(false);
   const [friendStreaks, setFriendStreaks] = useState<{ id: string; friend_name: string; friend_checked_today: boolean; current_streak: number; target_days: number }[]>([]);
   const [nudgedIds, setNudgedIds] = useState<Set<string>>(new Set());
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Goal picker state (when no goalId)
   const [pendingGoals, setPendingGoals] = useState<{ id: string; title: string; current_streak: number }[]>([]);
@@ -73,7 +76,7 @@ function CheckinContent() {
     setLoading(true);
     try {
       const scoreOption = SCORE_OPTIONS.find((o) => o.value === selected);
-      await createCheckin({
+      const newAchievements = await createCheckin({
         goalId,
         score: selected,
         mood: scoreOption?.mood ?? "neutral",
@@ -81,6 +84,17 @@ function CheckinContent() {
       });
       // Haptic feedback
       if (navigator.vibrate) navigator.vibrate(50);
+
+      // Show toast + confetti for new achievements
+      if (newAchievements && newAchievements.length > 0) {
+        setShowConfetti(true);
+        for (const id of newAchievements) {
+          const seed = ACHIEVEMENT_SEEDS.find((a) => a.id === id);
+          if (seed) {
+            showAchievementToast({ name: seed.name, description: seed.description, rarity: seed.rarity });
+          }
+        }
+      }
 
       if (selected === 1) {
         setDifficultDay(true);
@@ -324,6 +338,7 @@ function CheckinContent() {
     const hasStreaks = friendStreaks.length > 0;
     return (
       <div className="min-h-dvh flex items-center justify-center px-4">
+        {showConfetti && <Confetti />}
         <div className="text-center animate-scale-in w-full max-w-sm">
           <div
             className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"

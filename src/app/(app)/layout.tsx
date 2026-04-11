@@ -1,6 +1,7 @@
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
 import { NotificationBell } from "@/components/layout/NotificationBell";
 import { PushPermission } from "@/components/layout/PushPermission";
+import { AchievementToastProvider } from "@/components/ui/AchievementToast";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,6 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 pb-safe">{children}</main>
       <BottomTabBar />
       <PushPermission />
+      <AchievementToastProvider />
     </div>
   );
 }

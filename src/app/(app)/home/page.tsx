@@ -2,10 +2,12 @@ import { getActiveGoals } from "@/lib/actions/goals";
 import { getTodayCheckins } from "@/lib/actions/checkins";
 import { getMessagesForUser } from "@/lib/actions/messages";
 import { createClient } from "@/lib/supabase/server";
-import { Flame, Plus, ChevronRight, MessageCircle } from "lucide-react";
+import { Flame, Plus, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { NotificationBell } from "@/components/layout/NotificationBell";
 import { SupportMessages } from "@/components/home/SupportMessages";
+import { WeeklySummary } from "@/components/home/WeeklySummary";
+import { GoalMenu } from "./goal-menu";
 
 export const metadata = { title: "Home" };
 
@@ -61,6 +63,9 @@ export default async function HomePage() {
         </div>
       </div>
 
+      {/* Weekly summary (Sunday/Monday only) */}
+      <WeeklySummary />
+
       {/* Support messages */}
       {recentMessages.length > 0 && (
         <SupportMessages messages={recentMessages} />
@@ -102,7 +107,7 @@ export default async function HomePage() {
                       {goal.status === "paused" && <span className="text-amber">pausada</span>}
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4" style={{ color: "var(--mf-text-muted)" }} />
+                  <GoalMenu goalId={goal.id} status={goal.status} />
                 </div>
               </Link>
             );

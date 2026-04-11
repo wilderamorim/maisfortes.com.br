@@ -53,11 +53,13 @@ export async function createCheckin(data: {
   await updateStreak(data.goalId);
 
   // Check achievements
-  await checkAchievements(user.id, data.goalId, data.score);
+  const newAchievements = await checkAchievements(user.id, data.goalId, data.score);
 
   revalidatePath("/home");
   revalidatePath("/history");
   revalidatePath("/checkin");
+
+  return newAchievements;
 }
 
 async function updateStreak(goalId: string) {
@@ -195,6 +197,8 @@ async function checkAchievements(userId: string, goalId: string, score: number) 
       }))
     );
   }
+
+  return toUnlock.map((a) => a.achievement_id);
 }
 
 export async function getCheckinsByGoal(goalId: string, limit = 30) {

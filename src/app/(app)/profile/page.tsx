@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ThemeToggleRow } from "./theme-toggle";
 import { LogoutButton } from "./logout-button";
 import { NotificationSettingsRow } from "./notification-settings";
+import { AvatarUpload } from "./avatar-upload";
 
 export const metadata = { title: "Perfil" };
 
@@ -55,12 +56,7 @@ export default async function ProfilePage() {
     <div className="px-4 pt-6 max-w-lg mx-auto pb-8">
       {/* Avatar + Name */}
       <div className="flex items-center gap-4 mb-8">
-        <div
-          className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold"
-          style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)", fontFamily: "var(--font-display)" }}
-        >
-          {name[0]?.toUpperCase()}
-        </div>
+        <AvatarUpload name={name} currentUrl={profile?.avatar_url ?? null} />
         <div>
           <h1 className="text-xl font-bold" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
             {name}

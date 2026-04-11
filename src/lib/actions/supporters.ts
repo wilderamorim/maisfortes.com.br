@@ -63,15 +63,15 @@ export async function acceptInvite(inviteCode: string) {
   if (supporter.status === "removed") throw new Error("Este convite foi cancelado.");
   if (supporter.status !== "pending") throw new Error("Convite não disponível.");
 
-  // Get goal info separately (avoids RLS issue with goals join)
-  const { data: goal } = await supabase
+  // Check if this is user's own goal (query own goals — RLS allows this)
+  const { data: ownGoal } = await supabase
     .from("goals")
-    .select("user_id, title")
+    .select("id")
     .eq("id", supporter.goal_id)
-    .single();
+    .eq("user_id", user.id)
+    .maybeSingle();
 
-  // Can't support your own goal
-  if (goal?.user_id === user.id) {
+  if (ownGoal) {
     throw new Error("Você não pode ser apoiador da própria meta");
   }
 
@@ -87,45 +87,15 @@ export async function acceptInvite(inviteCode: string) {
 
   if (error) throw new Error(error.message);
 
-  // Check achievements for goal owner
-  if (goal) {
-    await checkSupporterAchievements(goal as Record<string, unknown>);
-  }
+  // Note: supporter achievements (not-alone, strong-network) are checked
+  // when the goal owner loads their home page via checkAchievements in checkins.ts
 
   revalidatePath("/network");
   return supporter;
 }
 
-async function checkSupporterAchievements(goal: Record<string, unknown>) {
-  const supabase = await createClient();
-  const userId = goal.user_id as string;
-
-  const { count } = await supabase
-    .from("supporters")
-    .select("*", { count: "exact", head: true })
-    .eq("status", "active")
-    .in("goal_id", (
-      await supabase.from("goals").select("id").eq("user_id", userId)
-    ).data?.map((g) => g.id) ?? []);
-
-  const total = (count as number | null) ?? 0;
-
-  // Not alone achievement
-  if (total >= 1) {
-    await supabase.from("user_achievements").upsert(
-      { user_id: userId, achievement_id: "not-alone", goal_id: null },
-      { onConflict: "user_id,achievement_id,goal_id" }
-    );
-  }
-
-  // Strong network
-  if (total >= 3) {
-    await supabase.from("user_achievements").upsert(
-      { user_id: userId, achievement_id: "strong-network", goal_id: null },
-      { onConflict: "user_id,achievement_id,goal_id" }
-    );
-  }
-}
+// Achievement check is deferred — runs when the goal owner loads their home page
+// This avoids RLS issues since the accepting user can't read the goal owner's data
 
 export async function removeSupporter(supporterId: string) {
   const supabase = await createClient();

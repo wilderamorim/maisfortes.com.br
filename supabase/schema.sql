@@ -200,9 +200,6 @@ create policy "Users can view connected profiles" on public.users for select usi
 
 -- Goals: own goals
 create policy "Users can CRUD own goals" on public.goals for all using (auth.uid() = user_id);
-create policy "Anyone can view goals with pending invites" on public.goals for select using (
-  id in (select goal_id from public.supporters where status = 'pending' and user_id is null)
-);
 
 -- Checkins: owner can CRUD
 create policy "Users can CRUD own checkins" on public.checkins for all using (

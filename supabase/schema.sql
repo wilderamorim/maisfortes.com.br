@@ -85,6 +85,23 @@ create table public.friendships (
   unique(user_id, friend_id)
 );
 
+-- Friend Streaks (ofensiva de amigos)
+create table public.friend_streaks (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  user_goal_id uuid not null references public.goals(id) on delete cascade,
+  user_goal_visible boolean not null default true,
+  friend_id uuid not null references public.users(id) on delete cascade,
+  friend_goal_id uuid references public.goals(id) on delete set null,
+  friend_goal_visible boolean not null default true,
+  target_days int not null default 30,
+  current_streak int not null default 0,
+  best_streak int not null default 0,
+  last_both_date date,
+  status text not null default 'pending' check (status in ('pending', 'active', 'broken', 'completed', 'removed')),
+  created_at timestamptz not null default now()
+);
+
 -- Achievements (static catalog)
 create table public.achievements (
   id text primary key,
@@ -135,6 +152,9 @@ create index idx_messages_goal_id on public.messages(goal_id);
 create index idx_messages_to_user on public.messages(to_user_id);
 create index idx_friendships_user_id on public.friendships(user_id);
 create index idx_friendships_friend_id on public.friendships(friend_id);
+create index idx_friend_streaks_user on public.friend_streaks(user_id);
+create index idx_friend_streaks_friend on public.friend_streaks(friend_id);
+create index idx_friend_streaks_status on public.friend_streaks(status);
 create index idx_user_achievements_user_id on public.user_achievements(user_id);
 create index idx_notifications_user on public.notifications(user_id);
 create index idx_notifications_unread on public.notifications(user_id) where read_at is null;
@@ -149,6 +169,7 @@ alter table public.checkins enable row level security;
 alter table public.supporters enable row level security;
 alter table public.messages enable row level security;
 alter table public.friendships enable row level security;
+alter table public.friend_streaks enable row level security;
 alter table public.achievements enable row level security;
 alter table public.user_achievements enable row level security;
 alter table public.notifications enable row level security;
@@ -159,8 +180,11 @@ create policy "Users can update own profile" on public.users for update using (a
 create policy "Users can insert own profile" on public.users for insert with check (auth.uid() = id);
 create policy "Users can view friends profiles" on public.users for select using (
   id in (
-    select friend_id from public.friendships
-    where user_id = auth.uid() and status = 'active'
+    select friend_id from public.friend_streaks
+    where user_id = auth.uid() and status in ('pending', 'active', 'completed')
+    union
+    select user_id from public.friend_streaks
+    where friend_id = auth.uid() and status in ('pending', 'active', 'completed')
   )
 );
 
@@ -193,6 +217,11 @@ create policy "Users manage own friendships" on public.friendships for all using
   auth.uid() = user_id or auth.uid() = friend_id
 );
 
+-- Friend Streaks
+create policy "Users manage own friend_streaks" on public.friend_streaks for all using (
+  auth.uid() = user_id or auth.uid() = friend_id
+);
+
 -- Achievements
 create policy "Anyone can read achievements" on public.achievements for select to authenticated using (true);
 
@@ -220,7 +249,11 @@ insert into public.achievements (id, name, description, icon, rarity, condition_
   ('consistency', 'Constância', '30 check-ins com score 4+', 'trending-up', 'gold', 'custom', 30),
   ('quarter-streak', 'Trimestre', '90 dias de streak', 'trophy', 'platinum', 'streak', 90),
   ('semester-streak', 'Semestre', '180 dias de streak', 'crown', 'platinum', 'streak', 180),
-  ('year-streak', 'Um Ano', '365 dias de streak', 'diamond', 'diamond', 'streak', 365)
+  ('year-streak', 'Um Ano', '365 dias de streak', 'diamond', 'diamond', 'streak', 365),
+  ('first-friend-streak', 'Parceiros', 'Completou primeira ofensiva de amigos', 'handshake', 'bronze', 'custom', 1),
+  ('friend-streak-3', 'Trio de Fogo', 'Completou 3 ofensivas de amigos', 'flame', 'silver', 'custom', 3),
+  ('friend-streak-keeper', 'Guardião do Streak', 'Completou ofensiva de 60+ dias', 'shield', 'gold', 'custom', 1),
+  ('friend-streak-legend', 'Lenda entre Amigos', 'Completou ofensiva de 90+ dias', 'award', 'platinum', 'custom', 1)
 on conflict (id) do nothing;
 
 -- ============================================

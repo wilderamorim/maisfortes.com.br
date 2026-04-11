@@ -1,11 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 import { getActiveGoals } from "@/lib/actions/goals";
 import { getSupportersForGoal, getGoalsISupport } from "@/lib/actions/supporters";
-import { getFriendsWithStreaks } from "@/lib/actions/friendships";
-import { Users, Flame, Link2, UserPlus, Share2 } from "lucide-react";
+import { getFriendStreaks } from "@/lib/actions/friend-streaks";
+import { Flame } from "lucide-react";
 import Link from "next/link";
 import { InviteButton } from "./invite-button";
 import { AddFriendButton } from "./add-friend-button";
+import { NudgeButton } from "./nudge-button";
 
 export const metadata = { title: "Rede" };
 
@@ -19,7 +20,7 @@ export default async function NetworkPage() {
 
   const goals = await getActiveGoals();
   const goalsISupport = await getGoalsISupport();
-  const friends = await getFriendsWithStreaks();
+  const friends = await getFriendStreaks();
 
   // Get supporters for each goal
   const goalSupporters = await Promise.all(
@@ -35,43 +36,89 @@ export default async function NetworkPage() {
         Rede de Apoio
       </h1>
 
-      {/* Streak de Amigos */}
+      {/* Ofensiva de Amigos */}
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-sm" style={{ color: "var(--mf-text)" }}>Streak de Amigos</h2>
+          <h2 className="font-semibold text-sm" style={{ color: "var(--mf-text)" }}>Ofensiva de Amigos</h2>
           <AddFriendButton />
         </div>
 
         {friends.length > 0 ? (
           <div className="space-y-2">
-            {friends.map((friend) => (
+            {friends.map((fs) => (
               <div
-                key={friend.id}
-                className="flex items-center gap-3 rounded-xl px-4 py-3"
+                key={fs.id}
+                className="rounded-xl px-4 py-3"
                 style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
               >
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs"
-                  style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}
-                >
-                  {friend.name?.[0]?.toUpperCase() ?? "?"}
-                </div>
-                <span className="flex-1 text-sm font-medium" style={{ color: "var(--mf-text)" }}>
-                  {friend.name}
-                </span>
-                <div className="flex items-center gap-1">
-                  <Flame className="w-3.5 h-3.5" style={{ color: friend.best_streak > 0 ? "var(--forest)" : "var(--mf-text-muted)" }} />
-                  <span className="font-mono text-xs" style={{ color: friend.best_streak > 0 ? "var(--forest)" : "var(--mf-text-muted)" }}>
-                    {friend.best_streak}
+                {/* Header: avatar + name + streak counter */}
+                <div className="flex items-center gap-3 mb-2">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs"
+                    style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}
+                  >
+                    {fs.friend.name?.[0]?.toUpperCase() ?? "?"}
+                  </div>
+                  <span className="flex-1 text-sm font-medium" style={{ color: "var(--mf-text)" }}>
+                    {fs.friend.name}
                   </span>
+                  {fs.status === "pending" ? (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full font-mono" style={{ background: "rgba(255,183,3,0.1)", color: "var(--amber)" }}>
+                      Pendente
+                    </span>
+                  ) : fs.status === "completed" ? (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full font-mono" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
+                      🏆 {fs.target_days}/{fs.target_days}
+                    </span>
+                  ) : (
+                    <div className="flex items-center gap-1">
+                      <Flame className="w-3.5 h-3.5" style={{ color: fs.current_streak > 0 ? "var(--forest)" : "var(--mf-text-muted)" }} />
+                      <span className="font-mono text-xs" style={{ color: fs.current_streak > 0 ? "var(--forest)" : "var(--mf-text-muted)" }}>
+                        {fs.current_streak}/{fs.target_days}
+                      </span>
+                    </div>
+                  )}
                 </div>
+
+                {/* Status details */}
+                {fs.status === "pending" ? (
+                  <p className="text-[10px] ml-12" style={{ color: "var(--mf-text-muted)" }}>
+                    Aguardando {fs.friend.name || "amigo"} escolher uma meta
+                  </p>
+                ) : fs.status === "completed" ? (
+                  <div className="ml-12">
+                    <p className="text-[10px] mb-2" style={{ color: "var(--forest)" }}>
+                      Ofensiva de {fs.target_days} dias completa!
+                    </p>
+                  </div>
+                ) : (
+                  <div className="ml-12 space-y-0.5">
+                    {/* My status */}
+                    <div className="flex items-center gap-1.5 text-[10px]" style={{ color: "var(--mf-text-muted)" }}>
+                      <span>{fs.i_checked_today ? "✅" : "⏳"}</span>
+                      <span>Você</span>
+                      <span style={{ color: "var(--mf-text-muted)" }}>·</span>
+                      <span>{fs.my_goal.title}</span>
+                    </div>
+                    {/* Friend status */}
+                    <div className="flex items-center gap-1.5 text-[10px]" style={{ color: "var(--mf-text-muted)" }}>
+                      <span>{fs.friend_checked_today ? "✅" : "⏳"}</span>
+                      <span>{fs.friend.name}</span>
+                      <span style={{ color: "var(--mf-text-muted)" }}>·</span>
+                      <span>{fs.friend_goal?.visible ? fs.friend_goal.title : "Meta privada 🔒"}</span>
+                      {fs.i_checked_today && !fs.friend_checked_today && (
+                        <NudgeButton friendStreakId={fs.id} friendName={fs.friend.name} />
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         ) : (
           <div className="rounded-xl p-6 text-center" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}>
             <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
-              Convide amigos e acompanhem os streaks um do outro.
+              Crie uma ofensiva de amigos e acompanhem o progresso juntos.
             </p>
           </div>
         )}

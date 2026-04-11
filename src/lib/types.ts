@@ -2,6 +2,7 @@ export type GoalStatus = "active" | "paused" | "completed";
 export type Mood = "great" | "good" | "neutral" | "bad" | "terrible";
 export type SupporterStatus = "pending" | "active" | "removed";
 export type FriendshipStatus = "pending" | "active" | "removed";
+export type FriendStreakStatus = "pending" | "active" | "broken" | "completed" | "removed";
 export type MessageType = "message" | "reaction";
 export type AchievementRarity = "bronze" | "silver" | "gold" | "platinum" | "diamond";
 export type AchievementCondition = "streak" | "checkin_count" | "supporter_count" | "custom";
@@ -74,6 +75,24 @@ export interface Friendship {
   created_at: string;
 }
 
+export interface FriendStreak {
+  id: string;
+  user_id: string;
+  user_goal_id: string;
+  user_goal_visible: boolean;
+  friend_id: string;
+  friend_goal_id: string | null;
+  friend_goal_visible: boolean;
+  target_days: number;
+  current_streak: number;
+  best_streak: number;
+  last_both_date: string | null;
+  status: FriendStreakStatus;
+  created_at: string;
+}
+
+export const TARGET_DAYS_OPTIONS = [7, 14, 21, 30, 60, 90] as const;
+
 export interface Achievement {
   id: string;
   name: string;
@@ -122,4 +141,8 @@ export const ACHIEVEMENT_SEEDS: Omit<Achievement, "created_at">[] = [
   { id: "quarter-streak", name: "Trimestre", description: "90 dias de streak", icon: "trophy", rarity: "platinum", condition_type: "streak", condition_value: 90 },
   { id: "semester-streak", name: "Semestre", description: "180 dias de streak", icon: "crown", rarity: "platinum", condition_type: "streak", condition_value: 180 },
   { id: "year-streak", name: "Um Ano", description: "365 dias de streak", icon: "diamond", rarity: "diamond", condition_type: "streak", condition_value: 365 },
+  { id: "first-friend-streak", name: "Parceiros", description: "Completou primeira ofensiva de amigos", icon: "handshake", rarity: "bronze", condition_type: "custom", condition_value: 1 },
+  { id: "friend-streak-3", name: "Trio de Fogo", description: "Completou 3 ofensivas de amigos", icon: "flame", rarity: "silver", condition_type: "custom", condition_value: 3 },
+  { id: "friend-streak-keeper", name: "Guardião do Streak", description: "Completou ofensiva de 60+ dias", icon: "shield", rarity: "gold", condition_type: "custom", condition_value: 1 },
+  { id: "friend-streak-legend", name: "Lenda entre Amigos", description: "Completou ofensiva de 90+ dias", icon: "award", rarity: "platinum", condition_type: "custom", condition_value: 1 },
 ];

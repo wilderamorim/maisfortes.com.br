@@ -4,9 +4,10 @@ import { SCORE_OPTIONS } from "@/lib/types";
 import { createCheckin } from "@/lib/actions/checkins";
 import { getSupportersForGoal } from "@/lib/actions/supporters";
 import { sendMessage } from "@/lib/actions/messages";
+import { getFriendStreaksForGoal, nudgeFriend } from "@/lib/actions/friend-streaks";
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Check, Heart, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, Check, Heart, MessageCircle, Phone, Flame } from "lucide-react";
 import Link from "next/link";
 
 export default function CheckinPage() {
@@ -29,6 +30,8 @@ function CheckinContent() {
   const [difficultDay, setDifficultDay] = useState(false);
   const [alertSent, setAlertSent] = useState(false);
   const [sendingAlert, setSendingAlert] = useState(false);
+  const [friendStreaks, setFriendStreaks] = useState<{ id: string; friend_name: string; friend_checked_today: boolean; current_streak: number; target_days: number }[]>([]);
+  const [nudgedIds, setNudgedIds] = useState<Set<string>>(new Set());
 
   const today = new Date().toLocaleDateString("pt-BR", {
     weekday: "long",
@@ -57,8 +60,17 @@ function CheckinContent() {
         return;
       }
 
+      // Load friend streaks for this goal before showing success
+      let streaks: typeof friendStreaks = [];
+      if (goalId) {
+        streaks = await getFriendStreaksForGoal(goalId);
+        setFriendStreaks(streaks);
+      }
+
       setSuccess(true);
-      setTimeout(() => router.push("/home"), 1500);
+      if (streaks.length === 0) {
+        setTimeout(() => router.push("/home"), 1500);
+      }
     } catch {
       setLoading(false);
     }
@@ -165,9 +177,10 @@ function CheckinContent() {
   }
 
   if (success) {
+    const hasStreaks = friendStreaks.length > 0;
     return (
       <div className="min-h-dvh flex items-center justify-center px-4">
-        <div className="text-center animate-scale-in">
+        <div className="text-center animate-scale-in w-full max-w-sm">
           <div
             className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"
             style={{ background: "rgba(45,106,79,0.1)" }}
@@ -177,9 +190,63 @@ function CheckinContent() {
           <h2 className="text-xl font-bold mb-1" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
             Check-in registrado!
           </h2>
-          <p className="text-sm" style={{ color: "var(--mf-text-muted)" }}>
+          <p className="text-sm mb-6" style={{ color: "var(--mf-text-muted)" }}>
             Mais um dia. Você está mais forte.
           </p>
+
+          {/* Friend streaks status */}
+          {hasStreaks && (
+            <div className="space-y-2 mb-6">
+              {friendStreaks.map((fs) => (
+                <div
+                  key={fs.id}
+                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-left"
+                  style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
+                >
+                  <Flame className="w-4 h-4 flex-shrink-0" style={{ color: "var(--forest)" }} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium truncate" style={{ color: "var(--mf-text)" }}>
+                      Ofensiva com {fs.friend_name}
+                    </p>
+                    <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>
+                      {fs.current_streak}/{fs.target_days} dias
+                    </p>
+                  </div>
+                  {fs.friend_checked_today ? (
+                    <span className="text-[10px] flex-shrink-0" style={{ color: "var(--forest)" }}>
+                      ✅ Fez!
+                    </span>
+                  ) : (
+                    <button
+                      onClick={async () => {
+                        try {
+                          await nudgeFriend(fs.id);
+                          setNudgedIds((prev) => new Set([...prev, fs.id]));
+                          if (navigator.vibrate) navigator.vibrate(30);
+                        } catch { /* already nudged */ }
+                      }}
+                      disabled={nudgedIds.has(fs.id)}
+                      className="text-[10px] px-2 py-1 rounded-lg flex-shrink-0 transition-all active:scale-95"
+                      style={{
+                        background: nudgedIds.has(fs.id) ? "transparent" : "rgba(45,106,79,0.1)",
+                        color: "var(--forest)",
+                      }}
+                    >
+                      {nudgedIds.has(fs.id) ? "👋 Cutucado!" : "👋 Cutucar"}
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          <button
+            onClick={() => router.push("/home")}
+            className="w-full py-3 rounded-xl font-semibold text-sm transition-all active:scale-[0.98] text-white"
+            style={{ background: "var(--forest)" }}
+          >
+            Continuar
+          </button>
         </div>
       </div>
     );

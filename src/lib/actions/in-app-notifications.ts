@@ -11,7 +11,9 @@ export type NotificationType =
   | "supporter_reaction"
   | "inactivity_alert"
   | "weekly_summary"
-  | "friend_streak_broken";
+  | "friend_streak_broken"
+  | "friend_streak_nudge"
+  | "friend_streak_completed";
 
 export interface AppNotification {
   id: string;

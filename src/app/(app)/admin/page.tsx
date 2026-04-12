@@ -8,6 +8,7 @@ import {
 } from "@/lib/actions/admin";
 import { ArrowLeft, Bell, Mail, Clock, BarChart3, Check, X, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { ResubscribePush } from "./resubscribe-push";
 
 type Result = { success: boolean; error?: string; data?: unknown } | null;
 
@@ -131,6 +132,7 @@ export default function AdminPage() {
       <div className="mb-6">
         <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--mf-text)" }}>Testar notificações</h2>
         <div className="space-y-2">
+          <ResubscribePush />
           <div
             className="flex items-center justify-between rounded-xl px-4 py-3"
             style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}

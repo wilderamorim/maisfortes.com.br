@@ -75,19 +75,23 @@ export function weeklyReportEmail(
   return layout(`
     <h2 style="font-size:20px;color:${BRAND.text};margin:0 0 8px;">Seu resumo da semana ${emoji}</h2>
     <p style="font-size:14px;color:${BRAND.muted};margin:0 0 20px;">Oi, ${name}. Aqui está como foi sua semana:</p>
-    <div style="display:flex;gap:8px;margin-bottom:24px;">
-      ${[
-        { label: "Check-ins", value: String(totalCheckins) },
-        { label: "Score médio", value: String(avgScore) },
-        { label: "Melhor streak", value: `${bestStreak}d` },
-        { label: "Metas ativas", value: String(goalsCount) },
-      ].map((s) => `
-        <div style="flex:1;background:${BRAND.bg};border-radius:12px;padding:12px 8px;text-align:center;">
-          <div style="font-size:20px;font-weight:800;color:${BRAND.forest};font-variant-numeric:tabular-nums;">${s.value}</div>
-          <div style="font-size:10px;color:${BRAND.muted};margin-top:2px;">${s.label}</div>
-        </div>
-      `).join("")}
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+      <tr>
+        ${[
+          { label: "Check-ins", value: String(totalCheckins) },
+          { label: "Score médio", value: String(avgScore) },
+          { label: "Melhor streak", value: `${bestStreak}d` },
+          { label: "Metas ativas", value: String(goalsCount) },
+        ].map((s) => `
+          <td style="width:25%;padding:4px;">
+            <div style="background:${BRAND.bg};border-radius:12px;padding:12px 8px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:${BRAND.forest};">${s.value}</div>
+              <div style="font-size:10px;color:${BRAND.muted};margin-top:2px;">${s.label}</div>
+            </div>
+          </td>
+        `).join("")}
+      </tr>
+    </table>
     <p style="font-size:14px;color:${BRAND.muted};margin:0 0 24px;">
       ${totalCheckins >= 5 ? "Semana consistente! Continue assim." : "Cada check-in conta. A próxima semana é uma nova chance."}
     </p>

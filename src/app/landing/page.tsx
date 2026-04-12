@@ -93,11 +93,11 @@ export default function LandingPage() {
                 <div className="flex flex-col sm:flex-row gap-4 items-start">
                   <Link
                     href="/auth/register"
-                    className="group px-8 py-4 rounded-full text-white font-semibold text-sm inline-flex items-center gap-3 transition-all hover:gap-4 active:scale-[0.98]"
+                    className="group px-8 py-4 rounded-full text-white font-semibold text-sm inline-flex items-center gap-3 active:scale-[0.98]"
                     style={{ background: "var(--forest)", boxShadow: "0 0 0 0 rgba(45,106,79,0.3)", animation: "pulse-glow 3s ease-in-out infinite" }}
                   >
                     Comece sua jornada
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
                   </Link>
                   <a href="#como-funciona" className="px-6 py-4 text-sm font-medium transition-all hover:opacity-70 inline-flex items-center gap-2" style={{ color: "var(--mf-text-secondary)" }}>
                     Como funciona

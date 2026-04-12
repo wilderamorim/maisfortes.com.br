@@ -321,41 +321,37 @@ export default function LandingPage() {
             </BlurReveal>
 
             {/* Card 5 — Conquistas */}
-            <BlurReveal delay={250} className="md:col-span-2 lg:col-span-2">
-              <div className="rounded-3xl p-8 sm:p-10 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "200px" }}>
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
-                  <div>
-                    <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--amber)" }}>05 — Conquistas</span>
-                    <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                      De Bronze a Diamante.
-                    </h3>
-                    <p className="text-sm mt-3 max-w-sm" style={{ color: "var(--mf-text-muted)" }}>
-                      17 conquistas para desbloquear. Cada marco merece ser celebrado.
-                    </p>
-                  </div>
-                  {/* Achievement badges */}
-                  <div className="flex gap-3 flex-wrap sm:flex-nowrap">
-                    {[
-                      { emoji: "👣", label: "7d", color: "#CD7F32" },
-                      { emoji: "🔥", label: "14d", color: "#A0A0A0" },
-                      { emoji: "🛡️", label: "30d", color: "#FFB703" },
-                      { emoji: "🏆", label: "90d", color: "#2D6A4F" },
-                      { emoji: "💎", label: "365d", color: "#0077B6" },
-                    ].map((a, i) => (
-                      <div
-                        key={a.label}
-                        className="w-14 h-14 rounded-2xl flex flex-col items-center justify-center transition-all hover:scale-110 hover:-translate-y-1"
-                        style={{
-                          background: `color-mix(in srgb, ${a.color} 10%, var(--mf-bg-secondary))`,
-                          border: `1px solid color-mix(in srgb, ${a.color} 25%, transparent)`,
-                          transitionDelay: `${i * 50}ms`,
-                        }}
-                      >
-                        <span className="text-lg">{a.emoji}</span>
-                        <span className="text-[8px] font-mono" style={{ color: a.color }}>{a.label}</span>
-                      </div>
-                    ))}
-                  </div>
+            <BlurReveal delay={250} className="lg:col-span-2">
+              <div className="rounded-3xl p-8 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "280px" }}>
+                <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--amber)" }}>05 — Conquistas</span>
+                <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  De Bronze<br />a Diamante.
+                </h3>
+                <p className="text-sm mt-3" style={{ color: "var(--mf-text-muted)" }}>
+                  17 conquistas para desbloquear. Cada marco celebrado.
+                </p>
+                {/* Achievement badges */}
+                <div className="flex gap-2 mt-6 flex-wrap">
+                  {[
+                    { emoji: "👣", label: "7d", color: "#CD7F32" },
+                    { emoji: "🔥", label: "14d", color: "#A0A0A0" },
+                    { emoji: "🛡️", label: "30d", color: "#FFB703" },
+                    { emoji: "🏆", label: "90d", color: "#2D6A4F" },
+                    { emoji: "💎", label: "365d", color: "#0077B6" },
+                  ].map((a, i) => (
+                    <div
+                      key={a.label}
+                      className="w-11 h-11 rounded-xl flex flex-col items-center justify-center transition-all hover:scale-110 hover:-translate-y-1"
+                      style={{
+                        background: `color-mix(in srgb, ${a.color} 10%, var(--mf-bg-secondary))`,
+                        border: `1px solid color-mix(in srgb, ${a.color} 25%, transparent)`,
+                        transitionDelay: `${i * 50}ms`,
+                      }}
+                    >
+                      <span className="text-sm">{a.emoji}</span>
+                      <span className="text-[7px] font-mono" style={{ color: a.color }}>{a.label}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </BlurReveal>

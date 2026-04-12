@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode } from "react";
+import Link from "next/link";
 
 export function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -39,7 +40,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
           </p>
           <div className="flex items-center gap-6 text-sm opacity-60">
             <div>
-              <span className="text-2xl font-bold font-mono block">13</span>
+              <span className="text-2xl font-bold font-mono block">17</span>
               <span>conquistas</span>
             </div>
             <div className="w-px h-10" style={{ background: "rgba(255,255,255,0.2)" }} />
@@ -60,14 +61,14 @@ export function AuthLayout({ children }: { children: ReactNode }) {
       <div className="w-full lg:w-1/2 xl:w-[45%] flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
-          <div className="lg:hidden text-center mb-8">
+          <Link href="/landing" className="lg:hidden block text-center mb-8">
             <div
               className="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center"
               style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
             >
               <span className="text-white"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
             </div>
-          </div>
+          </Link>
           {children}
         </div>
       </div>

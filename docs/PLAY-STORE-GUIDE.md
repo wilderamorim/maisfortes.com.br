@@ -56,7 +56,7 @@ A forma mais simples. Sem instalar nada.
 4. PWABuilder vai analisar seu manifest e service worker
 5. Clique **Package for stores** → **Android**
 6. Preencha:
-   - **Package ID:** `br.com.maisfortes.app`
+   - **Package ID:** `br.com.maisfortes.twa`
    - **App name:** `+Fortes`
    - **App version:** `1.0.0`
    - **Display mode:** Standalone
@@ -71,7 +71,7 @@ A forma mais simples. Sem instalar nada.
 ### Alternativa: Bubblewrap (CLI)
 
 ```bash
-npm i -g @nicolo-ribaudo/bubblewrap
+npm i -g @bubblewrap/cli
 bubblewrap init --manifest=https://maisfortes.com.br/manifest.json
 bubblewrap build
 ```

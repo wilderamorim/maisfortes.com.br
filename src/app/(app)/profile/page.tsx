@@ -6,6 +6,7 @@ import { ThemeToggleRow } from "./theme-toggle";
 import { LogoutButton } from "./logout-button";
 import { NotificationSettingsRow } from "./notification-settings";
 import { AvatarUpload } from "./avatar-upload";
+import { AdminLink } from "./admin-link";
 
 export const metadata = { title: "Perfil" };
 
@@ -110,6 +111,8 @@ export default async function ProfilePage() {
           <span className="flex-1 text-sm font-medium">Exportar dados</span>
           <span className="text-xs">Em breve</span>
         </div>
+
+        <AdminLink />
 
         <div className="h-px my-2" style={{ background: "var(--mf-border)" }} />
 

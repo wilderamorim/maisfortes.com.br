@@ -612,6 +612,7 @@ export default function LandingPage() {
               { q: "Meus dados são seguros?", a: "Sim. Criptografia, controle por meta e nada é público. Você decide tudo." },
               { q: "Funciona para qualquer mudança?", a: "Sim. Álcool, dieta, cigarro, celular, exercício — qualquer comportamento que você queira mudar." },
               { q: "Onde baixo o app?", a: "No Android, disponível na Google Play Store. No iPhone, acesse pelo Safari e instale direto na tela inicial. Funciona como app nativo nos dois." },
+              { q: "Como posso ajudar o projeto?", a: "De várias formas: doando qualquer valor via Pix, contribuindo com código no GitHub (é open-source), reportando bugs, sugerindo melhorias, ou simplesmente indicando para alguém que precisa. Toda ajuda importa." },
             ].map((faq, i) => (
               <BlurReveal key={i} delay={i * 60}>
                 <div className="py-6" style={{ borderBottom: "1px solid var(--mf-border-subtle)" }}>

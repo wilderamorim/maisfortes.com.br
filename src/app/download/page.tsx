@@ -74,7 +74,7 @@ export default function DownloadPage() {
         </div>
 
         <div className="max-w-3xl mx-auto px-6 py-20 relative">
-          <Link href="/landing" className="inline-flex items-center gap-1 text-xs mb-8 transition-opacity hover:opacity-70" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <Link href="/" className="inline-flex items-center gap-1 text-xs mb-8 transition-opacity hover:opacity-70" style={{ color: "rgba(255,255,255,0.5)" }}>
             <ArrowLeft className="w-3.5 h-3.5" />
             Voltar
           </Link>

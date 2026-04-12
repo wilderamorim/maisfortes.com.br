@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 export function PageHero({
   title,
   subtitle,
-  backHref = "/landing",
+  backHref = "/",
   icon,
 }: {
   title: string;

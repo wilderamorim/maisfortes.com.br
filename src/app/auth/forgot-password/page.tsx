@@ -34,10 +34,10 @@ export default function ForgotPasswordPage() {
 
   return (
     <AuthLayout>
-      <div className="hidden lg:flex items-center gap-2 mb-10">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+      <Link href="/" className="hidden lg:flex items-center gap-2 mb-10 group">
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
         <span className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
-      </div>
+      </Link>
 
       <Link href="/auth/login" className="inline-flex items-center gap-1.5 text-xs font-medium mb-6 transition-colors" style={{ color: "var(--mf-text-muted)" }}>
         <ArrowLeft className="w-3.5 h-3.5" /> Voltar ao login

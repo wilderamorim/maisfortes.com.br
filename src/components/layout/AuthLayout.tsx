@@ -61,7 +61,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
       <div className="w-full lg:w-1/2 xl:w-[45%] flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
-          <Link href="/landing" className="lg:hidden block text-center mb-8">
+          <Link href="/" className="lg:hidden block text-center mb-8">
             <div
               className="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center"
               style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}

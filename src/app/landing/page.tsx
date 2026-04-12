@@ -84,7 +84,7 @@ export default function LandingPage() {
               {/* Subtitle */}
               <BlurReveal delay={200}>
                 <p className="text-lg sm:text-xl max-w-md leading-relaxed mb-10" style={{ color: "var(--mf-text-muted)" }}>
-                  Registre como você está. Veja sua constância crescer. E se quiser, com quem te importa ao lado.
+                  Acompanhe sua jornada de mudança com check-in diário, streaks e uma rede de apoio real.
                 </p>
               </BlurReveal>
 

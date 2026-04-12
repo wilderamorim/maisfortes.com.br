@@ -36,6 +36,9 @@ export default function LandingPage() {
             <span className="font-bold text-sm tracking-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
           </Link>
           <div className="flex items-center gap-2">
+            <Link href="/download" className="hidden sm:inline-block px-5 py-2 rounded-full text-xs font-medium transition-all hover:opacity-70" style={{ color: "var(--mf-text-secondary)" }}>
+              Baixar
+            </Link>
             <Link href="/auth/login" className="hidden sm:inline-block px-5 py-2 rounded-full text-xs font-medium transition-all hover:opacity-70" style={{ color: "var(--mf-text-secondary)" }}>
               Entrar
             </Link>
@@ -110,7 +113,7 @@ export default function LandingPage() {
                 <div className="flex items-center gap-8 mt-14 pt-8" style={{ borderTop: "1px solid var(--mf-border-subtle)" }}>
                   {[
                     { value: "10s", label: "por check-in" },
-                    { value: "13", label: "conquistas" },
+                    { value: "17", label: "conquistas" },
                     { value: "R$0", label: "para sempre" },
                   ].map((stat) => (
                     <div key={stat.label}>
@@ -134,7 +137,7 @@ export default function LandingPage() {
 
       {/* ═══════════════ MARQUEE ═══════════════ */}
       <section className="py-6 border-y" style={{ borderColor: "var(--mf-border-subtle)" }}>
-        <Marquee items={["Check-in diário", "Streak", "Conquistas", "Rede de apoio", "Privacidade total", "100% gratuito", "Open-source", "PWA", "Offline"]} />
+        <Marquee items={["Check-in diário", "Streak", "Conquistas", "Rede de apoio", "Ofensiva de amigos", "Privacidade total", "100% gratuito", "Open-source", "PWA", "Offline"]} />
       </section>
 
       {/* ═══════════════ PROBLEMA ═══════════════ */}
@@ -290,17 +293,44 @@ export default function LandingPage() {
               </div>
             </BlurReveal>
 
-            {/* Card 4 — Conquistas */}
-            <BlurReveal delay={200} className="md:col-span-2 lg:col-span-2">
+            {/* Card 4 — Ofensiva de Amigos */}
+            <BlurReveal delay={200}>
+              <div className="rounded-3xl p-8 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "280px" }}>
+                <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--coral)" }}>04 — Ofensiva</span>
+                <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  Streak a dois.<br />Estilo Duolingo.
+                </h3>
+                <p className="text-sm mt-3" style={{ color: "var(--mf-text-muted)" }}>
+                  Convide um amigo, escolham suas metas e mantenham o streak juntos. Se um falhar, a ofensiva quebra.
+                </p>
+                {/* Ofensiva visual */}
+                <div className="mt-6 space-y-2">
+                  <div className="flex items-center gap-2 text-xs" style={{ color: "var(--mf-text-muted)" }}>
+                    <span>✅</span>
+                    <span>Você</span>
+                    <span className="flex-1 text-right font-mono" style={{ color: "var(--forest)" }}>🔥 12/30</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs" style={{ color: "var(--mf-text-muted)" }}>
+                    <span>⏳</span>
+                    <span>Amigo</span>
+                    <span className="flex-1 text-right font-mono">👋</span>
+                  </div>
+                </div>
+                <p className="text-[10px] font-mono mt-3" style={{ color: "var(--mf-text-muted)" }}>7 • 14 • 21 • 30 • 60 • 90 dias</p>
+              </div>
+            </BlurReveal>
+
+            {/* Card 5 — Conquistas */}
+            <BlurReveal delay={250} className="md:col-span-2 lg:col-span-2">
               <div className="rounded-3xl p-8 sm:p-10 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "200px" }}>
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
                   <div>
-                    <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--amber)" }}>04 — Conquistas</span>
+                    <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--amber)" }}>05 — Conquistas</span>
                     <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
                       De Bronze a Diamante.
                     </h3>
                     <p className="text-sm mt-3 max-w-sm" style={{ color: "var(--mf-text-muted)" }}>
-                      13 conquistas para desbloquear. Cada marco merece ser celebrado.
+                      17 conquistas para desbloquear. Cada marco merece ser celebrado.
                     </p>
                   </div>
                   {/* Achievement badges */}
@@ -417,7 +447,7 @@ export default function LandingPage() {
               { q: "Preciso convidar alguém?", a: "Não. O app funciona completo sozinho. A rede de apoio está lá quando você quiser — sem pressa." },
               { q: "Meus dados são seguros?", a: "Sim. Criptografia, controle por meta e nada é público. Você decide tudo." },
               { q: "Funciona para qualquer mudança?", a: "Sim. Álcool, dieta, cigarro, celular, exercício — qualquer comportamento que você queira mudar." },
-              { q: "Preciso baixar na App Store?", a: "Não. Acesse pelo navegador e instale direto na tela do celular — funciona como app." },
+              { q: "Onde baixo o app?", a: "No Android, disponível na Google Play Store. No iPhone, acesse pelo Safari e instale direto na tela inicial. Funciona como app nativo nos dois." },
             ].map((faq, i) => (
               <BlurReveal key={i} delay={i * 60}>
                 <div className="py-6" style={{ borderBottom: "1px solid var(--mf-border-subtle)" }}>

@@ -3,7 +3,12 @@
 import { createClient } from "@/lib/supabase/server";
 import { sendPush } from "@/lib/web-push";
 import { sendEmail } from "@/lib/email";
-import { dailyReminderEmail } from "@/lib/email-templates";
+import {
+  dailyReminderEmail,
+  inactivityAlertEmail,
+  weeklyReportEmail,
+  difficultDayAlertEmail,
+} from "@/lib/email-templates";
 
 const ADMIN_EMAILS = ["wilderamorim@msn.com"];
 
@@ -14,7 +19,7 @@ async function requireAdmin() {
 
   const { data: profile } = await supabase
     .from("users")
-    .select("email")
+    .select("email, name")
     .eq("id", user.id)
     .single();
 
@@ -35,7 +40,7 @@ export async function testPushNotification() {
     .single();
 
   if (!profile?.push_subscription) {
-    return { success: false, error: "Push não ativado. Ative nas configurações do navegador." };
+    return { success: false, error: "Push não ativado. Use o botão Re-registrar primeiro." };
   }
 
   const result = await sendPush(profile.push_subscription, {
@@ -47,35 +52,41 @@ export async function testPushNotification() {
   return result;
 }
 
-export async function testEmailNotification() {
+export async function testEmailTemplate(template: string) {
   const { profile } = await requireAdmin();
+  const name = profile.name || profile.email.split("@")[0];
+
+  let subject = "";
+  let html = "";
+
+  switch (template) {
+    case "daily-reminder":
+      subject = "[TESTE] Lembrete diário";
+      html = dailyReminderEmail(name);
+      break;
+    case "inactivity-alert":
+      subject = "[TESTE] Alerta de inatividade";
+      html = inactivityAlertEmail(name, "João (teste)", 3);
+      break;
+    case "weekly-report":
+      subject = "[TESTE] Resumo semanal 💪";
+      html = weeklyReportEmail(name, 5, 3.8, 12, 2);
+      break;
+    case "difficult-day":
+      subject = "[TESTE] Dia difícil";
+      html = difficultDayAlertEmail(name, "Maria (teste)");
+      break;
+    default:
+      return { success: false, error: "Template desconhecido" };
+  }
 
   const result = await sendEmail({
     to: profile.email,
-    subject: "+Fortes — Teste de email",
-    html: dailyReminderEmail(profile.email.split("@")[0]),
+    subject,
+    html,
   });
 
   return result;
-}
-
-export async function triggerCron(cronName: string) {
-  await requireAdmin();
-
-  const cronSecret = process.env.CRON_SECRET;
-  if (!cronSecret) return { success: false, error: "CRON_SECRET não configurado" };
-
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
-  try {
-    const res = await fetch(`${baseUrl}/api/cron/${cronName}`, {
-      headers: { authorization: `Bearer ${cronSecret}` },
-    });
-    const data = await res.json();
-    return { success: res.ok, data };
-  } catch (e) {
-    return { success: false, error: e instanceof Error ? e.message : "Erro ao executar cron" };
-  }
 }
 
 export async function getAdminStats() {

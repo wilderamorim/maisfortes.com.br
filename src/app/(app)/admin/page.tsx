@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
-  isAdmin, testPushNotification, testEmailNotification,
-  triggerCron, getAdminStats,
+  isAdmin, testPushNotification, testEmailTemplate, getAdminStats,
 } from "@/lib/actions/admin";
-import { ArrowLeft, Bell, Mail, Clock, BarChart3, Check, X, Loader2 } from "lucide-react";
+import { ArrowLeft, Bell, Mail, BarChart3, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { ResubscribePush } from "./resubscribe-push";
 
-type Result = { success: boolean; error?: string; data?: unknown } | null;
+type Result = { success: boolean; error?: string } | null;
 
 function ResultBadge({ result }: { result: Result }) {
   if (!result) return null;
@@ -22,7 +21,7 @@ function ResultBadge({ result }: { result: Result }) {
         color: result.success ? "var(--forest)" : "var(--danger)",
       }}
     >
-      {result.success ? "OK" : result.error || "Erro"}
+      {result.success ? "Enviado" : result.error || "Erro"}
     </span>
   );
 }
@@ -33,8 +32,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<Record<string, number> | null>(null);
   const [pushResult, setPushResult] = useState<Result>(null);
-  const [emailResult, setEmailResult] = useState<Result>(null);
-  const [cronResults, setCronResults] = useState<Record<string, Result>>({});
+  const [emailResults, setEmailResults] = useState<Record<string, Result>>({});
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,10 +41,7 @@ export default function AdminPage() {
 
   async function checkAccess() {
     const admin = await isAdmin();
-    if (!admin) {
-      router.push("/home");
-      return;
-    }
+    if (!admin) { router.push("/home"); return; }
     setAuthorized(true);
     setLoading(false);
     loadStats();
@@ -57,18 +52,24 @@ export default function AdminPage() {
     setStats(data);
   }
 
-  async function handleAction(action: string, fn: () => Promise<Result>) {
-    setActionLoading(action);
+  async function handlePush() {
+    setActionLoading("push");
     try {
-      const result = await fn();
-      if (action === "push") setPushResult(result);
-      else if (action === "email") setEmailResult(result);
-      else setCronResults((prev) => ({ ...prev, [action]: result }));
+      const result = await testPushNotification();
+      setPushResult(result);
     } catch (e) {
-      const err = { success: false, error: e instanceof Error ? e.message : "Erro" };
-      if (action === "push") setPushResult(err);
-      else if (action === "email") setEmailResult(err);
-      else setCronResults((prev) => ({ ...prev, [action]: err }));
+      setPushResult({ success: false, error: e instanceof Error ? e.message : "Erro" });
+    }
+    setActionLoading(null);
+  }
+
+  async function handleEmail(template: string) {
+    setActionLoading(template);
+    try {
+      const result = await testEmailTemplate(template);
+      setEmailResults((prev) => ({ ...prev, [template]: result }));
+    } catch (e) {
+      setEmailResults((prev) => ({ ...prev, [template]: { success: false, error: e instanceof Error ? e.message : "Erro" } }));
     }
     setActionLoading(null);
   }
@@ -81,11 +82,11 @@ export default function AdminPage() {
     );
   }
 
-  const CRONS = [
-    { id: "daily-push", label: "Lembrete diário", desc: "Push + email + notificação para quem não fez check-in" },
-    { id: "inactivity-alert", label: "Alerta inatividade", desc: "Avisa apoiadores de inatividade 48h+" },
-    { id: "friend-streaks", label: "Ofensiva de amigos", desc: "Avalia streaks compartilhados" },
-    { id: "weekly-summary", label: "Resumo semanal", desc: "Email + push com stats da semana" },
+  const EMAIL_TEMPLATES = [
+    { id: "daily-reminder", label: "Lembrete diário", desc: "\"Ei, como foi hoje?\" — template de check-in" },
+    { id: "inactivity-alert", label: "Alerta de inatividade", desc: "\"João não faz check-in há 3 dias\" — para apoiadores" },
+    { id: "weekly-report", label: "Resumo semanal", desc: "5 check-ins, score 3.8, streak 12, 2 metas — dados fake" },
+    { id: "difficult-day", label: "Dia difícil", desc: "\"Maria está tendo um dia difícil\" — alerta para apoiador" },
   ];
 
   return (
@@ -128,26 +129,26 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* Test notifications */}
+      {/* Push */}
       <div className="mb-6">
-        <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--mf-text)" }}>Testar notificações</h2>
+        <div className="flex items-center gap-2 mb-3">
+          <Bell className="w-4 h-4" style={{ color: "var(--forest)" }} />
+          <h2 className="text-sm font-semibold" style={{ color: "var(--mf-text)" }}>Push notification</h2>
+        </div>
         <div className="space-y-2">
           <ResubscribePush />
           <div
             className="flex items-center justify-between rounded-xl px-4 py-3"
             style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
           >
-            <div className="flex items-center gap-3">
-              <Bell className="w-4 h-4" style={{ color: "var(--forest)" }} />
-              <div>
-                <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>Push notification</p>
-                <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>Envia para seu dispositivo</p>
-              </div>
+            <div>
+              <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>Enviar push de teste</p>
+              <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>Envia para seu dispositivo</p>
             </div>
             <div className="flex items-center gap-2">
               <ResultBadge result={pushResult} />
               <button
-                onClick={() => handleAction("push", testPushNotification)}
+                onClick={handlePush}
                 disabled={actionLoading === "push"}
                 className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-all active:scale-95"
                 style={{ background: "rgba(45,106,79,0.08)", color: "var(--forest)" }}
@@ -156,59 +157,36 @@ export default function AdminPage() {
               </button>
             </div>
           </div>
-
-          <div
-            className="flex items-center justify-between rounded-xl px-4 py-3"
-            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
-          >
-            <div className="flex items-center gap-3">
-              <Mail className="w-4 h-4" style={{ color: "var(--coral)" }} />
-              <div>
-                <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>Email (Resend)</p>
-                <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>Envia para seu email cadastrado</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <ResultBadge result={emailResult} />
-              <button
-                onClick={() => handleAction("email", testEmailNotification)}
-                disabled={actionLoading === "email"}
-                className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-all active:scale-95"
-                style={{ background: "rgba(244,132,95,0.08)", color: "var(--coral)" }}
-              >
-                {actionLoading === "email" ? <Loader2 className="w-3 h-3 animate-spin" /> : "Testar"}
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Crons */}
+      {/* Email templates */}
       <div>
         <div className="flex items-center gap-2 mb-3">
-          <Clock className="w-4 h-4" style={{ color: "var(--amber)" }} />
-          <h2 className="text-sm font-semibold" style={{ color: "var(--mf-text)" }}>Disparar crons</h2>
+          <Mail className="w-4 h-4" style={{ color: "var(--coral)" }} />
+          <h2 className="text-sm font-semibold" style={{ color: "var(--mf-text)" }}>Testar templates de email</h2>
+          <span className="text-[9px]" style={{ color: "var(--mf-text-muted)" }}>— envia só para você</span>
         </div>
         <div className="space-y-2">
-          {CRONS.map((cron) => (
+          {EMAIL_TEMPLATES.map((tmpl) => (
             <div
-              key={cron.id}
+              key={tmpl.id}
               className="flex items-center justify-between rounded-xl px-4 py-3"
               style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border-subtle)" }}
             >
               <div>
-                <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>{cron.label}</p>
-                <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{cron.desc}</p>
+                <p className="text-sm font-medium" style={{ color: "var(--mf-text)" }}>{tmpl.label}</p>
+                <p className="text-[10px]" style={{ color: "var(--mf-text-muted)" }}>{tmpl.desc}</p>
               </div>
               <div className="flex items-center gap-2">
-                <ResultBadge result={cronResults[cron.id]} />
+                <ResultBadge result={emailResults[tmpl.id]} />
                 <button
-                  onClick={() => handleAction(cron.id, () => triggerCron(cron.id))}
-                  disabled={actionLoading === cron.id}
+                  onClick={() => handleEmail(tmpl.id)}
+                  disabled={actionLoading === tmpl.id}
                   className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-all active:scale-95"
-                  style={{ background: "rgba(255,183,3,0.08)", color: "var(--amber)" }}
+                  style={{ background: "rgba(244,132,95,0.08)", color: "var(--coral)" }}
                 >
-                  {actionLoading === cron.id ? <Loader2 className="w-3 h-3 animate-spin" /> : "Executar"}
+                  {actionLoading === tmpl.id ? <Loader2 className="w-3 h-3 animate-spin" /> : "Enviar"}
                 </button>
               </div>
             </div>

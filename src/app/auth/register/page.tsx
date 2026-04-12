@@ -22,25 +22,36 @@ export default function RegisterPage() {
 
     const parsed = registerSchema.safeParse({ name, email, password });
     if (!parsed.success) {
-      setError(parsed.error.errors[0].message);
+      setError(parsed.error.errors[0]?.message ?? "Dados inválidos");
       setLoading(false);
       return;
     }
 
-    const supabase = createClient();
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email, password,
-      options: { data: { full_name: name }, emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding` },
-    });
+    try {
+      const supabase = createClient();
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email, password,
+        options: { data: { full_name: name }, emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding` },
+      });
 
-    if (signUpError) {
-      setError(signUpError.message === "User already registered" ? "Este email já está cadastrado." : signUpError.message);
-      setLoading(false);
-      return;
+      if (signUpError) {
+        setError(signUpError.message === "User already registered" ? "Este email já está cadastrado." : signUpError.message);
+        setLoading(false);
+        return;
+      }
+
+      // Supabase returns no error but no session when email already exists (confirmation pending)
+      if (!data.session && data.user?.identities?.length === 0) {
+        setError("Este email já está cadastrado. Tente fazer login.");
+        setLoading(false);
+        return;
+      }
+
+      if (data.session) { window.location.href = "/onboarding"; return; }
+      setEmailSent(true);
+    } catch {
+      setError("Erro ao criar conta. Tente novamente.");
     }
-
-    if (data.session) { window.location.href = "/onboarding"; return; }
-    setEmailSent(true);
     setLoading(false);
   }
 

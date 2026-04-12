@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Shield, Heart, Code, WifiOff } from "lucide-react";
 import { AppMockup } from "./app-mockup";
 import { BlurReveal } from "./blur-reveal";
 import { Marquee } from "./marquee";
@@ -363,32 +363,81 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══════════════ PRIVACIDADE + GRATUITO ═══════════════ */}
+      {/* ═══════════════ CONFIANÇA ═══════════════ */}
       <section className="py-32">
         <div className="max-w-7xl mx-auto px-6">
+          <BlurReveal>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-8" style={{ background: "var(--forest)" }} />
+              <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--forest)" }}>Confiança</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-16 max-w-2xl leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Feito para você confiar.
+            </h2>
+          </BlurReveal>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <BlurReveal>
-              <div className="rounded-3xl p-10 h-full" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
-                <span className="text-4xl">🔒</span>
-                <h3 className="text-2xl font-bold mt-4 mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                  Privacidade por padrão.
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>
-                  Você decide quem vê o quê. Por meta. Sem exceção. Nenhum dado é vendido, compartilhado ou usado para anúncio. Nunca.
-                </p>
-              </div>
-            </BlurReveal>
-            <BlurReveal delay={100}>
-              <div className="rounded-3xl p-10 h-full" style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}>
-                <span className="text-4xl">💚</span>
-                <h3 className="text-2xl font-bold mt-4 mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-                  Gratuito. Para sempre.
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>
-                  Sem plano pago, sem período de teste, sem pegadinha. Código aberto no GitHub. O propósito é ajudar — e pronto.
-                </p>
-              </div>
-            </BlurReveal>
+            {[
+              {
+                icon: <Shield className="w-6 h-6" />,
+                title: "Privacidade por padrão",
+                desc: "Você decide quem vê o quê. Por meta. Sem exceção. Metas podem ser privadas — nem seus amigos veem o nome se você não quiser.",
+                details: ["Controle por apoiador", "Score e notas configuráveis", "Meta privada na ofensiva"],
+                color: "var(--forest)",
+              },
+              {
+                icon: <Heart className="w-6 h-6" />,
+                title: "Gratuito. Para sempre",
+                desc: "Sem plano pago, sem período de teste, sem pegadinha. O propósito é ajudar — e pronto. Sem anúncios, sem venda de dados.",
+                details: ["Zero custo", "Sem anúncios", "Sem rastreamento"],
+                color: "var(--coral)",
+              },
+              {
+                icon: <Code className="w-6 h-6" />,
+                title: "Código aberto",
+                desc: "Todo o código está no GitHub. Você pode auditar, contribuir ou criar sua própria versão. Transparência total.",
+                details: ["MIT License", "GitHub público", "Contribuições abertas"],
+                color: "var(--amber)",
+              },
+              {
+                icon: <WifiOff className="w-6 h-6" />,
+                title: "Funciona offline",
+                desc: "Faça check-in mesmo sem internet. Os dados sincronizam automaticamente quando a conexão voltar. PWA instalável.",
+                details: ["Check-in offline", "Sync automático", "Menos de 1MB"],
+                color: "var(--sky)",
+              },
+            ].map((card, i) => (
+              <BlurReveal key={card.title} delay={i * 80}>
+                <div
+                  className="rounded-3xl p-8 sm:p-10 h-full transition-all hover:-translate-y-1"
+                  style={{ background: "var(--mf-bg-secondary)", border: "1px solid var(--mf-border-subtle)" }}
+                >
+                  <div
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
+                    style={{ background: `color-mix(in srgb, ${card.color} 10%, transparent)`, color: card.color }}
+                  >
+                    {card.icon}
+                  </div>
+                  <h3 className="text-xl font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                    {card.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--mf-text-muted)" }}>
+                    {card.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {card.details.map((d) => (
+                      <span
+                        key={d}
+                        className="text-[10px] px-3 py-1 rounded-full font-mono"
+                        style={{ background: `color-mix(in srgb, ${card.color} 6%, transparent)`, color: card.color, border: `1px solid color-mix(in srgb, ${card.color} 12%, transparent)` }}
+                      >
+                        {d}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </BlurReveal>
+            ))}
           </div>
         </div>
       </section>

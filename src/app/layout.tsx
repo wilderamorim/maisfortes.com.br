@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Outfit, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { ServiceWorkerRegistration } from "@/components/layout/ServiceWorkerRegistration";
@@ -97,75 +98,31 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="+Fortes" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 
-        {/* JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "WebSite",
-                  name: "+Fortes",
-                  alternateName: "MaisFortes",
-                  url: "https://maisfortes.com.br",
-                  description: "Plataforma gratuita de acompanhamento com rede de apoio para mudança comportamental.",
-                  inLanguage: "pt-BR",
-                },
-                {
-                  "@type": "Organization",
-                  name: "+Fortes",
-                  url: "https://maisfortes.com.br",
-                  logo: "https://maisfortes.com.br/icons/icon-512.png",
-                  sameAs: ["https://github.com/wilderamorim/maisfortes.com.br"],
-                },
-                {
-                  "@type": "WebApplication",
-                  name: "+Fortes",
-                  url: "https://maisfortes.com.br",
-                  applicationCategory: "HealthApplication",
-                  operatingSystem: "Web, Android, iOS",
-                  offers: {
-                    "@type": "Offer",
-                    price: "0",
-                    priceCurrency: "BRL",
-                  },
-                  description: "Acompanhe sua jornada de mudança com check-in diário, streaks, conquistas e rede de apoio.",
-                  featureList: [
-                    "Check-in diário com score e humor",
-                    "Streaks automáticos",
-                    "Rede de apoio com convite por link",
-                    "Ofensiva de amigos",
-                    "17 conquistas desbloqueáveis",
-                    "Heatmap de check-ins",
-                    "Notificações push",
-                    "Funciona offline",
-                  ],
-                },
-                {
-                  "@type": "SoftwareApplication",
-                  name: "+Fortes",
-                  applicationCategory: "HealthApplication",
-                  operatingSystem: "Android",
-                  offers: {
-                    "@type": "Offer",
-                    price: "0",
-                    priceCurrency: "BRL",
-                  },
-                },
-              ],
-            }),
-          }}
-        />
-
-        {/* Theme init (prevent flash) */}
-        <script
+      </head>
+      <body className="min-h-dvh antialiased" suppressHydrationWarning>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',t)})()`,
           }}
         />
-      </head>
-      <body className="min-h-dvh antialiased" suppressHydrationWarning>
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                { "@type": "WebSite", name: "+Fortes", alternateName: "MaisFortes", url: "https://maisfortes.com.br", description: "Plataforma gratuita de acompanhamento com rede de apoio para mudança comportamental.", inLanguage: "pt-BR" },
+                { "@type": "Organization", name: "+Fortes", url: "https://maisfortes.com.br", logo: "https://maisfortes.com.br/icons/icon-512.png", sameAs: ["https://github.com/wilderamorim/maisfortes.com.br"] },
+                { "@type": "WebApplication", name: "+Fortes", url: "https://maisfortes.com.br", applicationCategory: "HealthApplication", operatingSystem: "Web, Android, iOS", offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" }, description: "Acompanhe sua jornada de mudança com check-in diário, streaks, conquistas e rede de apoio.", featureList: ["Check-in diário", "Streaks automáticos", "Rede de apoio", "Ofensiva de amigos", "17 conquistas", "Heatmap", "Push", "Offline"] },
+                { "@type": "SoftwareApplication", name: "+Fortes", applicationCategory: "HealthApplication", operatingSystem: "Android", offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" } },
+              ],
+            }),
+          }}
+        />
         <ThemeProvider>
           {children}
           <CookieConsent />

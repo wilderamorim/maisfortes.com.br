@@ -20,14 +20,15 @@ export default function RegisterPage() {
     setLoading(true);
     setError(null);
 
-    const parsed = registerSchema.safeParse({ name, email, password });
-    if (!parsed.success) {
-      setError(parsed.error.errors[0]?.message ?? "Dados inválidos");
-      setLoading(false);
-      return;
-    }
-
     try {
+      const parsed = registerSchema.safeParse({ name, email, password });
+      if (!parsed.success) {
+        const msg = parsed.error?.issues?.[0]?.message || "Dados inválidos";
+        setError(msg);
+        setLoading(false);
+        return;
+      }
+
       const supabase = createClient();
       const { data, error: signUpError } = await supabase.auth.signUp({
         email, password,
@@ -40,16 +41,17 @@ export default function RegisterPage() {
         return;
       }
 
-      // Supabase returns no error but no session when email already exists (confirmation pending)
-      if (!data.session && data.user?.identities?.length === 0) {
+      // Supabase returns no error but no session when email already exists
+      if (data?.user?.identities?.length === 0) {
         setError("Este email já está cadastrado. Tente fazer login.");
         setLoading(false);
         return;
       }
 
-      if (data.session) { window.location.href = "/onboarding"; return; }
+      if (data?.session) { window.location.href = "/onboarding"; return; }
       setEmailSent(true);
-    } catch {
+    } catch (err) {
+      console.error("[Register]", err);
       setError("Erro ao criar conta. Tente novamente.");
     }
     setLoading(false);

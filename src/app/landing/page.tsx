@@ -11,9 +11,20 @@ export const metadata = {
   description: "Plataforma gratuita de acompanhamento com rede de apoio. Check-in diário, streak, conquistas — +forte a cada dia.",
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", name: "+Fortes", alternateName: "MaisFortes", url: "https://maisfortes.com.br", description: "Plataforma gratuita de acompanhamento com rede de apoio para mudança comportamental.", inLanguage: "pt-BR" },
+    { "@type": "Organization", name: "+Fortes", url: "https://maisfortes.com.br", logo: "https://maisfortes.com.br/icons/icon-512.png", sameAs: ["https://github.com/wilderamorim/maisfortes.com.br"] },
+    { "@type": "WebApplication", name: "+Fortes", url: "https://maisfortes.com.br", applicationCategory: "HealthApplication", operatingSystem: "Web, Android, iOS", offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" }, description: "Acompanhe sua jornada de mudança com check-in diário, streaks, conquistas e rede de apoio.", featureList: ["Check-in diário", "Streaks automáticos", "Rede de apoio", "Ofensiva de amigos", "17 conquistas", "Heatmap", "Push", "Offline"] },
+    { "@type": "SoftwareApplication", name: "+Fortes", applicationCategory: "HealthApplication", operatingSystem: "Android", offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" } },
+  ],
+};
+
 export default function LandingPage() {
   return (
     <div className="min-h-dvh" style={{ background: "var(--mf-bg)" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ═══════════════ NAV ═══════════════ */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl" style={{ background: "color-mix(in srgb, var(--mf-bg) 80%, transparent)" }}>

@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { ServiceWorkerRegistration } from "@/components/layout/ServiceWorkerRegistration";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { PWAInstallBanner } from "@/components/layout/PWAInstallBanner";
+import { Analytics } from "@/components/layout/Analytics";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -103,6 +104,7 @@ export default function RootLayout({
           <CookieConsent />
           <PWAInstallBanner />
           <ServiceWorkerRegistration />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

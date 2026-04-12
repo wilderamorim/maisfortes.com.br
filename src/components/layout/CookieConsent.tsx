@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { updateConsent } from "./Analytics";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const pathname = usePathname();
 
-  // Only show on landing/public pages
-  const isPublicPage = pathname === "/" || pathname === "/landing" || pathname === "/termos" || pathname === "/privacidade";
+  const isPublicPage = pathname === "/" || pathname === "/landing" || pathname === "/termos" || pathname === "/privacidade" || pathname === "/download" || pathname === "/apoie";
 
   useEffect(() => {
     if (!isPublicPage) {
@@ -18,7 +18,6 @@ export function CookieConsent() {
     }
     const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
-      // Show after 1 second
       const timer = setTimeout(() => setVisible(true), 1000);
       return () => clearTimeout(timer);
     }
@@ -26,11 +25,13 @@ export function CookieConsent() {
 
   function handleAccept() {
     localStorage.setItem("cookie-consent", "accepted");
+    updateConsent(true);
     setVisible(false);
   }
 
   function handleDecline() {
     localStorage.setItem("cookie-consent", "declined");
+    updateConsent(false);
     setVisible(false);
   }
 
@@ -51,11 +52,11 @@ export function CookieConsent() {
       >
         <div className="flex-1">
           <p className="text-sm font-semibold mb-1" style={{ color: "var(--mf-text)" }}>
-            Cookies essenciais
+            Cookies e analytics
           </p>
           <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
-            Usamos apenas cookies necessários para autenticação e preferências (tema).
-            Sem rastreamento. Sem anúncios.{" "}
+            Usamos cookies essenciais e Google Analytics para melhorar a experiência.
+            Sem anúncios, sem venda de dados.{" "}
             <Link href="/privacidade" className="underline" style={{ color: "var(--forest)" }}>
               Saiba mais
             </Link>

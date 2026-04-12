@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { AuthLayout } from "@/components/layout/AuthLayout";
+import { PasswordInput } from "@/components/ui/PasswordInput";
+import { registerSchema } from "@/lib/validations";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -17,6 +19,13 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    const parsed = registerSchema.safeParse({ name, email, password });
+    if (!parsed.success) {
+      setError(parsed.error.errors[0].message);
+      setLoading(false);
+      return;
+    }
 
     const supabase = createClient();
     const { data, error: signUpError } = await supabase.auth.signUp({
@@ -94,7 +103,7 @@ export default function RegisterPage() {
             </div>
             <div>
               <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Senha</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" required minLength={6} autoComplete="new-password" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
+              <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" autoComplete="new-password" required />
             </div>
             <button type="submit" disabled={loading} className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-50" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
               {loading ? "Criando conta..." : "Comece sua jornada"}

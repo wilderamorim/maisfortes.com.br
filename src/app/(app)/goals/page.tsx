@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createGoal } from "@/lib/actions/goals";
+import { goalSchema } from "@/lib/validations";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -10,11 +11,18 @@ export default function NewGoalPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!title.trim()) return;
+    setError(null);
+
+    const parsed = goalSchema.safeParse({ title: title.trim(), description: description.trim() || undefined });
+    if (!parsed.success) {
+      setError(parsed.error.errors[0].message);
+      return;
+    }
 
     setLoading(true);
     try {
@@ -39,6 +47,10 @@ export default function NewGoalPage() {
           Nova meta
         </h1>
       </div>
+
+      {error && (
+        <div className="rounded-xl px-4 py-3 text-sm mb-4" style={{ background: "rgba(229,56,59,0.08)", color: "var(--danger)" }}>{error}</div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>

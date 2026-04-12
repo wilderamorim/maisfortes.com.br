@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { AuthLayout } from "@/components/layout/AuthLayout";
+import { PasswordInput } from "@/components/ui/PasswordInput";
+import { resetPasswordSchema } from "@/lib/validations";
 import Link from "next/link";
 import { Check, AlertTriangle } from "lucide-react";
 
@@ -24,17 +26,15 @@ export default function ResetPasswordPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setError("As senhas não coincidem.");
-      return;
-    }
-    if (password.length < 6) {
-      setError("A senha deve ter pelo menos 6 caracteres.");
-      return;
-    }
-
     setLoading(true);
     setError(null);
+
+    const parsed = resetPasswordSchema.safeParse({ password, confirmPassword });
+    if (!parsed.success) {
+      setError(parsed.error.errors[0].message);
+      setLoading(false);
+      return;
+    }
 
     const supabase = createClient();
     const { error: updateError } = await supabase.auth.updateUser({ password });
@@ -121,10 +121,10 @@ export default function ResetPasswordPage() {
   // Form
   return (
     <AuthLayout>
-      <div className="hidden lg:flex items-center gap-2 mb-10">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+      <Link href="/" className="hidden lg:flex items-center gap-2 mb-10 group">
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110" style={{ background: "var(--forest)" }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
         <span className="font-bold text-sm" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>Fortes</span>
-      </div>
+      </Link>
 
       <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
         Nova senha
@@ -140,31 +140,11 @@ export default function ResetPasswordPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Nova senha</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Mínimo 6 caracteres"
-            required
-            minLength={6}
-            autoComplete="new-password"
-            className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
-            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
-          />
+          <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" autoComplete="new-password" required />
         </div>
         <div>
           <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Confirmar senha</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Repita a nova senha"
-            required
-            minLength={6}
-            autoComplete="new-password"
-            className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
-            style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
-          />
+          <PasswordInput value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Repita a nova senha" autoComplete="new-password" required />
         </div>
         <button
           type="submit"

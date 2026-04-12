@@ -4,6 +4,8 @@ import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { AuthLayout } from "@/components/layout/AuthLayout";
+import { PasswordInput } from "@/components/ui/PasswordInput";
+import { loginSchema } from "@/lib/validations";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -27,6 +29,13 @@ function LoginContent() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    const parsed = loginSchema.safeParse({ email, password });
+    if (!parsed.success) {
+      setError(parsed.error.errors[0].message);
+      setLoading(false);
+      return;
+    }
 
     const supabase = createClient();
     const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
@@ -85,7 +94,7 @@ function LoginContent() {
             <label className="text-xs font-medium" style={{ color: "var(--mf-text-secondary)" }}>Senha</label>
             <Link href="/auth/forgot-password" className="text-xs font-medium" style={{ color: "var(--forest)" }}>Esqueceu a senha?</Link>
           </div>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required autoComplete="current-password" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
+          <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
         <button type="submit" disabled={loading} className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-50" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
           {loading ? "Entrando..." : "Entrar"}

@@ -520,6 +520,7 @@ export default function LandingPage() {
           </BlurReveal>
           <div className="space-y-0">
             {[
+              { q: "O que é o +Fortes?", a: "É um app gratuito que te ajuda a mudar um comportamento — parar de fumar, controlar a ansiedade, manter uma dieta, qualquer coisa. Você registra como está cada dia, acompanha sua constância com streaks e, se quiser, convida alguém de confiança para te apoiar." },
               { q: "É realmente grátis?", a: "Sim. Sem plano pago, sem anúncio, sem venda de dados. O código é aberto e o propósito é ajudar." },
               { q: "Preciso convidar alguém?", a: "Não. O app funciona completo sozinho. A rede de apoio está lá quando você quiser — sem pressa." },
               { q: "Meus dados são seguros?", a: "Sim. Criptografia, controle por meta e nada é público. Você decide tudo." },

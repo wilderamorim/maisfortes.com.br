@@ -92,7 +92,7 @@ function LoginContent() {
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label className="text-xs font-medium" style={{ color: "var(--mf-text-secondary)" }}>Senha</label>
-            <Link href="/auth/forgot-password" className="text-xs font-medium" style={{ color: "var(--forest)" }}>Esqueceu a senha?</Link>
+            <Link href="/auth/forgot-password" tabIndex={-1} className="text-xs font-medium" style={{ color: "var(--forest)" }}>Esqueceu a senha?</Link>
           </div>
           <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>

@@ -12,7 +12,7 @@ export default function PrivacidadePage() {
     <div className="min-h-dvh" style={{ background: "var(--mf-bg)" }}>
       <PageHero
         title="Política de Privacidade"
-        subtitle="Última atualização: 09 de abril de 2026"
+        subtitle="Última atualização: 11 de abril de 2026"
         icon={<Shield className="w-6 h-6 text-white" />}
       />
 
@@ -27,7 +27,7 @@ export default function PrivacidadePage() {
         <div className="space-y-8 text-sm leading-relaxed" style={{ color: "var(--mf-text-secondary)" }}>
           <section>
             <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>1. Quem Somos</h2>
-            <p>O +Fortes é um projeto pessoal open-source, criado por Wilder Amorim, disponível em maisfortes.com.br. Esta política descreve como coletamos, usamos e protegemos seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
+            <p>O +Fortes é um projeto open-source mantido por UEBI Tecnologia e Estratégia Digital LTDA (CNPJ 60.716.028/0001-51), disponível em maisfortes.com.br e na Google Play Store. Esta política descreve como coletamos, usamos e protegemos seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
           </section>
 
           <section>
@@ -39,6 +39,7 @@ export default function PrivacidadePage() {
               <li><strong>Check-ins:</strong> Score diário (1-5), humor e notas opcionais.</li>
               <li><strong>Mensagens:</strong> Mensagens de incentivo e reações enviadas entre usuários.</li>
               <li><strong>Foto de perfil:</strong> Opcional, enviada por você.</li>
+              <li><strong>Notificações push:</strong> Chave de assinatura para envio de notificações (se você ativar).</li>
             </ul>
 
             <h3 className="font-semibold mb-2 mt-4" style={{ color: "var(--mf-text)" }}>2.2 Dados coletados automaticamente:</h3>
@@ -132,16 +133,21 @@ export default function PrivacidadePage() {
 
           <section>
             <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>10. Dados de Menores</h2>
-            <p>O +Fortes não é destinado a menores de 13 anos. Se tomarmos conhecimento de que coletamos dados de um menor de 13 anos, excluiremos a conta imediatamente.</p>
+            <p>O +Fortes é destinado a maiores de 18 anos. O app aborda mudança comportamental relacionada a hábitos que podem incluir substâncias controladas. Se tomarmos conhecimento de que coletamos dados de um menor de 18 anos, excluiremos a conta imediatamente.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>11. Alterações nesta Política</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>11. Distribuição via Google Play</h2>
+            <p>O +Fortes está disponível na Google Play Store como aplicativo TWA (Trusted Web Activity). A versão da Play Store acessa o mesmo serviço web (maisfortes.com.br) e está sujeita a esta mesma Política de Privacidade. Não coletamos dados adicionais através da distribuição via Google Play além dos já descritos nesta política.</p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>12. Alterações nesta Política</h2>
             <p>Podemos atualizar esta política periodicamente. Alterações significativas serão comunicadas por email ou aviso na Plataforma. A data de última atualização sempre estará visível no topo desta página.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>12. Contato</h2>
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>13. Contato</h2>
             <p>Para questões sobre privacidade, entre em contato pelo <a href="https://github.com/wilderamorim/maisfortes.com.br/issues" target="_blank" rel="noopener" className="underline" style={{ color: "var(--forest)" }}>GitHub</a> do projeto.</p>
           </section>
         </div>

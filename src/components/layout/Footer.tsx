@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
 
 const COLUMNS = [
   {
@@ -7,6 +7,7 @@ const COLUMNS = [
       { label: "Como funciona", href: "/landing#como-funciona" },
       { label: "Baixar app", href: "/download" },
       { label: "Criar conta", href: "/auth/register" },
+      { label: "Apoie o projeto", href: "/apoie" },
       { label: "Brandbook", href: "https://brand.maisfortes.com.br", ext: true },
     ],
   },
@@ -65,7 +66,37 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-16 pt-8 flex items-center justify-between" style={{ borderTop: "1px solid var(--mf-border-subtle)" }}>
+        {/* Support */}
+        <div className="mt-12 pt-8 rounded-2xl p-6 text-center" style={{ background: "rgba(45,106,79,0.04)", border: "1px solid rgba(45,106,79,0.08)" }}>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Heart className="w-4 h-4" style={{ color: "var(--coral)" }} />
+            <span className="text-xs font-semibold" style={{ color: "var(--mf-text)" }}>Apoie o projeto</span>
+          </div>
+          <p className="text-[11px] leading-relaxed max-w-md mx-auto mb-4" style={{ color: "var(--mf-text-muted)" }}>
+            O +Fortes é e sempre será gratuito. Se quiser ajudar a manter o projeto no ar, qualquer valor faz diferença.
+          </p>
+          <div className="flex items-center justify-center gap-3">
+            <a
+              href="/apoie"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-4 py-2 rounded-full transition-all hover:opacity-80"
+              style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}
+            >
+              Pix &middot; Doar
+            </a>
+            <a
+              href="https://github.com/sponsors/wilderamorim"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[11px] font-medium px-4 py-2 rounded-full transition-all hover:opacity-80"
+              style={{ color: "var(--mf-text-muted)" }}
+            >
+              GitHub Sponsors
+              <ArrowUpRight className="w-3 h-3 opacity-40" />
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-8 pt-8 flex items-center justify-between" style={{ borderTop: "1px solid var(--mf-border-subtle)" }}>
           <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>+Fortes — +Forte a cada dia.</span>
           <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>&copy; 2026</span>
         </div>

@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createGoal } from "@/lib/actions/goals";
+import { FormField } from "@/components/ui/FormField";
 import { goalSchema } from "@/lib/validations";
+import type { ZodIssue } from "zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -12,15 +14,22 @@ export default function NewGoalPage() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    setFieldErrors({});
 
     const parsed = goalSchema.safeParse({ title: title.trim(), description: description.trim() || undefined });
     if (!parsed.success) {
-      setError(parsed.error?.issues?.[0]?.message || "Dados inválidos");
+      const errs: Record<string, string> = {};
+      parsed.error.issues.forEach((issue: ZodIssue) => {
+        const field = issue.path[0] as string;
+        if (!errs[field]) errs[field] = issue.message;
+      });
+      setFieldErrors(errs);
       return;
     }
 
@@ -53,26 +62,19 @@ export default function NewGoalPage() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="text-sm font-medium block mb-1.5" style={{ color: "var(--mf-text)" }}>
-            Qual é sua meta?
-          </label>
+        <FormField label="Qual é sua meta?" error={fieldErrors.title}>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Ex: Parar de beber, emagrecer, largar o cigarro..."
-            required
             maxLength={100}
             className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
             style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
           />
-        </div>
+        </FormField>
 
-        <div>
-          <label className="text-sm font-medium block mb-1.5" style={{ color: "var(--mf-text)" }}>
-            Descreva em poucas palavras <span style={{ color: "var(--mf-text-muted)" }}>(opcional)</span>
-          </label>
+        <FormField label="Descreva em poucas palavras (opcional)" error={fieldErrors.description}>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -82,7 +84,7 @@ export default function NewGoalPage() {
             className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none transition-all focus:ring-2"
             style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
           />
-        </div>
+        </FormField>
 
         <button
           type="submit"

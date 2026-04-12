@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { AuthLayout } from "@/components/layout/AuthLayout";
 import { PasswordInput } from "@/components/ui/PasswordInput";
+import { FormField } from "@/components/ui/FormField";
 import { resetPasswordSchema } from "@/lib/validations";
+import type { ZodIssue } from "zod";
 import Link from "next/link";
 import { Check, AlertTriangle } from "lucide-react";
 
@@ -13,6 +15,7 @@ export default function ResetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
   const [hasSession, setHasSession] = useState<boolean | null>(null);
 
@@ -28,10 +31,16 @@ export default function ResetPasswordPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setFieldErrors({});
 
     const parsed = resetPasswordSchema.safeParse({ password, confirmPassword });
     if (!parsed.success) {
-      setError(parsed.error?.issues?.[0]?.message || "Dados inválidos");
+      const errs: Record<string, string> = {};
+      parsed.error.issues.forEach((issue: ZodIssue) => {
+        const field = issue.path[0] as string;
+        if (!errs[field]) errs[field] = issue.message;
+      });
+      setFieldErrors(errs);
       setLoading(false);
       return;
     }
@@ -138,14 +147,12 @@ export default function ResetPasswordPage() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Nova senha</label>
-          <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" autoComplete="new-password" required />
-        </div>
-        <div>
-          <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Confirmar senha</label>
-          <PasswordInput value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Repita a nova senha" autoComplete="new-password" required />
-        </div>
+        <FormField label="Nova senha" error={fieldErrors.password}>
+          <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" autoComplete="new-password" />
+        </FormField>
+        <FormField label="Confirmar senha" error={fieldErrors.confirmPassword}>
+          <PasswordInput value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Repita a nova senha" autoComplete="new-password" />
+        </FormField>
         <button
           type="submit"
           disabled={loading}

@@ -5,7 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { AuthLayout } from "@/components/layout/AuthLayout";
 import { PasswordInput } from "@/components/ui/PasswordInput";
+import { FormField } from "@/components/ui/FormField";
 import { loginSchema } from "@/lib/validations";
+import type { ZodIssue } from "zod";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -24,15 +26,22 @@ function LoginContent() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setFieldErrors({});
 
     const parsed = loginSchema.safeParse({ email, password });
     if (!parsed.success) {
-      setError(parsed.error?.issues?.[0]?.message || "Dados inválidos");
+      const errs: Record<string, string> = {};
+      parsed.error.issues.forEach((issue: ZodIssue) => {
+        const field = issue.path[0] as string;
+        if (!errs[field]) errs[field] = issue.message;
+      });
+      setFieldErrors(errs);
       setLoading(false);
       return;
     }
@@ -85,16 +94,17 @@ function LoginContent() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>E-mail</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com" required autoComplete="email" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
-        </div>
+        <FormField label="E-mail" error={fieldErrors.email}>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com" autoComplete="email" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
+        </FormField>
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label className="text-xs font-medium" style={{ color: "var(--mf-text-secondary)" }}>Senha</label>
             <Link href="/auth/forgot-password" tabIndex={-1} className="text-xs font-medium" style={{ color: "var(--forest)" }}>Esqueceu a senha?</Link>
           </div>
-          <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <FormField error={fieldErrors.password}>
+            <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
+          </FormField>
         </div>
         <button type="submit" disabled={loading} className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-50" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
           {loading ? "Entrando..." : "Entrar"}

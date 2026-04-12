@@ -4,7 +4,9 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { AuthLayout } from "@/components/layout/AuthLayout";
 import { PasswordInput } from "@/components/ui/PasswordInput";
+import { FormField } from "@/components/ui/FormField";
 import { registerSchema } from "@/lib/validations";
+import type { ZodIssue } from "zod";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -13,18 +15,24 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [emailSent, setEmailSent] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setFieldErrors({});
 
     try {
       const parsed = registerSchema.safeParse({ name, email, password });
       if (!parsed.success) {
-        const msg = parsed.error?.issues?.[0]?.message || "Dados inválidos";
-        setError(msg);
+        const errs: Record<string, string> = {};
+        parsed.error.issues.forEach((issue: ZodIssue) => {
+          const field = issue.path[0] as string;
+          if (!errs[field]) errs[field] = issue.message;
+        });
+        setFieldErrors(errs);
         setLoading(false);
         return;
       }
@@ -106,18 +114,15 @@ export default function RegisterPage() {
           {error && <div className="rounded-xl px-4 py-3 text-sm mb-4" style={{ background: "rgba(229,56,59,0.08)", color: "var(--danger)" }}>{error}</div>}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Nome</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Seu nome" required autoComplete="name" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
-            </div>
-            <div>
-              <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>E-mail</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com" required autoComplete="email" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
-            </div>
-            <div>
-              <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>Senha</label>
-              <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" autoComplete="new-password" required />
-            </div>
+            <FormField label="Nome" error={fieldErrors.name}>
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Seu nome" autoComplete="name" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
+            </FormField>
+            <FormField label="E-mail" error={fieldErrors.email}>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com" autoComplete="email" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }} />
+            </FormField>
+            <FormField label="Senha" error={fieldErrors.password}>
+              <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" autoComplete="new-password" />
+            </FormField>
             <button type="submit" disabled={loading} className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-50" style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}>
               {loading ? "Criando conta..." : "Comece sua jornada"}
             </button>

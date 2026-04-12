@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { AuthLayout } from "@/components/layout/AuthLayout";
+import { FormField } from "@/components/ui/FormField";
 import { forgotPasswordSchema } from "@/lib/validations";
+import type { ZodIssue } from "zod";
 import Link from "next/link";
 import { ArrowLeft, Mail } from "lucide-react";
 
@@ -11,16 +13,23 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setFieldErrors({});
 
     const parsed = forgotPasswordSchema.safeParse({ email });
     if (!parsed.success) {
-      setError(parsed.error?.issues?.[0]?.message || "Dados inválidos");
+      const errs: Record<string, string> = {};
+      parsed.error.issues.forEach((issue: ZodIssue) => {
+        const field = issue.path[0] as string;
+        if (!errs[field]) errs[field] = issue.message;
+      });
+      setFieldErrors(errs);
       setLoading(false);
       return;
     }
@@ -91,20 +100,18 @@ export default function ForgotPasswordPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="text-xs font-medium block mb-1.5" style={{ color: "var(--mf-text-secondary)" }}>E-mail</label>
+            <FormField label="E-mail" error={fieldErrors.email}>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu@email.com"
-                required
                 autoComplete="email"
                 autoFocus
                 className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
                 style={{ background: "var(--mf-surface)", border: "1px solid var(--mf-border)", color: "var(--mf-text)" }}
               />
-            </div>
+            </FormField>
             <button
               type="submit"
               disabled={loading}

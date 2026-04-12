@@ -340,7 +340,7 @@ export default function LandingPage() {
                       { emoji: "🔥", label: "14d", color: "#A0A0A0" },
                       { emoji: "🛡️", label: "30d", color: "#FFB703" },
                       { emoji: "🏆", label: "90d", color: "#2D6A4F" },
-                      { emoji: "💎", label: "365d", color: "#90E0EF" },
+                      { emoji: "💎", label: "365d", color: "#0077B6" },
                     ].map((a, i) => (
                       <div
                         key={a.label}
@@ -404,7 +404,7 @@ export default function LandingPage() {
                 title: "Funciona offline",
                 desc: "Faça check-in mesmo sem internet. Os dados sincronizam automaticamente quando a conexão voltar. PWA instalável.",
                 details: ["Check-in offline", "Sync automático", "Menos de 1MB"],
-                color: "var(--sky)",
+                color: "#0077B6",
               },
             ].map((card, i) => (
               <BlurReveal key={card.title} delay={i * 80}>

@@ -4,7 +4,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "br.com.maisfortes.twa",
-      "sha256_cert_fingerprints": ["TODO_SUBSTITUIR_PELO_SHA256_DO_PWABUILDER"]
+      "sha256_cert_fingerprints": ["D3:72:C0:AD:BB:69:91:08:AB:76:AA:B1:5F:3B:63:48:F2:54:8F:3E:10:3F:D4:99:36:BC:DA:37:4E:E3:46:60"]
     }
   }
 ]

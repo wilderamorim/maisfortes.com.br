@@ -359,6 +359,46 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ═══════════════ DEPOIMENTOS ═══════════════ */}
+      <section className="py-32" style={{ background: "var(--mf-bg-secondary)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <BlurReveal>
+            <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--mf-text-muted)" }}>Histórias</span>
+            <h2 className="text-4xl sm:text-5xl font-bold mt-4 mb-16 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Quem usa, sente.
+            </h2>
+          </BlurReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { text: "Eu tentei parar de beber sozinho várias vezes. Quando minha irmã começou a acompanhar pelo app, tudo mudou.", who: "Protagonista", age: "34 anos" },
+              { text: "Não sabia como ajudar meu irmão sem parecer que estava controlando. O +Fortes me deu um papel claro.", who: "Apoiadora", age: "28 anos" },
+              { text: "O streak virou um jogo comigo mesmo. Quando vi que estava há 30 dias, chorei.", who: "Protagonista", age: "41 anos" },
+            ].map((t, i) => (
+              <BlurReveal key={i} delay={i * 100}>
+                <div
+                  className="rounded-3xl p-8 h-full flex flex-col justify-between transition-all hover:-translate-y-1"
+                  style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
+                >
+                  <p className="text-base leading-relaxed mb-8" style={{ color: "var(--mf-text-secondary)" }}>
+                    &ldquo;{t.text}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
+                      {t.who[0]}
+                    </div>
+                    <div>
+                      <span className="text-xs font-semibold block" style={{ color: "var(--mf-text)" }}>{t.who}</span>
+                      <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>{t.age}</span>
+                    </div>
+                  </div>
+                </div>
+              </BlurReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════ CONFIANÇA ═══════════════ */}
       <section className="py-32">
         <div className="max-w-7xl mx-auto px-6">
@@ -438,43 +478,35 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══════════════ DEPOIMENTOS ═══════════════ */}
-      <section className="py-32" style={{ background: "var(--mf-bg-secondary)" }}>
-        <div className="max-w-7xl mx-auto px-6">
+      {/* ═══════════════ INSTALL ═══════════════ */}
+      <InstallSection />
+
+      {/* ═══════════════ CTA FINAL ═══════════════ */}
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, var(--forest), transparent 70%)" }} />
+        </div>
+        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <BlurReveal>
-            <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--mf-text-muted)" }}>Histórias</span>
-            <h2 className="text-4xl sm:text-5xl font-bold mt-4 mb-16 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-              Quem usa, sente.
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+              Sua mudança começa<br />com um <span style={{ whiteSpace: "nowrap" }}>check-in.</span>
             </h2>
           </BlurReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              { text: "Eu tentei parar de beber sozinho várias vezes. Quando minha irmã começou a acompanhar pelo app, tudo mudou.", who: "Protagonista", age: "34 anos" },
-              { text: "Não sabia como ajudar meu irmão sem parecer que estava controlando. O +Fortes me deu um papel claro.", who: "Apoiadora", age: "28 anos" },
-              { text: "O streak virou um jogo comigo mesmo. Quando vi que estava há 30 dias, chorei.", who: "Protagonista", age: "41 anos" },
-            ].map((t, i) => (
-              <BlurReveal key={i} delay={i * 100}>
-                <div
-                  className="rounded-3xl p-8 h-full flex flex-col justify-between transition-all hover:-translate-y-1"
-                  style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
-                >
-                  <p className="text-base leading-relaxed mb-8" style={{ color: "var(--mf-text-secondary)" }}>
-                    &ldquo;{t.text}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}>
-                      {t.who[0]}
-                    </div>
-                    <div>
-                      <span className="text-xs font-semibold block" style={{ color: "var(--mf-text)" }}>{t.who}</span>
-                      <span className="text-[10px] font-mono" style={{ color: "var(--mf-text-muted)" }}>{t.age}</span>
-                    </div>
-                  </div>
-                </div>
-              </BlurReveal>
-            ))}
-          </div>
+          <BlurReveal delay={100}>
+            <p className="text-lg mb-10" style={{ color: "var(--mf-text-muted)" }}>
+              10 segundos por dia. Sem cobranças, sem julgamento.
+            </p>
+          </BlurReveal>
+          <BlurReveal delay={200}>
+            <Link
+              href="/auth/register"
+              className="group inline-flex items-center gap-3 px-10 py-5 rounded-full text-white font-semibold active:scale-[0.98]"
+              style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
+            >
+              Comece agora — é grátis
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1.5" />
+            </Link>
+          </BlurReveal>
         </div>
       </section>
 
@@ -504,39 +536,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* ═══════════════ CTA FINAL ═══════════════ */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, var(--forest), transparent 70%)" }} />
-        </div>
-        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <BlurReveal>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-              Sua mudança começa<br />com um <span style={{ whiteSpace: "nowrap" }}>check-in.</span>
-            </h2>
-          </BlurReveal>
-          <BlurReveal delay={100}>
-            <p className="text-lg mb-10" style={{ color: "var(--mf-text-muted)" }}>
-              10 segundos por dia. Sem cobranças, sem julgamento.<br className="hidden sm:block" />
-              E se quiser, com quem te importa ao lado.
-            </p>
-          </BlurReveal>
-          <BlurReveal delay={200}>
-            <Link
-              href="/auth/register"
-              className="group inline-flex items-center gap-3 px-10 py-5 rounded-full text-white font-semibold transition-all hover:gap-4 active:scale-[0.98]"
-              style={{ background: "var(--forest)", boxShadow: "var(--mf-shadow-glow)" }}
-            >
-              Comece agora — é grátis
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </BlurReveal>
-        </div>
-      </section>
-
-      {/* ═══════════════ INSTALL ═══════════════ */}
-      <InstallSection />
 
       {/* ═══════════════ FOOTER ═══════════════ */}
       <Footer />

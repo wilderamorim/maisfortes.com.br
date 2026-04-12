@@ -27,9 +27,11 @@ export async function sendPush(
     return { success: true };
   } catch (err: unknown) {
     const statusCode = (err as { statusCode?: number }).statusCode;
+    const message = (err as { body?: string }).body || (err as Error).message || "Unknown error";
+    console.error("[web-push] Error:", statusCode, message);
     if (statusCode === 410 || statusCode === 404) {
-      return { success: false, expired: true };
+      return { success: false, expired: true, error: `Subscription expirada (${statusCode})` };
     }
-    return { success: false, expired: false };
+    return { success: false, expired: false, error: `${statusCode || "ERR"}: ${message}` };
   }
 }

@@ -31,7 +31,7 @@ export default function ResetPasswordPage() {
 
     const parsed = resetPasswordSchema.safeParse({ password, confirmPassword });
     if (!parsed.success) {
-      setError(parsed.error.errors[0].message);
+      setError(parsed.error.errors?.[0]?.message ?? "Dados inválidos");
       setLoading(false);
       return;
     }

@@ -12,7 +12,7 @@ export default function PrivacidadePage() {
     <div className="min-h-dvh" style={{ background: "var(--mf-bg)" }}>
       <PageHero
         title="Política de Privacidade"
-        subtitle="Última atualização: 11 de abril de 2026"
+        subtitle="Última atualização: 12 de abril de 2026"
         icon={<Shield className="w-6 h-6 text-white" />}
       />
 
@@ -79,6 +79,7 @@ export default function PrivacidadePage() {
               <li><strong>Apoiadores que você autorizou:</strong> Apenas os dados que você permitir (score, notas), apenas das metas que você escolher.</li>
               <li><strong>Supabase:</strong> Nosso provedor de infraestrutura (banco de dados e autenticação), que processa dados sob contrato de proteção de dados.</li>
               <li><strong>Vercel:</strong> Nosso provedor de hospedagem, que processa requisições HTTP.</li>
+              <li><strong>Google Analytics:</strong> Análise anônima de tráfego e uso, com Consent Mode v2 (dados pessoais apenas com seu consentimento).</li>
             </ul>
           </section>
 
@@ -116,14 +117,22 @@ export default function PrivacidadePage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>8. Cookies</h2>
-            <p>Usamos apenas cookies essenciais:</p>
-            <ul className="list-disc pl-5 space-y-2 mt-2">
+            <h2 className="text-lg font-bold mb-3" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>8. Cookies e Análise de Tráfego</h2>
+            <h3 className="font-semibold mb-2" style={{ color: "var(--mf-text)" }}>8.1 Cookies essenciais:</h3>
+            <ul className="list-disc pl-5 space-y-2">
               <li><strong>Sessão de autenticação:</strong> Para manter você logado.</li>
               <li><strong>Preferência de tema:</strong> Para lembrar se você escolheu modo claro ou escuro.</li>
               <li><strong>Consentimento de cookies:</strong> Para lembrar sua escolha sobre cookies.</li>
             </ul>
-            <p className="mt-2">Não usamos cookies de rastreamento, analytics de terceiros ou publicidade.</p>
+
+            <h3 className="font-semibold mb-2 mt-4" style={{ color: "var(--mf-text)" }}>8.2 Análise de tráfego (Google Analytics):</h3>
+            <p>Utilizamos o Google Analytics 4 com <strong>Consent Mode v2</strong> para entender como o app é utilizado (páginas visitadas, tempo de uso, dispositivos). Esses dados nos ajudam a melhorar a experiência.</p>
+            <ul className="list-disc pl-5 space-y-2 mt-2">
+              <li><strong>Antes do consentimento:</strong> Dados são coletados de forma anônima, sem cookies, sem identificação pessoal.</li>
+              <li><strong>Após aceitar cookies:</strong> O Google Analytics utiliza cookies para análise mais detalhada de uso.</li>
+              <li><strong>Ao recusar cookies:</strong> Os dados permanecem anônimos. Nenhum cookie de análise é criado.</li>
+            </ul>
+            <p className="mt-2">Não usamos cookies de publicidade ou remarketing. Os dados de análise não são vendidos ou compartilhados para fins comerciais.</p>
           </section>
 
           <section>

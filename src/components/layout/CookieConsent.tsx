@@ -52,10 +52,10 @@ export function CookieConsent() {
       >
         <div className="flex-1">
           <p className="text-sm font-semibold mb-1" style={{ color: "var(--mf-text)" }}>
-            Cookies e analytics
+            Cookies e análise de tráfego
           </p>
           <p className="text-xs" style={{ color: "var(--mf-text-muted)" }}>
-            Usamos cookies essenciais e Google Analytics para melhorar a experiência.
+            Usamos cookies essenciais e análise de visitas para melhorar a experiência.
             Sem anúncios, sem venda de dados.{" "}
             <Link href="/privacidade" className="underline" style={{ color: "var(--forest)" }}>
               Saiba mais

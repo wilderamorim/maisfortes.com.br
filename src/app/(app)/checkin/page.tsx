@@ -31,6 +31,7 @@ function CheckinContent() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [difficultDay, setDifficultDay] = useState(false);
+  const [toughDay, setToughDay] = useState(false);
   const [alertSent, setAlertSent] = useState(false);
   const [sendingAlert, setSendingAlert] = useState(false);
   const [friendStreaks, setFriendStreaks] = useState<{ id: string; friend_name: string; friend_checked_today: boolean; current_streak: number; target_days: number }[]>([]);
@@ -98,6 +99,12 @@ function CheckinContent() {
 
       if (selected === 1) {
         setDifficultDay(true);
+        setLoading(false);
+        return;
+      }
+
+      if (selected === 2) {
+        setToughDay(true);
         setLoading(false);
         return;
       }
@@ -327,6 +334,60 @@ function CheckinContent() {
               style={{ color: "var(--mf-text-muted)" }}
             >
               Continuar para a Home
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (toughDay) {
+    return (
+      <div className="min-h-dvh flex items-center justify-center px-4">
+        <div className="max-w-sm w-full text-center">
+          <div
+            className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center"
+            style={{ background: "rgba(255,183,3,0.12)" }}
+          >
+            <Heart className="w-10 h-10" style={{ color: "var(--amber)" }} />
+          </div>
+          <h2 className="text-xl font-bold mb-2" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+            Nem todo dia é fácil.
+          </h2>
+          <p className="text-sm mb-8" style={{ color: "var(--mf-text-muted)" }}>
+            E tudo bem. O importante é que você está aqui, registrando. Isso já é constância.
+          </p>
+
+          <div className="space-y-3">
+            {!alertSent ? (
+              <button
+                onClick={handleAlertNetwork}
+                disabled={sendingAlert}
+                className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                style={{ background: "rgba(255,183,3,0.1)", color: "var(--amber)", border: "1px solid rgba(255,183,3,0.2)" }}
+              >
+                <MessageCircle className="w-4 h-4" />
+                {sendingAlert ? "Enviando..." : "Compartilhar com minha rede"}
+              </button>
+            ) : (
+              <div
+                className="w-full py-3 rounded-xl text-sm flex items-center justify-center gap-2"
+                style={{ background: "rgba(45,106,79,0.1)", color: "var(--forest)" }}
+              >
+                <Check className="w-4 h-4" />
+                Sua rede foi avisada 💙
+              </div>
+            )}
+
+            <button
+              onClick={() => {
+                setSuccess(true);
+                setTimeout(() => router.push("/home"), 1500);
+              }}
+              className="w-full py-3 rounded-xl font-semibold text-sm transition-all active:scale-[0.98] text-white"
+              style={{ background: "var(--forest)" }}
+            >
+              Continuar
             </button>
           </div>
         </div>

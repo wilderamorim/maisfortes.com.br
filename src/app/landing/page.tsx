@@ -478,6 +478,92 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ═══════════════ DIAS DIFÍCEIS ═══════════════ */}
+      <section className="py-32" style={{ background: "var(--mf-bg-secondary)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <BlurReveal>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-px w-8" style={{ background: "var(--coral)" }} />
+                  <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--coral)" }}>Suporte real</span>
+                </div>
+                <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
+                  Nos dias difíceis<br />também.
+                </h2>
+              </BlurReveal>
+              <BlurReveal delay={100}>
+                <p className="text-base leading-relaxed mb-8" style={{ color: "var(--mf-text-muted)" }}>
+                  O +Fortes não é só para os dias bons. Quando você registra que está difícil, o app te acolhe — sem julgamento. Porque registrar que está mal já é um ato de coragem.
+                </p>
+              </BlurReveal>
+            </div>
+
+            <div className="space-y-4">
+              <BlurReveal delay={0}>
+                <div
+                  className="rounded-2xl p-6 flex items-start gap-4"
+                  style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
+                >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(229,56,59,0.08)" }}>
+                    <span className="text-lg">😔</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold mb-1" style={{ color: "var(--mf-text)" }}>Score 1 — Dia muito difícil</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>
+                      Tela de acolhimento com mensagem de apoio. Opção de avisar sua rede automaticamente e acesso direto ao CVV (188).
+                    </p>
+                  </div>
+                </div>
+              </BlurReveal>
+
+              <BlurReveal delay={80}>
+                <div
+                  className="rounded-2xl p-6 flex items-start gap-4"
+                  style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
+                >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,183,3,0.08)" }}>
+                    <span className="text-lg">😕</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold mb-1" style={{ color: "var(--mf-text)" }}>Score 2 — Dia complicado</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>
+                      Mensagem de reconhecimento: nem todo dia é fácil, e tudo bem. Opção de compartilhar com sua rede se quiser.
+                    </p>
+                  </div>
+                </div>
+              </BlurReveal>
+
+              <BlurReveal delay={160}>
+                <div
+                  className="rounded-2xl p-6 flex items-start gap-4"
+                  style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
+                >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(45,106,79,0.08)" }}>
+                    <span className="text-lg">🤝</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold mb-1" style={{ color: "var(--mf-text)" }}>Sua rede é avisada</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--mf-text-muted)" }}>
+                      Com um toque, seus apoiadores recebem uma mensagem automática. Eles sabem que você precisa de apoio — sem você precisar explicar.
+                    </p>
+                  </div>
+                </div>
+              </BlurReveal>
+
+              <BlurReveal delay={240}>
+                <div className="flex items-center gap-3 px-2 pt-2">
+                  <div className="w-2 h-2 rounded-full" style={{ background: "var(--coral)" }} />
+                  <p className="text-[11px] font-mono" style={{ color: "var(--mf-text-muted)" }}>
+                    CVV — Ligue 188 (24h, gratuito, sigilo total)
+                  </p>
+                </div>
+              </BlurReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════ INSTALL ═══════════════ */}
       <InstallSection />
 

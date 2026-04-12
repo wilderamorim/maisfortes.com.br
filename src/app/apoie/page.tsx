@@ -1,6 +1,7 @@
 import { PageHero } from "@/components/layout/PageHero";
 import { Footer } from "@/components/layout/Footer";
-import { Heart, Copy, QrCode } from "lucide-react";
+import { Heart, QrCode } from "lucide-react";
+import { CopyPixButton } from "./copy-pix";
 
 export const metadata = {
   title: "Apoie o +Fortes",
@@ -46,7 +47,7 @@ export default function ApoiePage() {
           </div>
 
           <div
-            className="rounded-xl p-4 flex items-center justify-between"
+            className="rounded-xl p-4 flex items-center justify-between gap-3"
             style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
           >
             <div>
@@ -54,6 +55,7 @@ export default function ApoiePage() {
               <p className="text-sm font-mono font-semibold" style={{ color: "var(--mf-text)" }}>{PIX_KEY}</p>
               <p className="text-[10px] mt-1" style={{ color: "var(--mf-text-muted)" }}>{PIX_NAME}</p>
             </div>
+            <CopyPixButton pixKey={PIX_KEY} />
           </div>
 
           <div className="mt-4 flex justify-center">

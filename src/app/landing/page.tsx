@@ -188,14 +188,14 @@ export default function LandingPage() {
               <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--forest)" }}>Como funciona</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-16 max-w-2xl leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
-              Simples por design.<br />Poderoso por constância.
+              Funciona porque<br />é simples.
             </h2>
           </BlurReveal>
 
           {/* Bento grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="como-funciona">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4" id="como-funciona">
             {/* Card 1 — Check-in (large) */}
-            <BlurReveal delay={0} className="md:col-span-2 lg:col-span-2">
+            <BlurReveal delay={0} className="md:col-span-2 lg:col-span-4">
               <div className="rounded-3xl p-8 sm:p-10 relative overflow-hidden group h-full" style={{ background: "var(--forest)", minHeight: "280px" }}>
                 <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-20 transition-transform group-hover:scale-110" style={{ background: "radial-gradient(circle, var(--forest-light), transparent)" }} />
                 <div className="relative z-10">
@@ -226,7 +226,7 @@ export default function LandingPage() {
             </BlurReveal>
 
             {/* Card 2 — Streak */}
-            <BlurReveal delay={100}>
+            <BlurReveal delay={100} className="lg:col-span-2">
               <div className="rounded-3xl p-8 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "280px" }}>
                 <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--mf-text-muted)" }}>02 — Streak</span>
                 <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
@@ -257,7 +257,7 @@ export default function LandingPage() {
             </BlurReveal>
 
             {/* Card 3 — Rede de apoio */}
-            <BlurReveal delay={150}>
+            <BlurReveal delay={150} className="lg:col-span-2">
               <div className="rounded-3xl p-8 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "280px" }}>
                 <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--mf-text-muted)" }}>03 — Apoio</span>
                 <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>
@@ -294,7 +294,7 @@ export default function LandingPage() {
             </BlurReveal>
 
             {/* Card 4 — Ofensiva de Amigos */}
-            <BlurReveal delay={200}>
+            <BlurReveal delay={200} className="lg:col-span-2">
               <div className="rounded-3xl p-8 relative overflow-hidden group h-full" style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)", minHeight: "280px" }}>
                 <span className="text-xs font-mono uppercase tracking-[0.2em]" style={{ color: "var(--coral)" }}>04 — Ofensiva</span>
                 <h3 className="text-xl font-bold mt-3 leading-tight" style={{ color: "var(--mf-text)", fontFamily: "var(--font-display)" }}>

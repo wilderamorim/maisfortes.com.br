@@ -56,8 +56,11 @@ export default function ApoiePage() {
             </div>
           </div>
 
-          <p className="text-[10px] mt-3" style={{ color: "var(--mf-text-muted)" }}>
-            Qualquer valor é bem-vindo. R$5, R$10, R$50 — o que couber no seu coração.
+          <div className="mt-4 flex justify-center">
+            <img src="/pix.jpg" alt="QR Code Pix" className="rounded-xl" style={{ width: 180, height: 180 }} />
+          </div>
+          <p className="text-[10px] mt-3 text-center" style={{ color: "var(--mf-text-muted)" }}>
+            Escaneie o QR Code ou copie a chave. Qualquer valor é bem-vindo.
           </p>
         </div>
 

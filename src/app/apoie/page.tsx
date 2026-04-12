@@ -7,7 +7,8 @@ export const metadata = {
   description: "O +Fortes é gratuito para sempre. Apoie o projeto com Pix ou GitHub Sponsors.",
 };
 
-const PIX_KEY = "contato@maisfortes.com.br";
+const PIX_KEY = "60.716.028/0001-51";
+const PIX_NAME = "UEBI TECNOLOGIA E ESTRATEGIA DIGITAL LTDA";
 
 export default function ApoiePage() {
   return (
@@ -49,8 +50,9 @@ export default function ApoiePage() {
             style={{ background: "var(--mf-bg)", border: "1px solid var(--mf-border-subtle)" }}
           >
             <div>
-              <p className="text-[10px] font-mono uppercase tracking-wider mb-1" style={{ color: "var(--mf-text-muted)" }}>Chave Pix (e-mail)</p>
+              <p className="text-[10px] font-mono uppercase tracking-wider mb-1" style={{ color: "var(--mf-text-muted)" }}>Chave Pix (CNPJ)</p>
               <p className="text-sm font-mono font-semibold" style={{ color: "var(--mf-text)" }}>{PIX_KEY}</p>
+              <p className="text-[10px] mt-1" style={{ color: "var(--mf-text-muted)" }}>{PIX_NAME}</p>
             </div>
           </div>
 

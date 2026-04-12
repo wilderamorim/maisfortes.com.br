@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHero } from "@/components/layout/PageHero";
 import { Footer } from "@/components/layout/Footer";
 import { FileText } from "lucide-react";

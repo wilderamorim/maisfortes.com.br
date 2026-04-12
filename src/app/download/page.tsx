@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Download, Smartphone, Plus, SquareArrowUp,
+  Download, Smartphone, Plus, SquareArrowUp, ArrowLeft,
   WifiOff, Bell, Gauge, Shield, Zap, Wifi,
   ChevronDown,
 } from "lucide-react";

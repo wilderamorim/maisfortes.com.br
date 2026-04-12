@@ -57,7 +57,7 @@ export default function ApoiePage() {
           </div>
 
           <div className="mt-4 flex justify-center">
-            <img src="/pix.jpg" alt="QR Code Pix" className="rounded-xl" style={{ width: 180, height: 180 }} />
+            <img src="/pix.jpg" alt="QR Code Pix" style={{ width: 180, height: 180 }} />
           </div>
           <p className="text-[10px] mt-3 text-center" style={{ color: "var(--mf-text-muted)" }}>
             Escaneie o QR Code ou copie a chave. Qualquer valor é bem-vindo.
